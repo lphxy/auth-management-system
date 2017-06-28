@@ -30,8 +30,6 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController extends BaseController {
 
-    private static Logger logger = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     private UserService userService;
 

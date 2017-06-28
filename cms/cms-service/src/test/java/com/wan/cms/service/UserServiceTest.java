@@ -39,7 +39,7 @@ public class UserServiceTest {
         final CacheManager cacheManager = CacheManager.getInstance();
 
         // create the cache called "hello-world"
-        final Cache cache = cacheManager.getCache("ehCache");
+        final Cache cache = cacheManager.getCache("ehcache_common");
 
         // create a key to map the data to
         final String key = "key";
