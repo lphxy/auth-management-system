@@ -1,8 +1,8 @@
 package com.wan.cms.controller;
 
-import com.wan.cms.model.User;
-import com.wan.cms.service.UserService;
-import com.wan.cms.service.impl.UserServiceImpl;
+import com.wan.cms.dao.model.User;
+import com.wan.cms.service.service.UserService;
+import com.wan.cms.service.service.impl.UserServiceImpl;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.slf4j.Logger;

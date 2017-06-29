@@ -1,8 +1,8 @@
 package com.wan.cms.controller;
 
-import com.wan.cms.model.User;
-import com.wan.cms.model.UserExample;
-import com.wan.cms.service.UserService;
+import com.wan.cms.dao.model.User;
+import com.wan.cms.dao.model.UserExample;
+import com.wan.cms.service.service.UserService;
 import com.wan.common.util.Paginator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

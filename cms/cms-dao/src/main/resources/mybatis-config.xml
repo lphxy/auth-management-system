@@ -6,7 +6,8 @@
 
     <!-- 该包下的model不用写包名，会使用 model的首字母小写的非限定类名来作为它的别名，若有注解@Alias("xxx")，则别名为注解值 -->
     <typeAliases>
-        <package name="com.wan.cms.model" />
+        <package name="com.wan.cms.dao.model" />
+        <package name="com.wan.cms.service.model" />
     </typeAliases>
 
     <!--<plugins>

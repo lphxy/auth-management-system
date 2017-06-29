@@ -39,13 +39,13 @@
                         password="${jdbc.password}" />
 
         <!-- model生成 -->
-        <javaModelGenerator targetPackage="com.wan.cms.model" targetProject="src/main/java" />
+        <javaModelGenerator targetPackage="com.wan.cms.dao.model" targetProject="src/main/java" />
 
         <!-- MapperXML生成 -->
-        <sqlMapGenerator targetPackage="com.wan.cms.mapper" targetProject="src/main/java" />
+        <sqlMapGenerator targetPackage="com.wan.cms.dao.mapper" targetProject="src/main/java" />
 
         <!-- Mapper接口生成 -->
-        <javaClientGenerator targetPackage="com.wan.cms.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="com.wan.cms.dao.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
         <table tableName="user" domainObjectName="User">
