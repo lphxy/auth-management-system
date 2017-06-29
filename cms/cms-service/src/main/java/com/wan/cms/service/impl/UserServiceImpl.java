@@ -2,7 +2,6 @@ package com.wan.cms.service.impl;
 
 import com.wan.cms.mapper.UserMapper;
 import com.wan.cms.mapper.UserVOMapper;
-import com.wan.cms.model.User;
 import com.wan.cms.model.UserVO;
 import com.wan.cms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import java.util.Map;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserMapper userMapper;
 
@@ -42,24 +40,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO selectUserWithBook(int id) {
         return userVOMapper.selectUserWithBook(id);
-    }
-
-    /**
-     * 根据条件获取用户列表
-     * @param map
-     * @return
-     */
-    @Override
-    public List<User> selectAll(Map<String, Object> map) {
-        return userVOMapper.selectAll(map);
-    }
-
-    /**
-     * 插入用户并返回主键
-     * @param user
-     */
-    @Override
-    public void insertAutoKey(User user) {
-        userVOMapper.insertAutoKey(user);
     }
 }

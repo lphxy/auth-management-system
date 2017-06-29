@@ -7,7 +7,7 @@ package com.wan.common.util;
  */
 public class Paginator {
 
-    private long total = 0l;			// 总记录数
+    private long total = 0L;			// 总记录数
     private int page = 1;				// 当前页数
     private long totalPage = 1;			// 总页数
     private int rows = 10;				// 每页记录数

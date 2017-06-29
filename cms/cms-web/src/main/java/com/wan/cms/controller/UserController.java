@@ -3,9 +3,7 @@ package com.wan.cms.controller;
 import com.wan.cms.model.User;
 import com.wan.cms.model.UserExample;
 import com.wan.cms.service.UserService;
-import com.wan.cms.util.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.wan.common.util.Paginator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +12,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
@@ -56,8 +53,8 @@ public class UserController extends BaseController {
      */
     @RequestMapping("/list")
     public String list(
-            @RequestParam(required = false, defaultValue = "1") int page,
-            @RequestParam(required = false, defaultValue = "20") int rows,
+            @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+            @RequestParam(required = false, defaultValue = "20", value = "rows") int rows,
             HttpServletRequest request, Model model) {
 
         UserExample userExample = new UserExample();
@@ -66,7 +63,7 @@ public class UserController extends BaseController {
         userExample.setOffset((page -1) * rows);
         userExample.setLimit(rows);
         userExample.setDistinct(false);
-        userExample.setOrderByClause(" id desc ");
+        userExample.setOrderByClause(" id asc ");
         List<User> users = userService.getMapper().selectByExample(userExample);
         model.addAttribute("users", users);
 
@@ -108,24 +105,11 @@ public class UserController extends BaseController {
             return "/user/add";
         }
         user.setCtime(System.currentTimeMillis());
-        userService.getMapper().insertSelective(user);
-        return "redirect:/user/list";
-    }
 
-    /**
-     * 新增post2,返回自增主键值
-     * @param user
-     * @param binding
-     * @return
-     */
-    @RequestMapping(value = "/add2", method = RequestMethod.POST)
-    public String add2(@Valid User user, BindingResult binding) {
-        if (binding.hasErrors()) {
-            return "user/add";
-        }
-        user.setCtime(System.currentTimeMillis());
-        userService.insertAutoKey(user);
-        System.out.println(user.getId());
+        userService.getMapper().insertSelective(user);
+
+        logger.info("新增记录id为：{}", user.getId());
+
         return "redirect:/user/list";
     }
 
@@ -135,7 +119,7 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
-    public String delete(@PathVariable int id) {
+    public String delete(@PathVariable("id") int id) {
         userService.getMapper().deleteByPrimaryKey(id);
         return "redirect:/user/list";
     }
@@ -147,7 +131,7 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable int id, Model model) {
+    public String update(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getMapper().selectByPrimaryKey(id));
         return "/user/update";
     }
@@ -161,7 +145,7 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable int id, @Valid User user, BindingResult binding, Model model) {
+    public String update(@PathVariable("id") int id, @Valid User user, BindingResult binding, Model model) {
         if (binding.hasErrors()) {
             model.addAttribute("errors", binding.getAllErrors());
             return "user/update/" + id;
@@ -219,4 +203,5 @@ public class UserController extends BaseController {
     public Object ajax(@PathVariable int id) {
         return userService.getMapper().selectByPrimaryKey(id);
     }
+
 }
