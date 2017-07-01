@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/cache")
 public class CacheController extends BaseController{
     //cache name
-    private final static String CACHE_NAME = "ehcache_common";
+    private final static String CACHE_NAME = "ehcache";
 
     @RequestMapping("/add")
     @ResponseBody
