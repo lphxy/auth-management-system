@@ -1,7 +1,9 @@
 package com.wan.cms.controller;
 
+import com.wan.cms.service.service.UserService;
 import com.wan.common.util.EhCacheUtil;
 import com.wan.common.util.PropertiesFileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 public class CacheController extends BaseController{
     //cache name
     private final static String CACHE_NAME = PropertiesFileUtil.getInstance().getValue("ehcache");
+
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public Object test(HttpServletRequest request) {
+        System.out.println(System.getProperty("java.io.tmpdir"));
+        return "success";
+    }
 
     @RequestMapping("/add")
     @ResponseBody
