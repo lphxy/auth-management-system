@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ManageController extends BaseController {
 
     @RequestMapping(value = {"", "/index"})
-    @ResponseBody
     public Object index() {
         return "/manage/index";
     }
 
     @RequestMapping("/login")
-    @ResponseBody
     public Object login() {
         return "/manage/login";
     }
