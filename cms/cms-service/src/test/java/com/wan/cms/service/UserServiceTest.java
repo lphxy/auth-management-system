@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by w1992wishes on 2017/6/26.
@@ -23,7 +24,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
         "classpath:applicationContext-jdbc.xml",
         "classpath:applicationContext-ehcache.xml"
 })
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@Transactional(transactionManager = "transactionManager")
 public class UserServiceTest {
     @Autowired
     private UserService userService;
