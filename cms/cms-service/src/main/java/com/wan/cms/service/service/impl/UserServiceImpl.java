@@ -5,6 +5,7 @@ import com.wan.cms.service.mapper.UserVOMapper;
 import com.wan.cms.service.model.UserVO;
 import com.wan.cms.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Cacheable(value="ehcache")
     public UserVO selectUserWithBook(int id) {
         return userVOMapper.selectUserWithBook(id);
     }
