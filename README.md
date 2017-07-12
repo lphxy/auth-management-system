@@ -4,10 +4,17 @@
 ### 版本要求
 JDK 1.8
 ### 组织结构
->auth-management-system
->>common --> ssm框架公共模块  
->>cms --> 内容管理系统  
->>oss --> Object Storage Service对象存储  
+```lua
+auth-management-system
+├── common -- 公共模块
+├── cms -- 内容管理系统
+|       ├── cms-dao -- DAO数据持久层
+|       ├── cms-service -- 业务逻辑层
+|       └──cms-web -- WEB项目
+├── oss -- 对象存储系统
+|       ├── oss-sdk -- OSS上传下载管理凭证等
+|       └──oss-web -- OSS在线管理项目
+```
 ### 技术选择
 ### 基础构建
 | 技术 | 作用 |
