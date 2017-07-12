@@ -21,6 +21,8 @@ auth-management-system
 | :------- | :------- |
 | MySQL    | 数据库    | 
 | Jetty    | 后台服务器 |
+| IntelliJ IDEA | IDE |
+| PowerDesigner | 建模工具 |
 #### 后端技术
 | 技术 | 作用 | 官网 |
 | :------- | :------- | :------|
