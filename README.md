@@ -1,6 +1,6 @@
 # auth-management-system
 ### 简介
-基于SSM构建的权限管理系统
+跟踪 shuzheng/zheng 项目的基于SSM构建的权限管理系统（菜鸟学习方法）
 ### 版本要求
 JDK 1.8
 ### 组织结构
