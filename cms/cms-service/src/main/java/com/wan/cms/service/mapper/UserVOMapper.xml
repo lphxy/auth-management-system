@@ -7,16 +7,16 @@
 
     <!-- 结果映射关系 -->
     <resultMap id="UserResultMap" type="userVO">
-        <id column="u_id" property="id"/>
+        <id column="user_id" property="userId"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="nickname" property="nickname"/>
         <result column="sex" property="sex"/>
         <result column="ctime" property="ctime"/>
         <result column="content" property="content" />
-        <collection column="userid" property="books" ofType="Book">
-            <id column="b_id" property="id"/>
-            <result column="userid" property="userid"/>
+        <collection column="user_id" property="books" ofType="Book">
+            <id column="book_id" property="bookId"/>
+            <result column="user_id" property="userId"/>
             <result column="name" property="name"/>
         </collection>
     </resultMap>
@@ -24,16 +24,16 @@
     <!-- 查询一对多的所有记录 -->
     <select id="selectUserWithBook" resultMap="UserResultMap" parameterType="int">
         select
-        u.id u_id,u.username,u.password,u.nickname,u.sex,u.ctime,u.content,
-        b.id b_id,b.userid,b.name
+        u.user_id userId,u.username,u.password,u.nickname,u.sex,u.ctime,u.content,
+        b.book_id bookId,b.user_id userId,b.name
         from
         user u
         left join
         book b
         on
-        u.id=b.userid
+        u.user_id=b.user_id
         where
-        u.id=#{id,jdbcType=INTEGER}
+        u.user_id=#{id,jdbcType=INTEGER}
     </select>
 
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />

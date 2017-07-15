@@ -58,8 +58,7 @@ public class UserController extends BaseController {
             HttpServletRequest request, Model model) {
 
         UserExample userExample = new UserExample();
-        userExample.createCriteria()
-                .andIdGreaterThan(0);
+        userExample.createCriteria().andUserIdGreaterThan(0);
         userExample.setOffset((page -1) * rows);
         userExample.setLimit(rows);
         userExample.setDistinct(false);
@@ -108,7 +107,7 @@ public class UserController extends BaseController {
 
         userService.getMapper().insertSelective(user);
 
-        logger.info("新增记录id为：{}", user.getId());
+        logger.info("新增记录id为：{}", user.getUserId());
 
         return "redirect:/user/list";
     }
