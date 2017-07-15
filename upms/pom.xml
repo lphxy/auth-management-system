@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>upms-dao</module>
+        <module>upms-service</module>
     </modules>
 
     <properties>
