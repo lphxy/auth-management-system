@@ -14,6 +14,10 @@ auth-management-system
 ├── oss -- 对象存储系统
 |       ├── oss-sdk -- OSS上传下载管理凭证等
 |       └──oss-web -- OSS在线管理项目
+├── qa -- 问答系统
+|       ├── qa-dao -- DAO层
+|       └── qa-service -- service层
+├── upms -- User Permissions Management System，通用用户权限管理系统
 ```
 ### 技术选择
 ### 基础构建
