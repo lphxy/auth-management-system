@@ -17,7 +17,7 @@
 </div>
 <div>
     <table border="1">
-        <caption><a href="${basePath}/tag/add">新增</a></caption>
+        <caption><a href="${basePath}/tag/add">新增</a> <a href="${basePath}/tag/batchDelete">批量删除</a></caption>
         <thead>
         <tr>
             <th>ID</th>
