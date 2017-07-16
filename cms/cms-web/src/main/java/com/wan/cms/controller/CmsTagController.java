@@ -5,6 +5,7 @@ import com.wan.cms.dao.model.CmsTagExample;
 import com.wan.cms.service.service.CmsTagService;
 import com.wan.common.util.Paginator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -20,6 +21,8 @@ import java.util.List;
 /**
  * Created by w1992wishes on 2017/7/15.
  */
+@Controller
+@RequestMapping("/tag")
 public class CmsTagController extends BaseController {
     @Autowired
     private CmsTagService cmsTagService;
@@ -85,7 +88,9 @@ public class CmsTagController extends BaseController {
             }
             return "/tag/add";
         }
-        cmsTag.setCtime(System.currentTimeMillis());
+        long time = System.currentTimeMillis();
+        cmsTag.setCtime(time);
+        cmsTag.setOrders(time);
         cmsTagService.getMapper().insertSelective(cmsTag);
         logger.info("新增记录id为：{}", cmsTag.getTagId());
         return "redirect:/tag/list";

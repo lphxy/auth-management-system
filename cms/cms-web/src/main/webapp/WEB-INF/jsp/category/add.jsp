@@ -33,6 +33,7 @@
                 </td>
             </tr>
             <tr><td>别名：</td><td><input type="text" name="alias"/></td></tr>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <tr><td></td><td><a href="${basePath}/category/list">取消</a>　<input type="submit" value="保存"/></td></tr>
         </table>
     </form>

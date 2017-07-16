@@ -11,24 +11,24 @@
     <http security="none" pattern="/**/*.html" />
     <http security="none" pattern="/**/*.jsp" />
 
-    <http use-expressions="false">
-        <!-- 登录页面不需要控制权限 -->
+   <!-- <http use-expressions="false">
+        &lt;!&ndash; 登录页面不需要控制权限 &ndash;&gt;
         <intercept-url pattern="/manage/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!-- 访问其他所有页面都需要有USER权限 -->
+        &lt;!&ndash; 访问其他所有页面都需要有USER权限 &ndash;&gt;
         <intercept-url pattern="/manage/**" access="ROLE_ADMIN" />
-        <!-- 登录功能 -->
+        &lt;!&ndash; 登录功能 &ndash;&gt;
         <form-login login-page="/manage/login" authentication-failure-url="/manage/login?error"/>
-        <!-- 登出功能 -->
+        &lt;!&ndash; 登出功能 &ndash;&gt;
         <logout />
     </http>
 
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <!-- 这里创建一个用户，可以通过用户名密码登录 -->
+                &lt;!&ndash; 这里创建一个用户，可以通过用户名密码登录 &ndash;&gt;
                 <user name="admin" password="123456" authorities="ROLE_ADMIN" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
-
+-->
 </beans:beans>
