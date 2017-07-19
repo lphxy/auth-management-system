@@ -4,8 +4,6 @@
 /*==============================================================*/
 
 
-drop table if exists book;
-
 drop table if exists cms_article;
 
 drop table if exists cms_article_category;
@@ -20,22 +18,9 @@ drop table if exists cms_comment;
 
 drop table if exists cms_tag;
 
-drop table if exists user;
+drop table if exists test_book;
 
-/*==============================================================*/
-/* Table: book                                                  */
-/*==============================================================*/
-create table book
-(
-   book_id              int(10) unsigned not null auto_increment comment '编号',
-   user_id              int(10) unsigned not null comment '用户编号',
-   name                 varchar(45) not null comment '书名',
-   primary key (book_id),
-   key FK_book_1 (user_id)
-)
-ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COMMENT='用户书籍表';
-
-alter table book comment 'book 书';
+drop table if exists test_user;
 
 /*==============================================================*/
 /* Table: cms_article                                           */
@@ -51,11 +36,9 @@ create table cms_article
    description          varchar(500) default NULL comment '简介',
    type                 tinyint(4) not null default 1 comment '类型(1:普通,2:热门...)',
    allowcomments        tinyint(4) not null default 1 comment '是否允许评论(0:不允许,1:允许)',
-   status               tinyint(4) not null default 1 comment '状态(-1:审核不通过回收站,0:刚发布未审核,1:已审核公开,2:已审核个人)',
+   status               tinyint(4) not null default 1 comment '状态(-1:不通过,0未审核,1:通过)',
    content              mediumtext comment '内容',
    user_id              int(10) unsigned not null comment '发布人id',
-   up                   int(10) unsigned not null default 0 comment '顶',
-   down                 int(10) unsigned not null default 0 comment '踩',
    readnumber           int(10) unsigned not null default 0 comment '阅读数量',
    ctime                bigint(20) unsigned not null comment '创建时间',
    orders               bigint(20) unsigned not null comment '排序',
@@ -71,9 +54,9 @@ alter table cms_article comment 'cms_article 文章表';
 /*==============================================================*/
 create table cms_article_category
 (
-   article_category_id  int(10) unsigned not null auto_increment,
-   article_id           int(10) unsigned not null,
-   category_id          int(10) unsigned not null,
+   article_category_id  int(10) unsigned not null auto_increment comment '编号',
+   article_id           int(10) unsigned not null comment '文章编号',
+   category_id          int(10) unsigned not null comment '类目编号',
    primary key (article_category_id),
    key cms_article_category_article_id (article_id),
    key cms_article_category_category_id (category_id)
@@ -149,7 +132,7 @@ create table cms_comment
    article_id           int(10) unsigned not null comment '文章编号',
    user_id              int(10) unsigned not null comment '用户编号',
    content              text not null comment '评论内容',
-   status               tinyint(4) not null default 1 comment '状态(-1:审核不通过,0:未审核,1:已审核通过)',
+   status               tinyint(4) not null default 1 comment '状态(-1:不通过,0:未审核,1:通过)',
    ip                   varchar(30) default NULL comment '评论人ip地址',
    agent                varchar(200) default NULL comment '评论人终端信息',
    ctime                bigint(20) not null comment '创建时间',
@@ -182,47 +165,64 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='标签表';
 alter table cms_tag comment 'cms_tag 标签表';
 
 /*==============================================================*/
-/* Table: user                                                  */
+/* Table: test_book                                             */
 /*==============================================================*/
-create table user
+create table test_book
 (
-   user_id              int(10) unsigned not null auto_increment,
-   username             varchar(32) default NULL,
-   password             varchar(32) default NULL,
-   nickname             varchar(32) default NULL,
+   book_id              int(10) unsigned not null auto_increment comment '编号',
+   user_id              int(10) unsigned not null comment '用户编号',
+   name                 varchar(45) not null comment '书名',
+   primary key (book_id),
+   key FK_book_1 (user_id)
+)
+ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COMMENT='用户书籍表';
+
+alter table test_book comment 'test_book 书';
+
+/*==============================================================*/
+/* Table: test_user                                             */
+/*==============================================================*/
+create table test_user
+(
+   user_id              int(10) unsigned not null auto_increment comment '编号',
+   username             varchar(32) default NULL comment '账号',
+   password             varchar(32) default NULL comment '密码',
+   nickname             varchar(32) default NULL comment '昵称',
    sex                  int(11) default NULL comment '0未知,1男,2女',
-   ctime                bigint(20) default NULL,
-   content              text,
+   ctime                bigint(20) default NULL comment '创建时间',
+   content              text comment '备注',
    primary key (user_id)
 )
 ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
-alter table user comment 'user 用户';
-
-alter table book add constraint FK_Reference_9 foreign key (user_id)
-      references user (user_id) on delete restrict on update restrict;
+alter table test_user comment 'test_user 用户';
 
 alter table cms_article_category add constraint FK_Reference_7 foreign key (category_id)
-      references cms_category (category_id) on delete restrict on update restrict;
+      references cms_category (category_id) on delete cascade on update cascade;
 
 alter table cms_article_category add constraint FK_Reference_8 foreign key (article_id)
-      references cms_article (article_id) on delete restrict on update restrict;
-
-alter table cms_article_tag add constraint FK_Reference_3 foreign key (article_id)
-      references cms_article (article_id) on delete restrict on update restrict;
-
-alter table cms_article_tag add constraint FK_Reference_4 foreign key (tag_id)
-      references cms_tag (tag_id) on delete restrict on update restrict;
-
-alter table cms_category_tag add constraint FK_Reference_5 foreign key (category_id)
-      references cms_category (category_id) on delete restrict on update restrict;
-
-alter table cms_category_tag add constraint FK_Reference_6 foreign key (tag_id)
-      references cms_tag (tag_id) on delete restrict on update restrict;
-
-alter table cms_comment add constraint cms_comment_article_id foreign key (article_id)
       references cms_article (article_id) on delete cascade on update cascade;
 
-alter table cms_comment add constraint cms_comment_pid foreign key (pid)
-      references cms_comment (comment_id) on delete cascade on update cascade;
+alter table cms_article_tag add constraint FK_Reference_3 foreign key (article_id)
+      references cms_article (article_id) on delete cascade on update cascade;
 
+alter table cms_article_tag add constraint FK_Reference_4 foreign key (tag_id)
+      references cms_tag (tag_id) on delete cascade on update cascade;
+
+alter table cms_category add constraint FK_Reference_10 foreign key (pid)
+      references cms_category (category_id) on delete set null on update restrict;
+
+alter table cms_category_tag add constraint FK_Reference_5 foreign key (category_id)
+      references cms_category (category_id) on delete cascade on update cascade;
+
+alter table cms_category_tag add constraint FK_Reference_6 foreign key (tag_id)
+      references cms_tag (tag_id) on delete cascade on update cascade;
+
+alter table cms_comment add constraint FK_Reference_1 foreign key (article_id)
+      references cms_article (article_id) on delete cascade on update cascade;
+
+alter table cms_comment add constraint FK_Reference_2 foreign key (pid)
+      references cms_comment (comment_id) on delete set null;
+
+alter table test_book add constraint FK_Reference_9 foreign key (user_id)
+      references test_user (user_id) on delete cascade on update cascade;

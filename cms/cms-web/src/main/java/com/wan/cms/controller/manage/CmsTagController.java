@@ -1,31 +1,29 @@
-package com.wan.cms.controller;
+package com.wan.cms.controller.manage;
 
-import com.wan.cms.dao.model.CmsCategory;
-import com.wan.cms.dao.model.CmsCategoryExample;
-import com.wan.cms.service.service.CmsCategoryService;
+import com.wan.cms.controller.BaseController;
+import com.wan.cms.dao.model.CmsTag;
+import com.wan.cms.dao.model.CmsTagExample;
+import com.wan.cms.service.service.CmsTagService;
 import com.wan.common.util.Paginator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Created by w1992wishes on 2017/7/15.
  */
 @Controller
-@RequestMapping("/category")
-public class CmsCategoryController extends BaseController {
+@RequestMapping("/manage/tag")
+public class CmsTagController extends BaseController {
     @Autowired
-    private CmsCategoryService cmsCategoryService;
+    private CmsTagService cmsTagService;
 
     /**
      * 首页
@@ -33,7 +31,7 @@ public class CmsCategoryController extends BaseController {
      */
     @RequestMapping("")
     public String index() {
-        return "redirect:/category/list";
+        return "redirect:/manage/tag/list";
     }
 
     /**
@@ -50,19 +48,19 @@ public class CmsCategoryController extends BaseController {
             HttpServletRequest request, Model model) {
 
         // 数据列表
-        CmsCategoryExample cmsCategoryExample = new CmsCategoryExample();
-        cmsCategoryExample.setOffset((page - 1) * rows);
-        cmsCategoryExample.setLimit(rows);
-        cmsCategoryExample.setOrderByClause("orders desc");
-        List<CmsCategory> categorys = cmsCategoryService.getMapper().selectByExample(cmsCategoryExample);
+        CmsTagExample cmsTagExample = new CmsTagExample();
+        cmsTagExample.setOffset((page - 1) * rows);
+        cmsTagExample.setLimit(rows);
+        cmsTagExample.setOrderByClause("tag_id desc");
+        List<CmsTag> tags = cmsTagService.getMapper().selectByExample(cmsTagExample);
 
         // 分页对象
-        long total = cmsCategoryService.getMapper().countByExample(cmsCategoryExample);
+        long total = cmsTagService.getMapper().countByExample(cmsTagExample);
         Paginator paginator = new Paginator(total, page, rows, request);
 
-        model.addAttribute("categorys", categorys);
+        model.addAttribute("tags", tags);
         model.addAttribute("paginator", paginator);
-        return "/category/list";
+        return "/manage/tag/list";
     }
 
     /**
@@ -71,24 +69,24 @@ public class CmsCategoryController extends BaseController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add() {
-        return "/category/add";
+        return "/manage/tag/add";
     }
 
     /**
      * 新增post
-     * @param cmsCategory
+     * @param cmsTag
      * @param model
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@Valid CmsCategory cmsCategory, Model model) {
+    public String add(CmsTag cmsTag, Model model) {
         long time = System.currentTimeMillis();
-        cmsCategory.setCtime(time);
-        cmsCategory.setOrders(time);
-        int count = cmsCategoryService.getMapper().insertSelective(cmsCategory);
+        cmsTag.setCtime(time);
+        cmsTag.setOrders(time);
+        int count = cmsTagService.getMapper().insertSelective(cmsTag);
         model.addAttribute("count", count);
-        logger.info("新增记录id为：{}", cmsCategory.getCategoryId());
-        return "redirect:/category/list";
+        logger.info("新增记录id为：{}", cmsTag.getTagId());
+        return "redirect:/manage/tag/list";
     }
 
     /**
@@ -98,9 +96,9 @@ public class CmsCategoryController extends BaseController {
      */
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, Model model) {
-        int count = cmsCategoryService.deleteByPrimaryKeys(ids);
+        int count = cmsTagService.deleteByPrimaryKeys(ids);
         model.addAttribute("count", count);
-        return "redirect:/category/list";
+        return "redirect:/manage/tag/list";
     }
 
     /**
@@ -111,23 +109,24 @@ public class CmsCategoryController extends BaseController {
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, Model model) {
-        CmsCategory category = cmsCategoryService.getMapper().selectByPrimaryKey(id);
-        model.addAttribute("category", category);
-        return "/category/update";
+        CmsTag tag = cmsTagService.getMapper().selectByPrimaryKey(id);
+        model.addAttribute("tag", tag);
+        return "/manage/tag/update";
     }
 
     /**
      * 修改post
      * @param id
-     * @param cmsCategory
+     * @param cmsTag
      * @param model
      * @return
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable("id") int id, @Valid CmsCategory cmsCategory, Model model) {
-        int count = cmsCategoryService.getMapper().updateByPrimaryKeySelective(cmsCategory);
+    public String update(@PathVariable("id") int id, CmsTag cmsTag, Model model) {
+        int count = cmsTagService.getMapper().updateByPrimaryKeySelective(cmsTag);
         model.addAttribute("count", count);
         model.addAttribute("id", id);
-        return "redirect:/category/list";
+        cmsTagService.getMapper().updateByPrimaryKeySelective(cmsTag);
+        return "redirect:/manage/tag/list";
     }
 }
