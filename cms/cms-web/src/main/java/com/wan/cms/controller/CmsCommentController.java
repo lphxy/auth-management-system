@@ -77,31 +77,27 @@ public class CmsCommentController extends BaseController {
     /**
      * 新增post
      * @param cmsComment
-     * @param binding
+     * @param model
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@Valid CmsComment cmsComment, BindingResult binding) {
-        if (binding.hasErrors()) {
-            for (ObjectError error : binding.getAllErrors()) {
-                logger.error(error.getDefaultMessage());
-            }
-            return "/comment/add";
-        }
+    public String add(@Valid CmsComment cmsComment, Model model) {
         cmsComment.setCtime(System.currentTimeMillis());
-        cmsCommentService.getMapper().insertSelective(cmsComment);
+        int count = cmsCommentService.getMapper().insertSelective(cmsComment);
+        model.addAttribute("count", count);
         logger.info("新增记录id为：{}", cmsComment.getArticleId());
         return "redirect:/comment/list";
     }
 
     /**
      * 删除
-     * @param id
+     * @param ids
      * @return
      */
-    @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
-    public String delete(@PathVariable("id") int id) {
-        cmsCommentService.getMapper().deleteByPrimaryKey(id);
+    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    public String delete(@PathVariable("ids") String ids, Model model) {
+        int count = cmsCommentService.deleteByPrimaryKeys(ids);
+        model.addAttribute("count", count);
         return "redirect:/comment/list";
     }
 
@@ -113,7 +109,8 @@ public class CmsCommentController extends BaseController {
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, Model model) {
-        model.addAttribute("comment", cmsCommentService.getMapper().selectByPrimaryKey(id));
+        CmsComment comment = cmsCommentService.getMapper().selectByPrimaryKey(id);
+        model.addAttribute("comment", comment);
         return "/comment/update";
     }
 
@@ -121,17 +118,15 @@ public class CmsCommentController extends BaseController {
      * 修改post
      * @param id
      * @param cmsComment
-     * @param binding
      * @param model
      * @return
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable("id") int id, @Valid CmsComment cmsComment, BindingResult binding, Model model) {
-        if (binding.hasErrors()) {
-            model.addAttribute("errors", binding.getAllErrors());
-            return "/comment/update/" + id;
-        }
+    public String update(@PathVariable("id") int id, @Valid CmsComment cmsComment, Model model) {
         cmsCommentService.getMapper().updateByPrimaryKeySelective(cmsComment);
+        int count = cmsCommentService.getMapper().updateByPrimaryKeySelective(cmsComment);
+        model.addAttribute("count", count);
+        model.addAttribute("id", id);
         return "redirect:/comment/list";
     }
 
