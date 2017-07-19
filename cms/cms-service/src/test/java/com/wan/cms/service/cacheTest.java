@@ -1,18 +1,13 @@
 package com.wan.cms.service;
 
 
-import com.wan.cms.dao.model.User;
-import com.wan.cms.service.model.UserVO;
-import com.wan.cms.service.service.UserService;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,19 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
         "classpath:applicationContext-ehcache.xml"
 })
 @Transactional(transactionManager = "transactionManager")
-public class UserServiceTest {
-    @Autowired
-    private UserService userService;
+public class cacheTest {
 
     @Test
     public void index() {
         // 自定义接口调用
-        UserVO userVO = userService.selectUserWithBook(26);
-        System.out.println(null == userVO ? "null" : userVO.getBooks().size());
-        // 自动生成接口调用
-        User user = userService.getMapper().selectByPrimaryKey(1);
-        System.out.println(null == user ? "null" :user.getNickname());
-
         // Create a cache manager
         final CacheManager cacheManager = CacheManager.getInstance();
 
