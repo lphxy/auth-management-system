@@ -35,23 +35,26 @@ public class CmsCommentController extends BaseController {
     }
 
     /**
-     * 列表
-     * @param page
-     * @param rows
+     *
+     * @param page 当前页码
+     * @param rows 每页条数
+     * @param desc 降序排序
      * @param request
+     * @param model
      * @return
      */
     @RequestMapping("/list")
     public String list(
             @RequestParam(required = false, defaultValue = "1", value = "page") int page,
             @RequestParam(required = false, defaultValue = "20", value = "rows") int rows,
+            @RequestParam(required = false, defaultValue = "true", value = "desc") boolean desc,
             HttpServletRequest request, Model model) {
 
         // 数据列表
         CmsCommentExample cmsCommentExample = new CmsCommentExample();
         cmsCommentExample.setOffset((page - 1) * rows);
         cmsCommentExample.setLimit(rows);
-        cmsCommentExample.setOrderByClause("ctime desc");
+        cmsCommentExample.setOrderByClause(desc ? "comment_id desc" : "comment_id asc");
         List<CmsComment> comments = cmsCommentService.getMapper().selectByExample(cmsCommentExample);
 
         // 分页对象

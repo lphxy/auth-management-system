@@ -35,23 +35,26 @@ public class CmsArticleController extends BaseController {
     }
 
     /**
-     * 列表
-     * @param page
-     * @param rows
+     *
+     * @param page 当前页码
+     * @param rows 每页条数
+     * @param desc 降序排序
      * @param request
+     * @param model
      * @return
      */
     @RequestMapping("/list")
     public String list(
             @RequestParam(required = false, defaultValue = "1", value = "page") int page,
             @RequestParam(required = false, defaultValue = "20", value = "rows") int rows,
+            @RequestParam(required = false, defaultValue = "true", value = "desc") boolean desc,
             HttpServletRequest request, Model model) {
 
         // 数据列表
         CmsArticleExample cmsArticleExample = new CmsArticleExample();
         cmsArticleExample.setOffset((page - 1) * rows);
         cmsArticleExample.setLimit(rows);
-        cmsArticleExample.setOrderByClause("orders desc");
+        cmsArticleExample.setOrderByClause(desc ? "orders desc" : "orders asc");
         List<CmsArticle> articles = cmsArticleService.getMapper().selectByExample(cmsArticleExample);
 
         // 分页对象
