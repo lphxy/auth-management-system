@@ -19,8 +19,6 @@
         <dependency>
             <groupId>com.wan.project</groupId>
             <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 
