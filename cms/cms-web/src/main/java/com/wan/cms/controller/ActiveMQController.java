@@ -2,6 +2,7 @@ package com.wan.cms.controller;
 
 import com.wan.common.util.JmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import javax.jms.Destination;
 public class ActiveMQController extends BaseController {
 
     @Autowired
+    @Qualifier("jmsQueueTemplate")
     JmsTemplate jmsTemplate;
 
     @Autowired
