@@ -10,7 +10,8 @@ auth-management-system
 ├── cms -- 内容管理系统
 |       ├── cms-dao -- DAO数据持久层
 |       ├── cms-service -- 业务逻辑层
-|       └──cms-web -- WEB项目
+|       ├── cms-web -- WEB项目
+|       └── cms-mq  -- 消息
 ├── oss -- 对象存储系统
 |       ├── oss-sdk -- OSS上传下载管理凭证等
 |       └──oss-web -- OSS在线管理项目

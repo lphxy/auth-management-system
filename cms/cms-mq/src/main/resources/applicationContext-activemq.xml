@@ -26,6 +26,16 @@
         <constructor-arg index="0" value="com.zheng.cms.topic.default"/>
     </bean>
 
+    <!-- 生产者 -->
+    <bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="pubSubDomain" value="false" />
+    </bean>
+    <bean id="jmsTopicTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="pubSubDomain" value="true" />
+    </bean>
+
     <!-- 消费者 -->
     <bean id="defaultQueueMessageListener" class="com.wan.cms.mq.jms.defaultQueueMessageListener"/>
     <bean id="jmsContainer"  class="org.springframework.jms.listener.DefaultMessageListenerContainer">

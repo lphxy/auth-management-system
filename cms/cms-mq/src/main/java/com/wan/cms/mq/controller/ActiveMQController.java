@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.PostConstruct;
 import javax.jms.Destination;
 
 /**
@@ -16,6 +17,11 @@ import javax.jms.Destination;
 @Controller
 @RequestMapping("/activemq")
 public class ActiveMQController{
+
+    @PostConstruct
+    public void init(){
+        System.out.println("--------------------------");
+    }
 
     @Autowired
     @Qualifier("jmsQueueTemplate")
