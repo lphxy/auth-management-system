@@ -1,4 +1,4 @@
-package com.wan.cms.jms;
+package com.wan.cms.mq.jms;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
