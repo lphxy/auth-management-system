@@ -18,7 +18,6 @@
     </properties>
 
     <modules>
-        <module>common</module>
         <module>oss</module>
         <module>qa</module>
         <module>upms</module>
