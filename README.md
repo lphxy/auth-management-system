@@ -7,6 +7,7 @@ JDK 1.8
 ```lua
 auth-management-system
 ├── common -- 公共模块
+├── datamodel -- sql脚本等存放
 ├── cms -- 内容管理系统
 |       ├── cms-dao -- DAO数据持久层
 |       ├── cms-service -- 业务逻辑层
