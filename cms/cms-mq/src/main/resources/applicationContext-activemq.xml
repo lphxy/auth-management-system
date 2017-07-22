@@ -19,11 +19,11 @@
     </bean>
     <!-- 点对点队列 -->
     <bean id="defaultQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg index="0" value="com.zheng.cms.queue.default"/>
+        <constructor-arg index="0" value="com.wan.cms.queue.default"/>
     </bean>
     <!-- 一对多队列 -->
     <bean id="defaultTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">
-        <constructor-arg index="0" value="com.zheng.cms.topic.default"/>
+        <constructor-arg index="0" value="com.wan.cms.topic.default"/>
     </bean>
 
     <!-- 生产者 -->
