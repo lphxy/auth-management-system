@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
@@ -56,13 +57,23 @@ public class PropertiesFileUtil {
         return conf;
     }
 
-    public String getValue(String key) {
+    // 根据key读取value
+    public String get(String key) {
         try {
             String value = resourceBundle.getString(key);
             return value;
-        }catch (Exception e){
-            logger.error("",e);
+        }catch (MissingResourceException e) {
             return "";
+        }
+    }
+
+    // 根据key读取value(整形)
+    public Integer getInt(String key) {
+        try {
+            String value = resourceBundle.getString(key);
+            return Integer.parseInt(value);
+        }catch (MissingResourceException e) {
+            return null;
         }
     }
 

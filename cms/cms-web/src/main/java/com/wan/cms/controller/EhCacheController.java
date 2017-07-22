@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletRequest;
  * Created by w1992wishes on 2017/6/28.
  */
 @Controller
-@RequestMapping("/cache")
-public class CacheController extends BaseController{
+@RequestMapping("/ehcache")
+public class EhCacheController extends BaseController{
     //cache name
-    private final static String CACHE_NAME = PropertiesFileUtil.getInstance().getValue("ehcache");
+    private final static String CACHE_NAME = PropertiesFileUtil.getInstance().get("ehcache");
 
     @RequestMapping("/test")
     @ResponseBody
