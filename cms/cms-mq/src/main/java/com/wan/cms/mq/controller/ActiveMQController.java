@@ -1,12 +1,12 @@
 package com.wan.cms.mq.controller;
 
+import com.wan.cms.dao.model.User;
 import com.wan.common.util.JmsUtil;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,35 +24,23 @@ public class ActiveMQController{
     Logger logger = LoggerFactory.getLogger(ActiveMQController.class);
 
     @Autowired
-    @Qualifier("jmsQueueTemplate")
-    JmsTemplate jmsTemplate;
+    JmsTemplate jmsQueueTemplate;
     @Autowired
     Destination defaultQueueDestination;
     @Autowired
-    ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-    @RequestMapping("/send1")
+    @RequestMapping("/send")
     @ResponseBody
-    public Object send1() {
+    public Object send() {
         long start = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i ++) {
-            JmsUtil.sendMessage(jmsTemplate, defaultQueueDestination, "消息" + i);
+        User user = null;
+        for (int i = 1; i <= 10000; i ++) {
+            user = new User();
+            user.setName("用户" + i);
+            user.setAge(i);
+            JmsUtil.sendMessage(jmsQueueTemplate, defaultQueueDestination, JSONObject.fromObject(user).toString());
         }
-        long end = System.currentTimeMillis();
-        logger.info("发送消息消耗时间" + (end -start));
-        return "success";
-    }
-
-    @RequestMapping("/send2")
-    @ResponseBody
-    public Object send2() {
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i ++) {
-            long time = System.currentTimeMillis();
-            threadPoolTaskExecutor.execute(() -> JmsUtil.sendMessage(jmsTemplate, defaultQueueDestination, "消息" + time));
-        }
-        long end = System.currentTimeMillis();
-        logger.info("发送消息消耗时间" + (end -start));
+        logger.info("发送消息消耗时间" + (System.currentTimeMillis() - start));
         return "success";
     }
 

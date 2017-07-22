@@ -1,8 +1,9 @@
 package com.wan.cms.controller;
 
+import com.wan.cms.dao.model.User;
 import com.wan.common.util.JmsUtil;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,7 @@ import javax.jms.Destination;
 public class ActiveMQController extends BaseController {
 
     @Autowired
-    @Qualifier("jmsQueueTemplate")
-    JmsTemplate jmsTemplate;
+    JmsTemplate jmsQueueTemplate;
 
     @Autowired
     Destination defaultQueueDestination;
@@ -27,9 +27,15 @@ public class ActiveMQController extends BaseController {
     @RequestMapping("/send")
     @ResponseBody
     public Object send() {
-        for (int i = 0; i < 1000; i ++) {
-            JmsUtil.sendMessage(jmsTemplate, defaultQueueDestination, "消息" + i);
+        long start = System.currentTimeMillis();
+        User user = null;
+        for (int i = 1; i <= 10000; i ++) {
+            user = new User();
+            user.setName("用户" + i);
+            user.setAge(i);
+            JmsUtil.sendMessage(jmsQueueTemplate, defaultQueueDestination, JSONObject.fromObject(user).toString());
         }
+        logger.info("发送消息消耗时间" + (System.currentTimeMillis() - start));
         return "success";
     }
 
