@@ -29,6 +29,7 @@ auth-management-system
 | Jetty    | 后台服务器 |
 | IntelliJ IDEA | IDE |
 | PowerDesigner | 建模工具 |
+| Git      | 版本管理 |
 #### 后端技术
 | 技术 | 作用 | 官网 |
 | :------- | :------- | :------|
