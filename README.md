@@ -32,10 +32,14 @@ auth-management-system
 #### 后端技术
 | 技术 | 作用 | 官网 |
 | :------- | :------- | :------|
-| Spring Framework | 主框架   | http://projects.spring.io/spring-framework/ |
-| SpringMVC        | MVC 框架 | 	http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc |
-| MyBatis          | ORM 框架 | http://www.mybatis.org/mybatis-3/zh/index.html |
-| MyBatis Generator| 代码生成 | 	http://www.mybatis.org/generator/index.html |
-| PageHelper | MyBatis分页插件| http://git.oschina.net/free/Mybatis_PageHelper |
-| Ehcache	       | 进程内缓存框架| http://www.ehcache.org/ |
-| Maven	           |项目构建管理	 | http://maven.apache.org/ |
+| Spring Framework | 主框架           | http://projects.spring.io/spring-framework/ |
+| SpringMVC        | MVC 框架         | 	http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc |
+| MyBatis          | ORM 框架         | http://www.mybatis.org/mybatis-3/zh/index.html |
+| MyBatis Generator| 代码生成         | 	http://www.mybatis.org/generator/index.html |
+| PageHelper       | MyBatis分页插件  | http://git.oschina.net/free/Mybatis_PageHelper |
+| Maven	           | 项目构建管理	  | http://maven.apache.org/ |
+| TBSchedule       | 任务调度         |
+| Quartz           | 定时任务         | http://www.quartz-scheduler.org/|
+| Ehcache          | 进程内缓存框架    | http://www.ehcache.org/ |
+| Redis            | 分布式缓存数据库  | https://redis.io/ |
+| ActiveMQ         | 消息队列         | http://activemq.apache.org/ |
