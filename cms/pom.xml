@@ -13,7 +13,7 @@
         <module>cms-dao</module>
         <module>cms-service</module>
         <module>cms-web</module>
-        <module>cms-mq</module>
+        <module>cms-job</module>
     </modules>
 
     <properties>

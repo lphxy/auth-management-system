@@ -6,9 +6,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cms-mq</artifactId>
+    <artifactId>cms-job</artifactId>
     <packaging>war</packaging>
-    <name>cms-mq Maven Webapp</name>
+    <name>cms-job Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -55,7 +55,7 @@
     </profiles>
 
     <build>
-        <finalName>cms-mq</finalName>
+        <finalName>cms-job</finalName>
         <filters>
             <filter>src/main/resources/profiles/${env}.properties</filter>
         </filters>
@@ -77,7 +77,7 @@
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/cms-mq</contextPath>
+                        <contextPath>/cms-job</contextPath>
                     </webApp>
                     <reload>automatic</reload>
                 </configuration>
