@@ -23,6 +23,7 @@
         <module>upms</module>
         <module>pay</module>
         <module>ucenter</module>
+        <module>wechat</module>
     </modules>
 
     <build>

@@ -25,6 +25,8 @@ auth-management-system
 |       ├── ucenter-dao -- 数据库MyBatisGenerator操作
 |       ├── ucenter-service -- 业务逻辑
 |       └── ucenter-home ucenter前台
+├── wechat -- 微信
+|       ├── wechat-mp -- 微信小程序
 ├── oss -- 对象存储系统
 |       ├── oss-sdk -- OSS上传下载管理凭证等
 |       └──oss-web -- OSS在线管理项目
