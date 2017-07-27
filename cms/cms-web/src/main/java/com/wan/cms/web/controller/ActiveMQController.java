@@ -1,4 +1,4 @@
-package com.wan.cms.controller;
+package com.wan.cms.web.controller;
 
 import com.wan.cms.dao.model.User;
 import com.wan.common.util.JmsUtil;

@@ -1,8 +1,7 @@
-package com.wan.cms.controller;
+package com.wan.cms.web.controller;
 
 import com.wan.common.util.EhCacheUtil;
 import com.wan.common.util.PropertiesFileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/ehcache")
-public class EhCacheController extends BaseController{
+public class EhCacheController extends BaseController {
     //cache name
     private final static String CACHE_NAME = PropertiesFileUtil.getInstance().get("ehcache");
 

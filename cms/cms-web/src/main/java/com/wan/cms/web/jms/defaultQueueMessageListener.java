@@ -1,4 +1,4 @@
-package com.wan.cms.jms;
+package com.wan.cms.web.jms;
 
 import com.wan.cms.dao.model.User;
 import com.wan.cms.service.service.UserService;

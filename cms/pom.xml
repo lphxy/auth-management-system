@@ -15,6 +15,7 @@
         <module>cms-web</module>
         <module>cms-job</module>
         <module>cms-admin</module>
+        <module>cms-search</module>
     </modules>
 
     <properties>

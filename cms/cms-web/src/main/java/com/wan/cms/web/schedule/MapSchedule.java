@@ -1,16 +1,14 @@
-package com.wan.cms.schedule;
+package com.wan.cms.web.schedule;
 
 import com.taobao.pamirs.schedule.IScheduleTaskDealSingle;
 import com.taobao.pamirs.schedule.TaskItemDefine;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by w1992wishes on 2017/7/22.
  */
-public class LongSchedule implements IScheduleTaskDealSingle<Long> {
+public class MapSchedule implements IScheduleTaskDealSingle<Map> {
 
     /**
      * 执行单个任务
@@ -19,7 +17,7 @@ public class LongSchedule implements IScheduleTaskDealSingle<Long> {
      * @throws Exception
      */
     @Override
-    public boolean execute(Long item, String ownSign) throws Exception {
+    public boolean execute(Map item, String ownSign) throws Exception {
         System.out.println("执行任务：" + item);
         return true;
     }
@@ -35,9 +33,11 @@ public class LongSchedule implements IScheduleTaskDealSingle<Long> {
      * @throws Exception
      */
     @Override
-    public List<Long> selectTasks(String taskParameter, String ownSign, int taskItemNum, List<TaskItemDefine> taskItemList, int eachFetchDataNum) throws Exception {
-        List<Long> allDrawList = new ArrayList<>();
-        allDrawList.add(System.currentTimeMillis());
+    public List<Map> selectTasks(String taskParameter, String ownSign, int taskItemNum, List<TaskItemDefine> taskItemList, int eachFetchDataNum) throws Exception {
+        List<Map> allDrawList = new ArrayList<>();
+        Map map = new HashMap();
+        map.put("ID", System.currentTimeMillis());
+        allDrawList.add(map);
         return allDrawList;
     }
 
@@ -46,10 +46,15 @@ public class LongSchedule implements IScheduleTaskDealSingle<Long> {
      * @return
      */
     @Override
-    public Comparator<Long> getComparator() {
-        return new Comparator<Long>() {
-            public int compare(Long o1, Long o2) {
-                return o1.compareTo(o2);
+    public Comparator<Map> getComparator() {
+        return new Comparator<Map>() {
+            public int compare(Map o1, Map o2) {
+                Long l1 = (Long) o1.get("ID");
+                Long l2 = (Long) o2.get("ID");
+                return l1.compareTo(l2);
+            }
+            public boolean equals(Object obj) {
+                return this == obj;
             }
         };
     }

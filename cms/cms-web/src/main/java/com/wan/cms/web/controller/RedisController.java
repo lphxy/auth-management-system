@@ -1,4 +1,4 @@
-package com.wan.cms.controller;
+package com.wan.cms.web.controller;
 
 import com.wan.common.util.RedisUtil;
 import org.slf4j.Logger;

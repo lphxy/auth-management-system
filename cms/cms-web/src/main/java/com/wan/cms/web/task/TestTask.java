@@ -1,4 +1,4 @@
-package com.wan.cms.task;
+package com.wan.cms.web.task;
 
 /**
  * Created by wanqinfeng on 2017/7/10.

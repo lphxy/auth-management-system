@@ -1,8 +1,7 @@
-package com.wan.cms.controller;
+package com.wan.cms.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by w1992wishes on 2017/7/1.

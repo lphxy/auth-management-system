@@ -1,4 +1,4 @@
-package com.wan.cms.task;
+package com.wan.cms.web.task;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
