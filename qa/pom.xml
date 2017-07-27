@@ -14,7 +14,17 @@
     <modules>
         <module>qa-dao</module>
         <module>qa-service</module>
+        <module>qa-web</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.wan.project</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
