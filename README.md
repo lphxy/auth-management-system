@@ -15,6 +15,16 @@ auth-management-system
 |       ├── cms-web -- CMS网站前台
 |       ├── cms-admin CMS后台管理
 |       └── cms-job  -- 消息队列、任务调度等
+├── pay -- 支付系统
+|       ├── pay-dao -- 数据库MyBatisGenerator操作
+|       ├── pay-service -- 业务逻辑
+|       ├── pay-web -- pay网站前台
+|       ├── pay-sdk -- pay 开发工具包
+|       └── pay-admin pay后台管理
+├── ucenter -- 用户中心系统
+|       ├── ucenter-dao -- 数据库MyBatisGenerator操作
+|       ├── ucenter-service -- 业务逻辑
+|       └── ucenter-home ucenter前台
 ├── oss -- 对象存储系统
 |       ├── oss-sdk -- OSS上传下载管理凭证等
 |       └──oss-web -- OSS在线管理项目
