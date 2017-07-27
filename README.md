@@ -9,10 +9,12 @@ auth-management-system
 ├── common -- 公共模块
 ├── datamodel -- sql脚本等存放
 ├── cms -- 内容管理系统
-|       ├── cms-dao -- DAO数据持久层
-|       ├── cms-service -- 业务逻辑层
-|       ├── cms-web -- WEB项目
-|       └── cms-job  -- 备用消息，cms-web中已经包含mq
+|       ├── cms-dao -- 数据库MyBatisGenerator操作
+|       ├── cms-service -- 业务逻辑
+|       ├── cms-search 搜索服务
+|       ├── cms-web -- CMS网站前台
+|       ├── cms-admin CMS后台管理
+|       └── cms-job  -- 消息队列、任务调度等
 ├── oss -- 对象存储系统
 |       ├── oss-sdk -- OSS上传下载管理凭证等
 |       └──oss-web -- OSS在线管理项目

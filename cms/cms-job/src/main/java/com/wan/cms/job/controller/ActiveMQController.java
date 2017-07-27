@@ -1,4 +1,4 @@
-package com.wan.cms.mq.controller;
+package com.wan.cms.job.controller;
 
 import com.wan.cms.dao.model.User;
 import com.wan.common.util.JmsUtil;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.PostConstruct;
 import javax.jms.Destination;
 
 /**

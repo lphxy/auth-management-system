@@ -6,15 +6,14 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cms-job</artifactId>
+    <artifactId>cms-admin</artifactId>
     <packaging>war</packaging>
-    <name>cms-job Maven Webapp</name>
+    <name>cms-admin Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
             <groupId>com.wan.project</groupId>
             <artifactId>cms-service</artifactId>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -55,7 +54,7 @@
     </profiles>
 
     <build>
-        <finalName>cms-job</finalName>
+        <finalName>cms-admin</finalName>
         <filters>
             <filter>src/main/resources/profiles/${env}.properties</filter>
         </filters>
@@ -73,16 +72,15 @@
                 <version>9.4.6.v20170531</version>
                 <configuration>
                     <httpConnector>
-                        <port>8082</port>
+                        <port>8081</port>
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/cms-job</contextPath>
+                        <contextPath>/cms-admin</contextPath>
                     </webApp>
                     <reload>automatic</reload>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

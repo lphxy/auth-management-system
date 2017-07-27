@@ -1,8 +1,7 @@
-package com.wan.cms.mq.jms;
+package com.wan.cms.job.jms;
 
 import com.wan.cms.dao.model.User;
 import com.wan.cms.service.service.UserService;
-import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import javax.xml.soap.Text;
 
 /**
  * Created by w1992wishes on 2017/7/20.
