@@ -91,7 +91,7 @@
                 <version>9.4.6.v20170531</version>
                 <configuration>
                     <httpConnector>
-                        <port>9090</port>
+                        <port>2224</port>
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>

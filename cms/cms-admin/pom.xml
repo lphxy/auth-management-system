@@ -27,6 +27,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.wan.project</groupId>
+            <artifactId>upms-client</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -72,7 +76,7 @@
                 <version>9.4.6.v20170531</version>
                 <configuration>
                     <httpConnector>
-                        <port>8081</port>
+                        <port>2222</port>
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
