@@ -12,12 +12,19 @@
     <artifactId>upms</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>upms-client</module>
         <module>upms-dao</module>
         <module>upms-service</module>
         <module>upms-server</module>
-        <module>upms-client</module>
-        <module>upms-client</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.wan.project</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

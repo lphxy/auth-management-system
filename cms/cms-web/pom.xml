@@ -46,6 +46,10 @@
             <artifactId>rocketmq-client</artifactId>
             <version>3.6.2.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.wan.project</groupId>
+            <artifactId>upms-client</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>

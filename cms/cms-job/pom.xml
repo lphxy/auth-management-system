@@ -77,7 +77,7 @@
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/cms-job</contextPath>
+                        <contextPath>/</contextPath>
                     </webApp>
                     <reload>automatic</reload>
                 </configuration>
