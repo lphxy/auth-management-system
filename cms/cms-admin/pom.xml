@@ -80,7 +80,7 @@
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/cms-admin</contextPath>
+                        <contextPath>/</contextPath>
                     </webApp>
                     <reload>automatic</reload>
                 </configuration>
