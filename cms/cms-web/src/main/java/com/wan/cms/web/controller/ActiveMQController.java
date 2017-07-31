@@ -31,7 +31,7 @@ public class ActiveMQController extends BaseController {
         User user = null;
         for (int i = 1; i <= 10000; i ++) {
             user = new User();
-            user.setName("用户" + i);
+            user.setName(i + "");
             user.setAge(i);
             JmsUtil.sendMessage(jmsQueueTemplate, defaultQueueDestination, JSONObject.fromObject(user).toString());
         }

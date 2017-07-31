@@ -11,6 +11,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by w1992wishes on 2017/7/20.
@@ -33,6 +35,12 @@ public class defaultQueueMessageListener implements MessageListener {
                         String text = textMessage.getText();
                         JSONObject json = JSONObject.fromObject(text);
                         User user = (User) JSONObject.toBean(json, User.class);
+                        if (user.getName().equals("1")) {
+                            logger.info("消费开始时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                        }
+                        if (user.getName().equals("1000")) {
+                            logger.info("消费结束时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                        }
                         userService.getMapper().insertSelective(user);
                         logger.info("cms-mq接收到：{}", text);
                     }catch (Exception e){
