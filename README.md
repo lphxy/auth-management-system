@@ -33,7 +33,11 @@ auth-management-system
 ├── qa -- 问答系统
 |       ├── qa-dao -- DAO层
 |       └── qa-service -- service层
-├── upms -- User Permissions Management System，通用用户权限管理系统
+├── upms -- User Permissions Management System -- 通用用户权限管理系统
+|       ├── upms-dao -- 数据库MyBatisGenerator操作
+|       ├── upms-service -- 业务逻辑
+|       ├── upms-client -- SSO登录客户端
+|       └── upms-server -- 系统及SSO服务端
 ```
 ### 技术选择
 ### 基础构建
