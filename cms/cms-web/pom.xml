@@ -95,7 +95,7 @@
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/cms-web</contextPath>
+                        <contextPath>/</contextPath>
                     </webApp>
                     <reload>automatic</reload>
                 </configuration>

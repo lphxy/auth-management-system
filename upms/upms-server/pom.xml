@@ -82,7 +82,7 @@
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/upms-server</contextPath>
+                        <contextPath>/</contextPath>
                     </webApp>
                     <reload>automatic</reload>
                 </configuration>
