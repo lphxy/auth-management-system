@@ -19,7 +19,7 @@ import java.util.UUID;
 @RequestMapping("/sso")
 public class SSOController {
 
-    private static Logger _log = LoggerFactory.getLogger(SSOController.class);
+    private static Logger logger = LoggerFactory.getLogger(SSOController.class);
 
     /**
      * 认证中心首页
@@ -29,15 +29,15 @@ public class SSOController {
     public String index(HttpServletRequest request) throws Exception {
         String system_name = request.getParameter("system_name");
         String backurl = request.getParameter("backurl");
-        if (StringUtils.isEmpty(system_name) || !system_name.equals("zheng-cms-admin")) {
-            _log.info("未注册的系统：{}", system_name);
+        if (StringUtils.isEmpty(system_name) || !system_name.equals("wan-cms-server")) {
+            logger.info("未注册的系统：{}", system_name);
             return "/404";
         }
         // 判断是否存在全局会话
         if (null == request.getSession().getAttribute("isLogin")) {
             return "redirect:/sso/login?backurl=" + URLEncoder.encode(backurl, "utf-8");
         }
-        _log.info("认证中心验证为已登录，跳回：{}", backurl);
+        logger.info("认证中心验证为已登录，跳回：{}", backurl);
         return "redirect:" + backurl;
     }
 
@@ -60,16 +60,16 @@ public class SSOController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         if (StringUtils.isEmpty(username)) {
-            _log.info("帐号不能为空！");
+            logger.info("帐号不能为空！");
             return "/404";
         }
         if (StringUtils.isEmpty(password)) {
-            _log.info("密码不能为空！");
+            logger.info("密码不能为空！");
             return "/404";
         }
         // 默认验证帐号密码正确，创建token
         HttpSession session = request.getSession();
-        _log.info("子系统sessionId：{}", session.getId());
+        logger.info("子系统sessionId：{}", session.getId());
         String token = UUID.randomUUID().toString().replace("-", "");
         session.setAttribute("isLogin", true);
         session.setAttribute(session.getId(), token);
@@ -79,7 +79,7 @@ public class SSOController {
         } else {
             redirectUrl += "?token=" + token;
         }
-        _log.info("认证中心帐号通过，带token回跳：{}", redirectUrl);
+        logger.info("认证中心帐号通过，带token回跳：{}", redirectUrl);
         return "redirect:" + redirectUrl;
     }
 
