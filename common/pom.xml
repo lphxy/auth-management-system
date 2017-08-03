@@ -210,6 +210,13 @@
             <version>1.4.7</version>
         </dependency>
         <!-- servlet -->
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+        <!-- servlet -->
     </dependencies>
     <build>
         <plugins>
