@@ -1,5 +1,6 @@
 package com.wan.upms.server.controller;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,15 +28,25 @@ public class SSOController {
      */
     @RequestMapping("")
     public String index(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+
         String system_name = request.getParameter("system_name");
         String backurl = request.getParameter("backurl");
         if (StringUtils.isEmpty(system_name) || !system_name.equals("wan-cms-server")) {
             logger.info("未注册的系统：{}", system_name);
             return "/404";
         }
-        // 判断是否存在全局会话
-        if (null == request.getSession().getAttribute("isLogin")) {
+        // 未登录
+        if (null == session.getAttribute("isLogin")) {
             return "redirect:/sso/login?backurl=" + URLEncoder.encode(backurl, "utf-8");
+        }
+        // 已登录
+        String token = ObjectUtils.toString(session.getAttribute(session.getId()));
+        String redirectUrl = backurl;
+        if (backurl.contains("?")) {
+            redirectUrl += "&token=" + token;
+        } else {
+            redirectUrl += "?token=" + token;
         }
         logger.info("认证中心验证为已登录，跳回：{}", backurl);
         return "redirect:" + backurl;
