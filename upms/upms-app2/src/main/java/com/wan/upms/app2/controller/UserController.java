@@ -20,7 +20,7 @@ public class UserController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public String list() {
-		return "app1 : <a href='http://upms.w1992wishes.cn:1111/sso/logout'>退出登录</a>";
+		return "app2 : <a href='http://upms.w1992wishes.cn:1111/sso/logout'>退出登录</a>";
 	}
 
 }

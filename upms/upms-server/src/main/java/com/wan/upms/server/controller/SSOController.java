@@ -27,12 +27,12 @@ public class SSOController {
     private static Logger logger = LoggerFactory.getLogger(SSOController.class);
     private static List<String> apps = new ArrayList<>();
     {
-        apps.add("cms-job");
-        apps.add("cms-admin");
-        apps.add("cms-web");
-        apps.add("upms-app1");
-        apps.add("upms-app2");
-        apps.add("upms-server");
+        apps.add("wan-cms-job");
+        apps.add("wan-cms-server");
+        apps.add("wan-cms-web");
+        apps.add("wan-upms-app1");
+        apps.add("wan-upms-app2");
+        apps.add("wan-upms-server");
     }
     /**
      * 认证中心首页
