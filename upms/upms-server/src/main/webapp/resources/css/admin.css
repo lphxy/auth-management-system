@@ -527,7 +527,8 @@ a, a:hover, a:active, a:focus {
     font-size: 0;
     display: block;
     white-space: nowrap;
-    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: scroll;
 }
 
 .scroll > ul {
@@ -616,6 +617,8 @@ a, a:hover, a:active, a:focus {
 
 .content_main {
     height: calc(100% - 48px);
+    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
 }
 
 .content_main > .cur {
