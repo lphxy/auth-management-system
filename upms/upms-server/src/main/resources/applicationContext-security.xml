@@ -7,28 +7,26 @@
         http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- 不需要控制权限的资源 -->
-    <http security="none" pattern="/resources/**" />
-    <http security="none" pattern="/**/*.html" />
-    <http security="none" pattern="/**/*.jsp" />
+    <http pattern="/resources/**" security="none" />
 
-   <!-- <http use-expressions="false">
-        &lt;!&ndash; 登录页面不需要控制权限 &ndash;&gt;
+    <http use-expressions="false">
+        <!-- 登录页面不需要控制权限 -->
         <intercept-url pattern="/manage/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        &lt;!&ndash; 访问其他所有页面都需要有USER权限 &ndash;&gt;
+        <!-- 访问其他所有页面都需要有USER权限 -->
         <intercept-url pattern="/manage/**" access="ROLE_ADMIN" />
-        &lt;!&ndash; 登录功能 &ndash;&gt;
+        <!-- 登录功能 -->
         <form-login login-page="/manage/login" authentication-failure-url="/manage/login?error"/>
-        &lt;!&ndash; 登出功能 &ndash;&gt;
+        <!-- 登出功能 -->
         <logout />
     </http>
 
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                &lt;!&ndash; 这里创建一个用户，可以通过用户名密码登录 &ndash;&gt;
+                <!-- 这里创建两个用户，可以通过用户名密码登录 -->
                 <user name="admin" password="123456" authorities="ROLE_ADMIN" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
--->
+
 </beans:beans>
