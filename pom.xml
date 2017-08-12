@@ -24,6 +24,7 @@
         <module>pay</module>
         <module>ucenter</module>
         <module>wechat</module>
+        <module>admin</module>
     </modules>
 
     <build>
