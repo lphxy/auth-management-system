@@ -1,7 +1,18 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/7/10 22:42:19                           */
+/* Created on:     2017/8/14 22:19:06                           */
 /*==============================================================*/
+
+SET NAMES utf8;
+
+SET SQL_MODE='';
+
+create database if not exists `ams`;
+
+USE `ams`;
+
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
 
 drop table if exists cms_article;
 
@@ -20,6 +31,8 @@ drop table if exists cms_tag;
 drop table if exists test_book;
 
 drop table if exists test_user;
+
+drop table if exists upms_system;
 
 /*==============================================================*/
 /* Table: cms_article                                           */
@@ -46,7 +59,7 @@ create table cms_article
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 
-alter table cms_article comment 'cms_article 文章表';
+alter table cms_article comment '文章表';
 
 /*==============================================================*/
 /* Table: cms_article_category                                  */
@@ -62,7 +75,7 @@ create table cms_article_category
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章类目表';
 
-alter table cms_article_category comment 'cms_article_category 文章类目关联表';
+alter table cms_article_category comment '文章类目关联表';
 
 /*==============================================================*/
 /* Table: cms_article_tag                                       */
@@ -78,7 +91,7 @@ create table cms_article_tag
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章标签表';
 
-alter table cms_article_tag comment 'cms_article_tag 文章标签关联表';
+alter table cms_article_tag comment '文章标签关联表';
 
 /*==============================================================*/
 /* Table: cms_category                                          */
@@ -103,7 +116,7 @@ create table cms_category
 )
 ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='类目表';
 
-alter table cms_category comment 'cms_category 类目表';
+alter table cms_category comment '类目表';
 
 /*==============================================================*/
 /* Table: cms_category_tag                                      */
@@ -119,7 +132,7 @@ create table cms_category_tag
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=' 分类标签表';
 
-alter table cms_category_tag comment 'cms_category_tag 类目标签关联表';
+alter table cms_category_tag comment '类目标签关联表';
 
 /*==============================================================*/
 /* Table: cms_comment                                           */
@@ -140,7 +153,7 @@ create table cms_comment
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-alter table cms_comment comment 'cms_comment 评论表';
+alter table cms_comment comment '评论表';
 
 /*==============================================================*/
 /* Table: cms_tag                                               */
@@ -161,7 +174,7 @@ create table cms_tag
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='标签表';
 
-alter table cms_tag comment 'cms_tag 标签表';
+alter table cms_tag comment '标签表';
 
 /*==============================================================*/
 /* Table: test_book                                             */
@@ -176,7 +189,7 @@ create table test_book
 )
 ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COMMENT='用户书籍表';
 
-alter table test_book comment 'test_book 书';
+alter table test_book comment '书';
 
 /*==============================================================*/
 /* Table: test_user                                             */
@@ -194,7 +207,24 @@ create table test_user
 )
 ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
-alter table test_user comment 'test_user 用户';
+alter table test_user comment '用户';
+
+/*==============================================================*/
+/* Table: upms_system                                           */
+/*==============================================================*/
+create table upms_system
+(
+   system_id            int unsigned not null auto_increment,
+   icon                 varchar(20),
+   basepath             varchar(100),
+   status               smallint,
+   name                 varchar(20),
+   ctime                bigint,
+   orders               bigint,
+   primary key (system_id)
+);
+
+alter table upms_system comment '系统';
 
 alter table cms_article_category add constraint FK_Reference_7 foreign key (category_id)
       references cms_category (category_id) on delete cascade on update cascade;
@@ -226,16 +256,3 @@ alter table cms_comment add constraint FK_Reference_2 foreign key (pid)
 alter table test_book add constraint FK_Reference_9 foreign key (user_id)
       references test_user (user_id) on delete cascade on update cascade;
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `age` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', '20', 'zhangsan');
-INSERT INTO `user` VALUES ('2', '21', 'lisi');
