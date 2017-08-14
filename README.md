@@ -67,6 +67,7 @@ auth-management-system
 | Redis            | 分布式缓存数据库  | https://redis.io/ |
 | ActiveMQ         | 消息队列         | http://activemq.apache.org/ |
 | Dubbo            | rpc框架          | http://dubbo.io/ |
+| Jsp/Velocity/Thymeleaf | 模板引擎   | 
 ## 开发环境搭建
 ### 修改本地host
 * 127.0.0.1 upms.w1992wishes.cn
