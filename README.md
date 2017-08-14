@@ -10,8 +10,12 @@ auth-management-system
 ├── datamodel -- sql脚本等存放
 ├── upms -- User Permissions Management System -- 通用用户权限管理系统
 |       ├── upms-dao -- 数据库MyBatisGenerator操作
+|       ├── upms-rpc-api -- rpc接口包
+|       ├── upms-rpc-service -- rpc服务提供者[端口:1112]
 |       ├── upms-service -- 业务逻辑
 |       ├── upms-client -- SSO登录客户端
+|       ├── upms-app1 -- SSO登录客户端2[端口:1113]
+|       ├── upms-app2 -- SSO登录客户端2[端口:1114]
 |       └── upms-server -- 系统及SSO服务端[端口:1111]
 ├── cms -- 内容管理系统
 |       ├── cms-dao -- 数据库MyBatisGenerator操作

@@ -84,7 +84,7 @@
                 <version>9.4.6.v20170531</version>
                 <configuration>
                     <httpConnector>
-                        <port>1112</port>
+                        <port>1113</port>
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
