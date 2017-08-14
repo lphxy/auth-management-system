@@ -6,27 +6,22 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>upms-server</artifactId>
+    <artifactId>upms-rpc-server</artifactId>
     <packaging>war</packaging>
-    <name>upms-server Maven Webapp</name>
+    <name>upms-rpc-server Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
     <dependencies>
-        <dependency>
-            <groupId>com.wan.project</groupId>
-            <artifactId>upms-rpc-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.wan.project</groupId>
-            <artifactId>admin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.wan.project</groupId>
+            <artifactId>upms-rpc-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -66,9 +61,10 @@
     </profiles>
 
     <build>
-        <finalName>upms-server</finalName><filters>
-        <filter>src/main/resources/profiles/${env}.properties</filter>
-    </filters>
+        <finalName>upms-rpc-server</finalName>
+        <filters>
+            <filter>src/main/resources/profiles/${env}.properties</filter>
+        </filters>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -83,7 +79,7 @@
                 <version>9.4.6.v20170531</version>
                 <configuration>
                     <httpConnector>
-                        <port>1111</port>
+                        <port>1112</port>
                     </httpConnector>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <webApp>
