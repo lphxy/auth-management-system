@@ -1,7 +1,7 @@
 package com.wan.upms.server.controller;
 
+import com.wan.common.util.CookieUtil;
 import com.wan.common.util.RedisUtil;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -24,8 +25,9 @@ import java.util.UUID;
 @RequestMapping("/sso")
 public class SSOController {
 
-    private static Logger logger = LoggerFactory.getLogger(SSOController.class);
-    private static List<String> apps = new ArrayList<>();
+    private final static Logger logger = LoggerFactory.getLogger(SSOController.class);
+    private final static String WAN_UPMS_SSO_SERVER_SESSION_ID = "wan_upms_sso_server_session_id";
+    private final static List<String> apps = new ArrayList<>();
     {
         apps.add("wan-cms-job");
         apps.add("wan-cms-server");
@@ -39,9 +41,7 @@ public class SSOController {
      * @return
      */
     @RequestMapping("")
-    public String index(HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
-
+    public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String system_name = request.getParameter("system_name");
         String backurl = request.getParameter("backurl");
 
@@ -50,13 +50,21 @@ public class SSOController {
             logger.info("未注册的系统：{}", system_name);
             return "/404";
         }
+
+        //分配单点登录sessionId，不使用session获取会话id，改为cookie,防止session丢失
+        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        if (StringUtils.isEmpty(sessionId)){
+            sessionId = request.getSession().getId();
+            CookieUtil.setCookie(response, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        }
+
         //判断是否存在全局会话
         // 未登录
-        if (StringUtils.isEmpty(RedisUtil.get(session.getId() + "_token"))) {
+        if (StringUtils.isEmpty(RedisUtil.get(sessionId + "_token"))) {
             return "redirect:/sso/login?backurl=" + URLEncoder.encode(backurl, "utf-8");
         }
         // 已登录
-        String token = RedisUtil.get(session.getId() + "_token");
+        String token = RedisUtil.get(sessionId + "_token");
         String redirectUrl = backurl;
         if (backurl.contains("?")) {
             redirectUrl += "&token=" + token;
@@ -72,7 +80,9 @@ public class SSOController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(HttpServletRequest request) {
+        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        logger.info("认证中心sessionId={}", sessionId);
         return "/sso/login";
     }
 
@@ -81,9 +91,7 @@ public class SSOController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
+    public String login(HttpServletRequest request, HttpServletResponse response) {
         String backurl = request.getParameter("backurl");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -95,9 +103,16 @@ public class SSOController {
             logger.info("密码不能为空！");
             return "/404";
         }
+        //分配单点登录sessionId，不使用session获取会话id,改为cookie，防止session丢失
+        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        if (StringUtils.isEmpty(sessionId)){
+            sessionId = request.getSession().getId();
+            CookieUtil.setCookie(response, WAN_UPMS_SSO_SERVER_SESSION_ID, sessionId);
+        }
+
         // 默认验证帐号密码正确，创建token
         String token = UUID.randomUUID().toString();
-        RedisUtil.set(session.getId() + "_token", token, 2*60*60);
+        RedisUtil.set(sessionId + "_token", token, 2*60*60);
         RedisUtil.set(token, token, 2*60*60);
         //回调子系统
         String redirectUrl = backurl;
