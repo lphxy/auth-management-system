@@ -32,12 +32,6 @@ public class SystemController {
         UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
         upmsSystemExample.createCriteria()
                 .andSystemIdGreaterThan(0);
-        return upmsSystemService.getMapper().selectByExample(upmsSystemExample);
-    }
-
-    @RequestMapping("/test")
-    @ResponseBody
-    public String test() {
-        return upmsSystemService.test();
+        return upmsSystemService.selectByExample(upmsSystemExample);
     }
 }
