@@ -14,4 +14,7 @@ public interface UpmsSystemService extends BaseService<UpmsSystemMapper> {
 
     // 批量删除
     int deleteByPrimaryKeys(String ids);
+
+    String test();
+
 }

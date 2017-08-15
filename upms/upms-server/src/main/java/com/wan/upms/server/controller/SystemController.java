@@ -34,4 +34,10 @@ public class SystemController {
                 .andSystemIdGreaterThan(0);
         return upmsSystemService.getMapper().selectByExample(upmsSystemExample);
     }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test() {
+        return upmsSystemService.test();
+    }
 }

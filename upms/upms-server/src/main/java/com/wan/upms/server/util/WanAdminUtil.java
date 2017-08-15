@@ -30,7 +30,7 @@ public class WanAdminUtil implements InitializingBean, ServletContextAware {
         logger.info("admin.jar version {}", version);
         String jarPath = servletContext.getRealPath("/WEB-INF/lib/admin-" + version + ".jar");
         logger.info("admin.jar path: {}", jarPath);
-        String resources = servletContext.getRealPath("/resource/admin");
+        String resources = servletContext.getRealPath("/resources/admin");
         logger.info("admin.jar decompress to: {}", resources);
         JarUtil.decompress(jarPath, resources);
         logger.info("=====decompress completely=====");

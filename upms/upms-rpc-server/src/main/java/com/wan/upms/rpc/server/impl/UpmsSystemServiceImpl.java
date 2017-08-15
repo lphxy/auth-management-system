@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 实现
- *
+ * <p>
  * Created by w1992wishes on 2017/8/14.
  */
 public class UpmsSystemServiceImpl implements UpmsSystemService {
@@ -32,21 +32,27 @@ public class UpmsSystemServiceImpl implements UpmsSystemService {
      */
     @Override
     public int deleteByPrimaryKeys(String ids) {
-        if (StringUtils.isBlank(ids)){
+        if (StringUtils.isBlank(ids)) {
             return 0;
         }
         String[] idArray = ids.split("-");
         int count = 0;
-        for (String id : idArray){
+        for (String id : idArray) {
             if (StringUtils.isBlank(id))
                 continue;
-            try{
+            try {
                 count += upmsSystemMapper.deleteByPrimaryKey(Integer.parseInt(id));
-            }catch (Exception e){
+            } catch (Exception e) {
                 logger.error("", e);
                 return 0;
             }
         }
         return count;
     }
+
+    @Override
+    public String test() {
+        return "hello world!";
+    }
+
 }
