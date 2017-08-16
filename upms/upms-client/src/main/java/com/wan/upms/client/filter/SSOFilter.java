@@ -1,6 +1,5 @@
 package com.wan.upms.client.filter;
 
-import com.wan.common.util.CookieUtil;
 import com.wan.common.util.RedisUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
@@ -31,7 +30,6 @@ import java.util.List;
 public class SSOFilter implements Filter {
 
     private final static Logger logger = LoggerFactory.getLogger(SSOFilter.class);
-    private final static String WAN_UPMS_SSO_CLIENT_SESSION_ID = "wan_upms_sso_client_session_id";
 
     private String SYSTEM_NAME = "system_name";
     private String SSO_SERVER_URL = "sso_server_url";
@@ -47,12 +45,9 @@ public class SSOFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        //分配单点登录seesionId, 不使用session获取会话id，改为cookie，防止session丢失
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_CLIENT_SESSION_ID);
-        if (StringUtils.isEmpty(sessionId)){
-            sessionId = request.getSession().getId();
-            CookieUtil.setCookie(response, WAN_UPMS_SSO_CLIENT_SESSION_ID, sessionId);
-        }
+        //分配单点登录seesionId
+        String sessionId = request.getSession().getId();
+
         // 已登录
         if (!StringUtils.isEmpty(RedisUtil.get(sessionId + "_token"))) {
             filterChain.doFilter(request, response);
@@ -83,6 +78,9 @@ public class SSOFilter implements Filter {
                         if (result.equals("success")) {
                             // token校验正确，创建局部会话
                             RedisUtil.set(sessionId + "_token", token);
+                            // 保存token对应的局部会话sessionId，方便退出登录操作
+                            RedisUtil.getJedis().sadd(token + "_subSessionIds", sessionId);
+                            logger.info("当前token={}，对应的注册系统有：{}个", token, RedisUtil.getJedis().scard(token + "_subSessionIds"));
                             // 移除url中的token参数
                             // TODO
                             // 返回请求资源
