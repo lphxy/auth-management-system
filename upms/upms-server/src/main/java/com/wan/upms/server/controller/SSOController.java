@@ -72,7 +72,7 @@ public class SSOController {
             redirectUrl += "?token=" + token;
         }
         logger.info("认证中心验证为已登录，跳回：{}", backurl);
-        return "redirect:" + backurl;
+        return "redirect:" + redirectUrl;
     }
 
     /**
@@ -130,7 +130,7 @@ public class SSOController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/token", method = RequestMethod.GET)
+    @RequestMapping(value = "/token", method = RequestMethod.POST)
     @ResponseBody
     public String token(HttpServletRequest request){
         String tokenParam = request.getParameter("token");
