@@ -2,9 +2,12 @@ package com.wan.upms.server.controller;
 
 import com.wan.common.util.CookieUtil;
 import com.wan.common.util.RedisUtil;
+import com.wan.upms.dao.model.UpmsSystemExample;
+import com.wan.upms.rpc.api.UpmsSystemService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,17 +28,12 @@ import java.util.UUID;
 @RequestMapping("/sso")
 public class SSOController {
 
+    @Autowired
+    private UpmsSystemService upmsSystemService;
+
     private final static Logger logger = LoggerFactory.getLogger(SSOController.class);
     private final static String WAN_UPMS_SSO_SERVER_SESSION_ID = "wan_upms_sso_server_session_id";
-    private final static List<String> apps = new ArrayList<>();
-    {
-        apps.add("wan-cms-job");
-        apps.add("wan-cms-server");
-        apps.add("wan-cms-web");
-        apps.add("wan-upms-app1");
-        apps.add("wan-upms-app2");
-        apps.add("wan-upms-server");
-    }
+
     /**
      * 认证中心首页
      * @return
@@ -46,7 +44,8 @@ public class SSOController {
         String backurl = request.getParameter("backurl");
 
         //判断请求认证系统是否注册
-        if (StringUtils.isEmpty(system_name) || !apps.contains(system_name)) {
+        int count = upmsSystemService.countByExample(new UpmsSystemExample());
+        if (StringUtils.isEmpty(system_name) || 0 == count) {
             logger.info("未注册的系统：{}", system_name);
             return "/404";
         }
