@@ -45,6 +45,12 @@
                 <type>jar</type>
             </dependency>
             <dependency>
+                <groupId>com.wan.project</groupId>
+                <artifactId>cms-rpc-api</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>

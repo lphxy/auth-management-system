@@ -1,7 +1,7 @@
 package com.wan.cms.web.jms;
 
 import com.wan.cms.dao.model.User;
-import com.wan.cms.service.service.UserService;
+import com.wan.cms.rpc.api.UserService;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class MessageListener extends MessageListenerAdapter {
                     if (user.getUsername().equals("1000")) {
                         logger.info("消费结束时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                     }
-                    userService.getMapper().insertSelective(user);
+                    userService.insertSelective(user);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

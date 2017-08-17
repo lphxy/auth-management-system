@@ -29,7 +29,7 @@
         <!-- service -->
         <dependency>
             <groupId>com.wan.project</groupId>
-            <artifactId>cms-service</artifactId>
+            <artifactId>cms-rpc-api</artifactId>
         </dependency>
         <!-- tbschedule -->
         <dependency>
