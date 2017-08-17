@@ -12,13 +12,13 @@
     <artifactId>upms</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>upms-sso-client</module>
         <module>upms-dao</module>
+        <module>upms-rpc-api</module>
+        <module>upms-rpc-server</module>
+        <module>upms-sso-client</module>
         <module>upms-server</module>
         <module>upms-app1</module>
         <module>upms-app2</module>
-        <module>upms-rpc-api</module>
-        <module>upms-rpc-server</module>
     </modules>
 
     <dependencies>
