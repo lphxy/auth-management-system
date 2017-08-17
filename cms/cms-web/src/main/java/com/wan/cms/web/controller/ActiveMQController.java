@@ -31,8 +31,8 @@ public class ActiveMQController extends BaseController {
         User user = null;
         for (int i = 1; i <= 10000; i ++) {
             user = new User();
-            user.setName(i + "");
-            user.setAge(i);
+            user.setUsername(i + "");
+            user.setUserId(i);
             JmsUtil.sendMessage(jmsQueueTemplate, defaultQueueDestination, JSONObject.fromObject(user).toString());
         }
         logger.info("发送消息消耗时间" + (System.currentTimeMillis() - start));

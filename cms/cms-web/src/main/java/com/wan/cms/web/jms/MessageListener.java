@@ -40,10 +40,10 @@ public class MessageListener extends MessageListenerAdapter {
                     String text = textMessage.getText();
                     JSONObject json = JSONObject.fromObject(text);
                     User user = (User) JSONObject.toBean(json, User.class);
-                    if (user.getName().equals("1")) {
+                    if (user.getUsername().equals("1")) {
                         logger.info("消费开始时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                     }
-                    if (user.getName().equals("1000")) {
+                    if (user.getUsername().equals("1000")) {
                         logger.info("消费结束时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                     }
                     userService.getMapper().insertSelective(user);
