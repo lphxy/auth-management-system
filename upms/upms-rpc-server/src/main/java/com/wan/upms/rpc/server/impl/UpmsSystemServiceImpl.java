@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +20,8 @@ import java.util.List;
  * <p>
  * Created by w1992wishes on 2017/8/14.
  */
+@Service
+@Transactional
 public class UpmsSystemServiceImpl extends BaseServiceImpl<UpmsSystemMapper, UpmsSystem, UpmsSystemExample> implements UpmsSystemService {
 
     private Logger logger = LoggerFactory.getLogger(UpmsSystemServiceImpl.class);

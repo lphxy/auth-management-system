@@ -33,7 +33,6 @@ public class SystemController {
         UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
         upmsSystemExample.createCriteria()
                 .andSystemIdGreaterThan(0);
-        upmsSystemService.initMapper(UpmsSystemMapper.class);
         return upmsSystemService.selectByExample(upmsSystemExample);
     }
 }

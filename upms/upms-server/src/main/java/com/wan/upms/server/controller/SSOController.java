@@ -47,7 +47,6 @@ public class SSOController {
         //判断请求认证系统是否注册
         UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
         upmsSystemExample.createCriteria().andNameEqualTo(system_name);
-        upmsSystemService.initMapper(UpmsSystemMapper.class);
         int count = upmsSystemService.countByExample(upmsSystemExample);
         if (StringUtils.isEmpty(system_name) || 0 == count) {
             logger.info("未注册的系统：{}", system_name);

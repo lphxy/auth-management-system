@@ -5,9 +5,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
+ * 实现BaseService抽象类
+ *
  * Created by w1992wishes on 2017/8/17.
  */
 public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseService<Record, Example> {
@@ -206,7 +209,15 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     }
 
     @Override
-    public void initMapper(Class clazz) {
-        this.mapper = (Mapper) SpringContextUtil.getBean(clazz);
+    public void initMapper() {
+        this.mapper = SpringContextUtil.getBean(getMapperClass());
+    }
+
+    /**
+     * 获取类泛型class
+     * @return
+     */
+    public Class<Mapper> getMapperClass(){
+        return (Class<Mapper>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 }
