@@ -16,6 +16,7 @@
         <module>cms-job</module>
         <module>cms-admin</module>
         <module>cms-search</module>
+        <module>cms-rpc-api</module>
     </modules>
 
     <properties>
