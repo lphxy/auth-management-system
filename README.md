@@ -19,6 +19,8 @@ auth-management-system
 ├── cms -- 内容管理系统
 |       ├── cms-dao -- 数据库MyBatisGenerator操作
 |       ├── cms-service -- 业务逻辑
+|       ├── cms-rpc-api -- rpc接口包
+|       ├── cms-rpc-service -- rpc服务提供者[端口:2225]
 |       ├── cms-search 搜索服务[端口:2221]
 |       ├── cms-job  -- 消息队列、任务调度等[端口:2223]
 |       ├── cms-admin CMS后台管理[端口:2222]
