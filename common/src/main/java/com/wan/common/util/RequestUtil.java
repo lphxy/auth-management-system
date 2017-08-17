@@ -1,9 +1,9 @@
-package com.wan.upms.sso.client.util;
+package com.wan.common.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
-public class RequestParameterUtil {
+public class RequestUtil {
 
 	/**
      * 移除request指定参数

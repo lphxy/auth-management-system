@@ -1,5 +1,6 @@
-package com.wan.upms.server.controller;
+package com.wan.upms.server.controller.manage;
 
+import com.wan.upms.dao.mapper.UpmsSystemMapper;
 import com.wan.upms.dao.model.UpmsSystemExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ public class SystemController {
         UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
         upmsSystemExample.createCriteria()
                 .andSystemIdGreaterThan(0);
+        upmsSystemService.initMapper(UpmsSystemMapper.class);
         return upmsSystemService.selectByExample(upmsSystemExample);
     }
 }

@@ -39,7 +39,7 @@ public class SSOController {
      * 认证中心首页
      * @return
      */
-    @RequestMapping("")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String system_name = request.getParameter("system_name");
         String backurl = request.getParameter("backurl");
