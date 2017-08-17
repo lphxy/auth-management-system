@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpmsUserRoleExample implements Serializable {
+public class UpmsUserOrganizationExample implements Serializable {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -17,7 +17,7 @@ public class UpmsUserRoleExample implements Serializable {
 
     private Integer offset;
 
-    public UpmsUserRoleExample() {
+    public UpmsUserOrganizationExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -127,63 +127,63 @@ public class UpmsUserRoleExample implements Serializable {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andUserRoleIdIsNull() {
-            addCriterion("user_role_id is null");
+        public Criteria andUserOrganizationIdIsNull() {
+            addCriterion("user_organization_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdIsNotNull() {
-            addCriterion("user_role_id is not null");
+        public Criteria andUserOrganizationIdIsNotNull() {
+            addCriterion("user_organization_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdEqualTo(Integer value) {
-            addCriterion("user_role_id =", value, "userRoleId");
+        public Criteria andUserOrganizationIdEqualTo(Integer value) {
+            addCriterion("user_organization_id =", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdNotEqualTo(Integer value) {
-            addCriterion("user_role_id <>", value, "userRoleId");
+        public Criteria andUserOrganizationIdNotEqualTo(Integer value) {
+            addCriterion("user_organization_id <>", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdGreaterThan(Integer value) {
-            addCriterion("user_role_id >", value, "userRoleId");
+        public Criteria andUserOrganizationIdGreaterThan(Integer value) {
+            addCriterion("user_organization_id >", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("user_role_id >=", value, "userRoleId");
+        public Criteria andUserOrganizationIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("user_organization_id >=", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdLessThan(Integer value) {
-            addCriterion("user_role_id <", value, "userRoleId");
+        public Criteria andUserOrganizationIdLessThan(Integer value) {
+            addCriterion("user_organization_id <", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdLessThanOrEqualTo(Integer value) {
-            addCriterion("user_role_id <=", value, "userRoleId");
+        public Criteria andUserOrganizationIdLessThanOrEqualTo(Integer value) {
+            addCriterion("user_organization_id <=", value, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdIn(List<Integer> values) {
-            addCriterion("user_role_id in", values, "userRoleId");
+        public Criteria andUserOrganizationIdIn(List<Integer> values) {
+            addCriterion("user_organization_id in", values, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdNotIn(List<Integer> values) {
-            addCriterion("user_role_id not in", values, "userRoleId");
+        public Criteria andUserOrganizationIdNotIn(List<Integer> values) {
+            addCriterion("user_organization_id not in", values, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdBetween(Integer value1, Integer value2) {
-            addCriterion("user_role_id between", value1, value2, "userRoleId");
+        public Criteria andUserOrganizationIdBetween(Integer value1, Integer value2) {
+            addCriterion("user_organization_id between", value1, value2, "userOrganizationId");
             return (Criteria) this;
         }
 
-        public Criteria andUserRoleIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("user_role_id not between", value1, value2, "userRoleId");
+        public Criteria andUserOrganizationIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("user_organization_id not between", value1, value2, "userOrganizationId");
             return (Criteria) this;
         }
 
@@ -247,123 +247,63 @@ public class UpmsUserRoleExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIsNull() {
-            addCriterion("role_id is null");
+        public Criteria andOrganizationIdIsNull() {
+            addCriterion("organization_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIsNotNull() {
-            addCriterion("role_id is not null");
+        public Criteria andOrganizationIdIsNotNull() {
+            addCriterion("organization_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdEqualTo(Integer value) {
-            addCriterion("role_id =", value, "roleId");
+        public Criteria andOrganizationIdEqualTo(Integer value) {
+            addCriterion("organization_id =", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotEqualTo(Integer value) {
-            addCriterion("role_id <>", value, "roleId");
+        public Criteria andOrganizationIdNotEqualTo(Integer value) {
+            addCriterion("organization_id <>", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThan(Integer value) {
-            addCriterion("role_id >", value, "roleId");
+        public Criteria andOrganizationIdGreaterThan(Integer value) {
+            addCriterion("organization_id >", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("role_id >=", value, "roleId");
+        public Criteria andOrganizationIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("organization_id >=", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThan(Integer value) {
-            addCriterion("role_id <", value, "roleId");
+        public Criteria andOrganizationIdLessThan(Integer value) {
+            addCriterion("organization_id <", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThanOrEqualTo(Integer value) {
-            addCriterion("role_id <=", value, "roleId");
+        public Criteria andOrganizationIdLessThanOrEqualTo(Integer value) {
+            addCriterion("organization_id <=", value, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIn(List<Integer> values) {
-            addCriterion("role_id in", values, "roleId");
+        public Criteria andOrganizationIdIn(List<Integer> values) {
+            addCriterion("organization_id in", values, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotIn(List<Integer> values) {
-            addCriterion("role_id not in", values, "roleId");
+        public Criteria andOrganizationIdNotIn(List<Integer> values) {
+            addCriterion("organization_id not in", values, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdBetween(Integer value1, Integer value2) {
-            addCriterion("role_id between", value1, value2, "roleId");
+        public Criteria andOrganizationIdBetween(Integer value1, Integer value2) {
+            addCriterion("organization_id between", value1, value2, "organizationId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("role_id not between", value1, value2, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIsNull() {
-            addCriterion("role is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIsNotNull() {
-            addCriterion("role is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleEqualTo(Integer value) {
-            addCriterion("role =", value, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleNotEqualTo(Integer value) {
-            addCriterion("role <>", value, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleGreaterThan(Integer value) {
-            addCriterion("role >", value, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleGreaterThanOrEqualTo(Integer value) {
-            addCriterion("role >=", value, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleLessThan(Integer value) {
-            addCriterion("role <", value, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleLessThanOrEqualTo(Integer value) {
-            addCriterion("role <=", value, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIn(List<Integer> values) {
-            addCriterion("role in", values, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleNotIn(List<Integer> values) {
-            addCriterion("role not in", values, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleBetween(Integer value1, Integer value2) {
-            addCriterion("role between", value1, value2, "role");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleNotBetween(Integer value1, Integer value2) {
-            addCriterion("role not between", value1, value2, "role");
+        public Criteria andOrganizationIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("organization_id not between", value1, value2, "organizationId");
             return (Criteria) this;
         }
     }

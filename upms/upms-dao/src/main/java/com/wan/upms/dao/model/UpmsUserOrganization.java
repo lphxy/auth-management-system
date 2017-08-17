@@ -2,7 +2,7 @@ package com.wan.upms.dao.model;
 
 import java.io.Serializable;
 
-public class UpmsPermission implements Serializable {
+public class UpmsUserOrganization implements Serializable {
     private Integer userOrganizationId;
 
     private Integer userId;
@@ -59,7 +59,7 @@ public class UpmsPermission implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        UpmsPermission other = (UpmsPermission) that;
+        UpmsUserOrganization other = (UpmsUserOrganization) that;
         return (this.getUserOrganizationId() == null ? other.getUserOrganizationId() == null : this.getUserOrganizationId().equals(other.getUserOrganizationId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getOrganizationId() == null ? other.getOrganizationId() == null : this.getOrganizationId().equals(other.getOrganizationId()));
