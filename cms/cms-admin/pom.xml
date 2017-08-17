@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.wan.project</groupId>
-            <artifactId>upms-client</artifactId>
+            <artifactId>upms-sso-client</artifactId>
         </dependency>
     </dependencies>
 

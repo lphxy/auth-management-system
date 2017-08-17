@@ -1,4 +1,4 @@
-package com.wan.upms.client.filter;
+package com.wan.upms.sso.client.filter;
 
 import com.wan.common.util.RedisUtil;
 import org.apache.commons.lang.StringUtils;

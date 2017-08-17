@@ -12,7 +12,7 @@
     <artifactId>upms</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>upms-client</module>
+        <module>upms-sso-client</module>
         <module>upms-dao</module>
         <module>upms-service</module>
         <module>upms-server</module>

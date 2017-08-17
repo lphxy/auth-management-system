@@ -1,4 +1,4 @@
-package com.wan.upms.client.util;
+package com.wan.upms.sso.client.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
