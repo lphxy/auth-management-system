@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wan.upms.dao.mapper.UpmsSystemMapper" >
-  <resultMap id="BaseResultMap" type="com.wan.upms.dao.model.UpmsSystem" >
-    <id column="system_id" property="systemId" jdbcType="INTEGER" />
-    <result column="icon" property="icon" jdbcType="VARCHAR" />
-    <result column="basepath" property="basepath" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="SMALLINT" />
+<mapper namespace="com.wan.upms.dao.mapper.UpmsRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.wan.upms.dao.model.UpmsRole" >
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="system_id" property="systemId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
     <result column="ctime" property="ctime" jdbcType="BIGINT" />
     <result column="orders" property="orders" jdbcType="BIGINT" />
   </resultMap>
@@ -69,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    system_id, icon, basepath, status, name, ctime, orders
+    role_id, system_id, name, description, status, ctime, orders
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wan.upms.dao.model.UpmsSystemExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wan.upms.dao.model.UpmsRoleExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from upms_system
+    from upms_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,45 +96,47 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from upms_system
-    where system_id = #{systemId,jdbcType=INTEGER}
+    from upms_role
+    where role_id = #{roleId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from upms_system
-    where system_id = #{systemId,jdbcType=INTEGER}
+    delete from upms_role
+    where role_id = #{roleId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wan.upms.dao.model.UpmsSystemExample" >
-    delete from upms_system
+  <delete id="deleteByExample" parameterType="com.wan.upms.dao.model.UpmsRoleExample" >
+    delete from upms_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wan.upms.dao.model.UpmsSystem" >
-    <selectKey resultType="java.lang.Integer" keyProperty="systemId" order="AFTER" >
+  <insert id="insert" parameterType="com.wan.upms.dao.model.UpmsRole" >
+    <selectKey resultType="java.lang.Integer" keyProperty="roleId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into upms_system (icon, basepath, status, 
-      name, ctime, orders)
-    values (#{icon,jdbcType=VARCHAR}, #{basepath,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}, 
-      #{name,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT}, #{orders,jdbcType=BIGINT})
+    insert into upms_role (system_id, name, description, 
+      status, ctime, orders
+      )
+    values (#{systemId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{ctime,jdbcType=BIGINT}, #{orders,jdbcType=BIGINT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.wan.upms.dao.model.UpmsSystem" >
-    <selectKey resultType="java.lang.Integer" keyProperty="systemId" order="AFTER" >
+  <insert id="insertSelective" parameterType="com.wan.upms.dao.model.UpmsRole" >
+    <selectKey resultType="java.lang.Integer" keyProperty="roleId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into upms_system
+    insert into upms_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="icon != null" >
-        icon,
-      </if>
-      <if test="basepath != null" >
-        basepath,
-      </if>
-      <if test="status != null" >
-        status,
+      <if test="systemId != null" >
+        system_id,
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
       <if test="ctime != null" >
         ctime,
@@ -144,17 +146,17 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="icon != null" >
-        #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="basepath != null" >
-        #{basepath,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=SMALLINT},
+      <if test="systemId != null" >
+        #{systemId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
       </if>
       <if test="ctime != null" >
         #{ctime,jdbcType=BIGINT},
@@ -164,29 +166,29 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wan.upms.dao.model.UpmsSystemExample" resultType="java.lang.Integer" >
-    select count(*) from upms_system
+  <select id="countByExample" parameterType="com.wan.upms.dao.model.UpmsRoleExample" resultType="java.lang.Integer" >
+    select count(*) from upms_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update upms_system
+    update upms_role
     <set >
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
       <if test="record.systemId != null" >
         system_id = #{record.systemId,jdbcType=INTEGER},
       </if>
-      <if test="record.icon != null" >
-        icon = #{record.icon,jdbcType=VARCHAR},
-      </if>
-      <if test="record.basepath != null" >
-        basepath = #{record.basepath,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=SMALLINT},
-      </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
       </if>
       <if test="record.ctime != null" >
         ctime = #{record.ctime,jdbcType=BIGINT},
@@ -200,32 +202,32 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update upms_system
-    set system_id = #{record.systemId,jdbcType=INTEGER},
-      icon = #{record.icon,jdbcType=VARCHAR},
-      basepath = #{record.basepath,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=SMALLINT},
+    update upms_role
+    set role_id = #{record.roleId,jdbcType=INTEGER},
+      system_id = #{record.systemId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
       ctime = #{record.ctime,jdbcType=BIGINT},
       orders = #{record.orders,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wan.upms.dao.model.UpmsSystem" >
-    update upms_system
+  <update id="updateByPrimaryKeySelective" parameterType="com.wan.upms.dao.model.UpmsRole" >
+    update upms_role
     <set >
-      <if test="icon != null" >
-        icon = #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="basepath != null" >
-        basepath = #{basepath,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=SMALLINT},
+      <if test="systemId != null" >
+        system_id = #{systemId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
       </if>
       <if test="ctime != null" >
         ctime = #{ctime,jdbcType=BIGINT},
@@ -234,17 +236,17 @@
         orders = #{orders,jdbcType=BIGINT},
       </if>
     </set>
-    where system_id = #{systemId,jdbcType=INTEGER}
+    where role_id = #{roleId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wan.upms.dao.model.UpmsSystem" >
-    update upms_system
-    set icon = #{icon,jdbcType=VARCHAR},
-      basepath = #{basepath,jdbcType=VARCHAR},
-      status = #{status,jdbcType=SMALLINT},
+  <update id="updateByPrimaryKey" parameterType="com.wan.upms.dao.model.UpmsRole" >
+    update upms_role
+    set system_id = #{systemId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
       ctime = #{ctime,jdbcType=BIGINT},
       orders = #{orders,jdbcType=BIGINT}
-    where system_id = #{systemId,jdbcType=INTEGER}
+    where role_id = #{roleId,jdbcType=INTEGER}
   </update>
   <cache />
 </mapper>
