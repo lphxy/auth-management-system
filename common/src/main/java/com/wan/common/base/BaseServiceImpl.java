@@ -1,5 +1,6 @@
 package com.wan.common.base;
 
+import com.wan.common.util.SpringContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by w1992wishes on 2017/8/17.
  */
-public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseService<Mapper, Record, Example> {
+public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseService<Record, Example> {
 
     public Mapper mapper;
 
@@ -205,8 +206,7 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     }
 
     @Override
-    public void initMapper(Mapper mapper) {
-        this.mapper = mapper;
+    public void initMapper(Class clazz) {
+        this.mapper = (Mapper) SpringContextUtil.getBean(clazz);
     }
-
 }
