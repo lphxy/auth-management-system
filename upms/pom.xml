@@ -14,7 +14,6 @@
     <modules>
         <module>upms-sso-client</module>
         <module>upms-dao</module>
-        <module>upms-service</module>
         <module>upms-server</module>
         <module>upms-app1</module>
         <module>upms-app2</module>
