@@ -46,13 +46,13 @@
                         password="${jdbc.password}" />
 
         <!-- model生成 -->
-        <javaModelGenerator targetPackage="${generator.javaModelGenerator.targetPackage}" targetProject="src/main/java" />
+        <javaModelGenerator targetPackage="com.wan.wechat.mp.dao.model" targetProject="src/main/java" />
 
         <!-- MapperXML生成 -->
-        <sqlMapGenerator targetPackage="${generator.sqlMapGenerator.targetPackage}" targetProject="src/main/java" />
+        <sqlMapGenerator targetPackage="com.wan.wechat.mp.dao.mapper" targetProject="src/main/java" />
 
         <!-- Mapper接口生成 -->
-        <javaClientGenerator targetPackage="${generator.javaClientGenerator.targetPackage}" targetProject="src/main/java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="com.wan.wechat.mp.dao.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 
         <!-- 需要映射的表 -->
         <table tableName="user" domainObjectName="User">
