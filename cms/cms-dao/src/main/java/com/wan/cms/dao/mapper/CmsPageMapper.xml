@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wan.cms.dao.mapper.CmsCommentMapper" >
-  <resultMap id="BaseResultMap" type="com.wan.cms.dao.model.CmsComment" >
-    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+<mapper namespace="com.wan.cms.dao.mapper.CmsPageMapper" >
+  <resultMap id="BaseResultMap" type="com.wan.cms.dao.model.CmsPage" >
+    <id column="page_id" property="pageId" jdbcType="INTEGER" />
     <result column="pid" property="pid" jdbcType="INTEGER" />
-    <result column="article_id" property="articleId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="ip" property="ip" jdbcType="VARCHAR" />
-    <result column="agent" property="agent" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="ctime" property="ctime" jdbcType="BIGINT" />
+    <result column="orders" property="orders" jdbcType="BIGINT" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.wan.cms.dao.model.CmsComment" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.wan.cms.dao.model.CmsPage" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -73,12 +72,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    comment_id, pid, article_id, user_id, status, ip, agent, ctime
+    page_id, pid, alias, keywords, description, ctime, orders
   </sql>
   <sql id="Blob_Column_List" >
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.wan.cms.dao.model.CmsCommentExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.wan.cms.dao.model.CmsPageExample" >
     select
     <if test="distinct" >
       distinct
@@ -86,7 +85,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from cms_comment
+    from cms_page
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,13 +93,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wan.cms.dao.model.CmsCommentExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wan.cms.dao.model.CmsPageExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from cms_comment
+    from cms_page
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -121,122 +120,111 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from cms_comment
-    where comment_id = #{commentId,jdbcType=INTEGER}
+    from cms_page
+    where page_id = #{pageId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from cms_comment
-    where comment_id = #{commentId,jdbcType=INTEGER}
+    delete from cms_page
+    where page_id = #{pageId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wan.cms.dao.model.CmsCommentExample" >
-    delete from cms_comment
+  <delete id="deleteByExample" parameterType="com.wan.cms.dao.model.CmsPageExample" >
+    delete from cms_page
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wan.cms.dao.model.CmsComment" >
-    insert into cms_comment (comment_id, pid, article_id, 
-      user_id, status, ip, 
-      agent, ctime, content
-      )
-    values (#{commentId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{ip,jdbcType=VARCHAR}, 
-      #{agent,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}
-      )
+  <insert id="insert" parameterType="com.wan.cms.dao.model.CmsPage" >
+    insert into cms_page (page_id, pid, alias, 
+      keywords, description, ctime, 
+      orders, content)
+    values (#{pageId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{alias,jdbcType=VARCHAR}, 
+      #{keywords,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{ctime,jdbcType=BIGINT}, 
+      #{orders,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wan.cms.dao.model.CmsComment" >
-    insert into cms_comment
+  <insert id="insertSelective" parameterType="com.wan.cms.dao.model.CmsPage" >
+    insert into cms_page
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="commentId != null" >
-        comment_id,
+      <if test="pageId != null" >
+        page_id,
       </if>
       <if test="pid != null" >
         pid,
       </if>
-      <if test="articleId != null" >
-        article_id,
+      <if test="alias != null" >
+        alias,
       </if>
-      <if test="userId != null" >
-        user_id,
+      <if test="keywords != null" >
+        keywords,
       </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="ip != null" >
-        ip,
-      </if>
-      <if test="agent != null" >
-        agent,
+      <if test="description != null" >
+        description,
       </if>
       <if test="ctime != null" >
         ctime,
+      </if>
+      <if test="orders != null" >
+        orders,
       </if>
       <if test="content != null" >
         content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="commentId != null" >
-        #{commentId,jdbcType=INTEGER},
+      <if test="pageId != null" >
+        #{pageId,jdbcType=INTEGER},
       </if>
       <if test="pid != null" >
         #{pid,jdbcType=INTEGER},
       </if>
-      <if test="articleId != null" >
-        #{articleId,jdbcType=INTEGER},
+      <if test="alias != null" >
+        #{alias,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="ip != null" >
-        #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="agent != null" >
-        #{agent,jdbcType=VARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="ctime != null" >
         #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=BIGINT},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wan.cms.dao.model.CmsCommentExample" resultType="java.lang.Integer" >
-    select count(*) from cms_comment
+  <select id="countByExample" parameterType="com.wan.cms.dao.model.CmsPageExample" resultType="java.lang.Integer" >
+    select count(*) from cms_page
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update cms_comment
+    update cms_page
     <set >
-      <if test="record.commentId != null" >
-        comment_id = #{record.commentId,jdbcType=INTEGER},
+      <if test="record.pageId != null" >
+        page_id = #{record.pageId,jdbcType=INTEGER},
       </if>
       <if test="record.pid != null" >
         pid = #{record.pid,jdbcType=INTEGER},
       </if>
-      <if test="record.articleId != null" >
-        article_id = #{record.articleId,jdbcType=INTEGER},
+      <if test="record.alias != null" >
+        alias = #{record.alias,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.keywords != null" >
+        keywords = #{record.keywords,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=TINYINT},
-      </if>
-      <if test="record.ip != null" >
-        ip = #{record.ip,jdbcType=VARCHAR},
-      </if>
-      <if test="record.agent != null" >
-        agent = #{record.agent,jdbcType=VARCHAR},
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.ctime != null" >
         ctime = #{record.ctime,jdbcType=BIGINT},
+      </if>
+      <if test="record.orders != null" >
+        orders = #{record.orders,jdbcType=BIGINT},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -247,86 +235,79 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update cms_comment
-    set comment_id = #{record.commentId,jdbcType=INTEGER},
+    update cms_page
+    set page_id = #{record.pageId,jdbcType=INTEGER},
       pid = #{record.pid,jdbcType=INTEGER},
-      article_id = #{record.articleId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=TINYINT},
-      ip = #{record.ip,jdbcType=VARCHAR},
-      agent = #{record.agent,jdbcType=VARCHAR},
+      alias = #{record.alias,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
       ctime = #{record.ctime,jdbcType=BIGINT},
+      orders = #{record.orders,jdbcType=BIGINT},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update cms_comment
-    set comment_id = #{record.commentId,jdbcType=INTEGER},
+    update cms_page
+    set page_id = #{record.pageId,jdbcType=INTEGER},
       pid = #{record.pid,jdbcType=INTEGER},
-      article_id = #{record.articleId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=TINYINT},
-      ip = #{record.ip,jdbcType=VARCHAR},
-      agent = #{record.agent,jdbcType=VARCHAR},
-      ctime = #{record.ctime,jdbcType=BIGINT}
+      alias = #{record.alias,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      ctime = #{record.ctime,jdbcType=BIGINT},
+      orders = #{record.orders,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wan.cms.dao.model.CmsComment" >
-    update cms_comment
+  <update id="updateByPrimaryKeySelective" parameterType="com.wan.cms.dao.model.CmsPage" >
+    update cms_page
     <set >
       <if test="pid != null" >
         pid = #{pid,jdbcType=INTEGER},
       </if>
-      <if test="articleId != null" >
-        article_id = #{articleId,jdbcType=INTEGER},
+      <if test="alias != null" >
+        alias = #{alias,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="ip != null" >
-        ip = #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="agent != null" >
-        agent = #{agent,jdbcType=VARCHAR},
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="ctime != null" >
         ctime = #{ctime,jdbcType=BIGINT},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=BIGINT},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where comment_id = #{commentId,jdbcType=INTEGER}
+    where page_id = #{pageId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wan.cms.dao.model.CmsComment" >
-    update cms_comment
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wan.cms.dao.model.CmsPage" >
+    update cms_page
     set pid = #{pid,jdbcType=INTEGER},
-      article_id = #{articleId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      ip = #{ip,jdbcType=VARCHAR},
-      agent = #{agent,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       ctime = #{ctime,jdbcType=BIGINT},
+      orders = #{orders,jdbcType=BIGINT},
       content = #{content,jdbcType=LONGVARCHAR}
-    where comment_id = #{commentId,jdbcType=INTEGER}
+    where page_id = #{pageId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wan.cms.dao.model.CmsComment" >
-    update cms_comment
+  <update id="updateByPrimaryKey" parameterType="com.wan.cms.dao.model.CmsPage" >
+    update cms_page
     set pid = #{pid,jdbcType=INTEGER},
-      article_id = #{articleId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      ip = #{ip,jdbcType=VARCHAR},
-      agent = #{agent,jdbcType=VARCHAR},
-      ctime = #{ctime,jdbcType=BIGINT}
-    where comment_id = #{commentId,jdbcType=INTEGER}
+      alias = #{alias,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=BIGINT},
+      orders = #{orders,jdbcType=BIGINT}
+    where page_id = #{pageId,jdbcType=INTEGER}
   </update>
   <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 </mapper>
