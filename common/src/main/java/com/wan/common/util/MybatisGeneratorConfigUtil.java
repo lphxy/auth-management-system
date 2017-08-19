@@ -2,6 +2,8 @@ package com.wan.common.util;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +16,8 @@ import java.util.Map;
  * Created by w1992wishes on 2017/8/18.
  */
 public class MybatisGeneratorConfigUtil {
+    private static Logger logger = LoggerFactory.getLogger(MybatisGeneratorConfigUtil.class);
+
     // 模板路径
     private static String VM_PATH = "common/src/main/resources/generatorConfig.vm";
     // 项目名称
@@ -33,7 +37,7 @@ public class MybatisGeneratorConfigUtil {
             String module_prefix_name) {
         String module_path = module_prefix_name + "/" +  module_prefix_name + "-dao/src/main/resources/generatorConfig.xml";
         String sql = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + DATABASE_NAME + "' AND table_name LIKE '" + module_prefix_name + "_%';";
-        System.out.println("========== 开始生成代码 ==========");
+        logger.info("========== 开始生成generatorConfig.xml文件 ==========");
         try {
             VelocityContext context= new VelocityContext();
             List<Map<String, Object>> tables = new ArrayList<>();
@@ -55,10 +59,11 @@ public class MybatisGeneratorConfigUtil {
             context.put("generator_javaModelGenerator_targetPackage", "com." + PROJECT_NAME + "." + module_prefix_name + ".dao.model");
             context.put("generator_sqlMapGenerator_targetPackage", "com." + PROJECT_NAME + "." + module_prefix_name + ".dao.mapper");
             context.put("generator_javaClientGenerator_targetPackage", "com." + PROJECT_NAME + "." + module_prefix_name + ".dao.mapper");
+            context.put("targetProject", module_prefix_name.replaceAll("\\.", "-") + "/"+ module_prefix_name.replaceAll("\\.", "-") + "-dao");
             VelocityUtil.generate(VM_PATH, module_path, context);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("========== 结束生成代码 ==========");
+        logger.info("========== 结束生成generatorConfig.xml文件 ==========");
     }
 }
