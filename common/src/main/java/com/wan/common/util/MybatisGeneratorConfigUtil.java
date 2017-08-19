@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.sun.corba.se.impl.util.Version.PROJECT_NAME;
-
 /**
  * 代码生成类
  *
@@ -19,6 +17,7 @@ public class MybatisGeneratorConfigUtil {
     // 模板路径
     private static String VM_PATH = "common/src/main/resources/generatorConfig.vm";
     // 项目名称
+    private static String PROJECT_NAME = "wan";
     // 数据库名称
     private static String DATABASE_NAME = "ams";
 
