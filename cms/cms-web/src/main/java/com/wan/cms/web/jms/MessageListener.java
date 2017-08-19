@@ -1,7 +1,7 @@
 package com.wan.cms.web.jms;
 
-import com.wan.cms.dao.model.User;
-import com.wan.cms.rpc.api.UserService;
+import com.wan.cms.dao.model.CmsUser;
+import com.wan.cms.rpc.api.CmsUserService;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class MessageListener extends MessageListenerAdapter {
     ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     @Autowired
-    UserService userService;
+    CmsUserService userService;
 
     @JmsListener(containerFactory = "connectionFactory", destination = "defaultQueueDestination")
     public void processOrder(final Message message) {
@@ -39,7 +39,7 @@ public class MessageListener extends MessageListenerAdapter {
                 try {
                     String text = textMessage.getText();
                     JSONObject json = JSONObject.fromObject(text);
-                    User user = (User) JSONObject.toBean(json, User.class);
+                    CmsUser user = (CmsUser) JSONObject.toBean(json, CmsUser.class);
                     if (user.getUsername().equals("1")) {
                         logger.info("消费开始时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                     }

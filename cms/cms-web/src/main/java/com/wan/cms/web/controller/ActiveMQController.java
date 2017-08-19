@@ -1,6 +1,6 @@
 package com.wan.cms.web.controller;
 
-import com.wan.cms.dao.model.User;
+import com.wan.cms.dao.model.CmsUser;
 import com.wan.common.util.JmsUtil;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +28,9 @@ public class ActiveMQController extends BaseController {
     @ResponseBody
     public Object send() {
         long start = System.currentTimeMillis();
-        User user = null;
+        CmsUser user = null;
         for (int i = 1; i <= 10000; i ++) {
-            user = new User();
+            user = new CmsUser();
             user.setUsername(i + "");
             user.setUserId(i);
             JmsUtil.sendMessage(jmsQueueTemplate, defaultQueueDestination, JSONObject.fromObject(user).toString());

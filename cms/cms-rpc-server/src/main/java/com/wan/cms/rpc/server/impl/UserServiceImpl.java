@@ -1,9 +1,9 @@
 package com.wan.cms.rpc.server.impl;
 
-import com.wan.cms.dao.mapper.UserMapper;
-import com.wan.cms.dao.model.User;
-import com.wan.cms.dao.model.UserExample;
-import com.wan.cms.rpc.api.UserService;
+import com.wan.cms.dao.mapper.CmsUserMapper;
+import com.wan.cms.dao.model.CmsUser;
+import com.wan.cms.dao.model.CmsUserExample;
+import com.wan.cms.rpc.api.CmsUserService;
 import com.wan.cms.rpc.dao.UserVO;
 import com.wan.cms.rpc.dao.mapper.UserVOMapper;
 import com.wan.common.base.BaseServiceImpl;
@@ -15,7 +15,7 @@ import org.springframework.cache.annotation.Cacheable;
  *
  * Created by w1992wishes on 2017/8/17.
  */
-public class UserServiceImpl extends BaseServiceImpl<UserMapper, User, UserExample> implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<CmsUserMapper, CmsUser, CmsUserExample> implements CmsUserService {
 
     @Autowired
     private UserVOMapper userVOMapper;

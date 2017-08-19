@@ -20,6 +20,6 @@
 
     <dubbo:reference id="cmsTagService" interface="com.wan.cms.rpc.api.CmsTagService" />
 
-    <dubbo:reference id="userService" interface="com.wan.cms.rpc.api.UserService" />
+    <dubbo:reference id="userService" interface="com.wan.cms.rpc.api.CmsUserService" />
 
 </beans>

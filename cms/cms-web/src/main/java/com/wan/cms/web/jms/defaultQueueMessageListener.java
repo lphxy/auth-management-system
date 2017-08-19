@@ -1,7 +1,7 @@
 package com.wan.cms.web.jms;
 
-import com.wan.cms.dao.model.User;
-import com.wan.cms.service.service.UserService;
+import com.wan.cms.dao.model.CmsUser;
+import com.wan.cms.rpc.api.CmsUserService;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class defaultQueueMessageListener implements MessageListener {
     @Autowired
     ThreadPoolTaskExecutor threadPoolTaskExecutor;
     @Autowired
-    UserService userService;
+    CmsUserService userService;
 
     public void onMessage(final Message message) {
         // 使用线程池多线程处理
@@ -34,14 +34,14 @@ public class defaultQueueMessageListener implements MessageListener {
                     try{
                         String text = textMessage.getText();
                         JSONObject json = JSONObject.fromObject(text);
-                        User user = (User) JSONObject.toBean(json, User.class);
+                        CmsUser user = (CmsUser) JSONObject.toBean(json, CmsUser.class);
                         if (user.getUsername().equals("1")) {
                             logger.info("消费开始时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                         }
                         if (user.getUsername().equals("1000")) {
                             logger.info("消费结束时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                         }
-                        userService.getMapper().insertSelective(user);
+                        userService.insertSelective(user);
                         logger.info("cms-mq接收到：{}", text);
                     }catch (Exception e){
                         logger.error("", e);

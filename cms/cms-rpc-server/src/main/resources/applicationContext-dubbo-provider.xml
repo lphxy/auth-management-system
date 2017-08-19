@@ -31,6 +31,6 @@
 
     <!-- 用户 -->
     <bean id="userServiceImpl" class="com.wan.cms.rpc.server.impl.UserServiceImpl"/>
-    <dubbo:service interface="com.wan.cms.rpc.api.UserService" ref="userServiceImpl"/>
+    <dubbo:service interface="com.wan.cms.rpc.api.CmsUserService" ref="userServiceImpl"/>
 
 </beans>

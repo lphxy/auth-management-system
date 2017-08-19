@@ -1,22 +1,22 @@
 package com.wan.cms.rpc.dao;
 
-import com.wan.cms.dao.model.Book;
-import com.wan.cms.dao.model.User;
+import com.wan.cms.dao.model.CmsBook;
+import com.wan.cms.dao.model.CmsUser;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class UserVO extends User implements Serializable {
+public class UserVO extends CmsUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Book> books;
+	private List<CmsBook> books;
 
-	public List<Book> getBooks() {
+	public List<CmsBook> getBooks() {
         return books;
 	}
 
-	public void setBooks(List<Book> books) {
+	public void setBooks(List<CmsBook> books) {
 		this.books = books;
 	}
 }
