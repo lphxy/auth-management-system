@@ -2,9 +2,16 @@ package com.wan.common.util;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mybatis.generator.api.MyBatisGenerator;
+import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.xml.ConfigurationParser;
+import org.mybatis.generator.exception.InvalidConfigurationException;
+import org.mybatis.generator.exception.XMLParserException;
+import org.mybatis.generator.internal.DefaultShellCallback;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +23,6 @@ import java.util.Map;
  * Created by w1992wishes on 2017/8/18.
  */
 public class MybatisGeneratorConfigUtil {
-    private static Logger logger = LoggerFactory.getLogger(MybatisGeneratorConfigUtil.class);
-
     // 模板路径
     private static String VM_PATH = "common/src/main/resources/generatorConfig.vm";
     // 项目名称
@@ -37,7 +42,7 @@ public class MybatisGeneratorConfigUtil {
             String module_prefix_name) {
         String module_path = module_prefix_name + "/" +  module_prefix_name + "-dao/src/main/resources/generatorConfig.xml";
         String sql = "SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = '" + DATABASE_NAME + "' AND table_name LIKE '" + module_prefix_name + "_%';";
-        logger.info("========== 开始生成generatorConfig.xml文件 ==========");
+        System.out.println("========== 开始生成generatorConfig.xml文件 ==========");
         try {
             VelocityContext context= new VelocityContext();
             List<Map<String, Object>> tables = new ArrayList<>();
@@ -64,6 +69,32 @@ public class MybatisGeneratorConfigUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.info("========== 结束生成generatorConfig.xml文件 ==========");
+        System.out.println("========== 结束生成generatorConfig.xml文件 ==========");
+        System.out.println("========== 开始运行MybatisGenerator ==========");
+        // 生成代码
+        try {
+            System.out.println("start generator ...");
+            List<String> warnings = new ArrayList<>();
+            File configFile = new File(MybatisGeneratorConfigUtil.class.getResource("/generatorConfig.xml").getFile());
+            ConfigurationParser cp = new ConfigurationParser(warnings);
+            Configuration config = cp.parseConfiguration(configFile);
+            DefaultShellCallback callback = new DefaultShellCallback(true);
+            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
+            myBatisGenerator.generate(null);
+            for (String warning : warnings) {
+                System.out.println(warning);
+            }
+            System.out.println("end generator!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XMLParserException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 }
