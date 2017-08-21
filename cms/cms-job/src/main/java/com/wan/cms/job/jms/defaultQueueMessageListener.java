@@ -1,7 +1,7 @@
 package com.wan.cms.job.jms;
 
 import com.wan.cms.dao.model.CmsUser;
-import com.wan.cms.service.service.CmsUserService;
+import com.wan.cms.rpc.api.CmsUserService;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
