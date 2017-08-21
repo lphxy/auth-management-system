@@ -4,16 +4,12 @@ import com.wan.cms.dao.model.CmsTag;
 import com.wan.cms.dao.model.CmsTagExample;
 import com.wan.cms.rpc.api.CmsTagService;
 import com.wan.cms.admin.controller.BaseController;
-import com.wan.common.util.Paginator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -22,48 +18,39 @@ import java.util.List;
 @Controller
 @RequestMapping("/manage/tag")
 public class CmsTagController extends BaseController {
+
     @Autowired
     private CmsTagService cmsTagService;
 
-    /**
-     * 首页
-     * @return
-     */
-    @RequestMapping("")
+    @RequestMapping("/index")
     public String index() {
-        return "redirect:/manage/tag/list";
+        return "/manage/tag/index";
     }
 
     /**
-     *
-     * @param page 当前页码
-     * @param rows 每页条数
-     * @param desc 降序排序
-     * @param request
-     * @param modelMap
+     * 列表
+     * @param offset
+     * @param limit
+     * @param sort
+     * @param order
      * @return
      */
     @RequestMapping("/list")
-    public String list(
-            @RequestParam(required = false, defaultValue = "1", value = "page") int page,
-            @RequestParam(required = false, defaultValue = "20", value = "rows") int rows,
-            @RequestParam(required = false, defaultValue = "false", value = "desc") boolean desc,
-            HttpServletRequest request, ModelMap modelMap) {
+    @ResponseBody
+    public Object list(
+            @RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
+            @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
+            @RequestParam(required = false, value = "sort") String sort,
+            @RequestParam(required = false, value = "order") String order) {
 
         // 数据列表
         CmsTagExample cmsTagExample = new CmsTagExample();
-        cmsTagExample.setOffset((page - 1) * rows);
-        cmsTagExample.setLimit(rows);
-        cmsTagExample.setOrderByClause(desc ? "orders desc" : "orders asc");
+        cmsTagExample.setOffset(offset);
+        cmsTagExample.setLimit(limit);
+        cmsTagExample.setOrderByClause(sort + " " + order);
         List<CmsTag> tags = cmsTagService.selectByExample(cmsTagExample);
 
-        // 分页对象
-        long total = cmsTagService.countByExample(cmsTagExample);
-        Paginator paginator = new Paginator(total, page, rows, request);
-
-        modelMap.put("tags", tags);
-        modelMap.put("paginator", paginator);
-        return "/manage/tag/list";
+        return tags;
     }
 
     /**
@@ -95,6 +82,7 @@ public class CmsTagController extends BaseController {
     /**
      * 删除
      * @param ids
+     * @param modelMap
      * @return
      */
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
@@ -129,7 +117,6 @@ public class CmsTagController extends BaseController {
         int count = cmsTagService.updateByPrimaryKeySelective(cmsTag);
         modelMap.put("count", count);
         modelMap.put("id", id);
-        cmsTagService.updateByPrimaryKeySelective(cmsTag);
         return "redirect:/manage/tag/list";
     }
 }
