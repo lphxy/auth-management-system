@@ -1,6 +1,5 @@
-package com.wan.upms.server.controller.manage;
+package com.wan.upms.admin.controller.manage;
 
-import com.wan.upms.dao.mapper.UpmsSystemMapper;
 import com.wan.upms.dao.model.UpmsSystemExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
 import org.slf4j.Logger;

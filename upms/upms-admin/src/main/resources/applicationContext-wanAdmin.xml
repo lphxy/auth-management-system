@@ -4,6 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <!-- 启动解压admin-x.x.x.jar到resources目录 -->
-    <bean id="wanAdminUtil" class="com.wan.upms.server.util.WanAdminUtil"></bean>
+    <bean id="wanAdminUtil" class="com.wan.upms.admin.util.WanAdminUtil"></bean>
 
 </beans>

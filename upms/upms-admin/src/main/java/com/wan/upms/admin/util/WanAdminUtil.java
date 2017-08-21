@@ -1,4 +1,4 @@
-package com.wan.upms.server.util;
+package com.wan.upms.admin.util;
 
 import com.wan.common.util.JarUtil;
 import com.wan.common.util.PropertiesFileUtil;

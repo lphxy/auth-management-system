@@ -1,8 +1,7 @@
-package com.wan.upms.server.controller;
+package com.wan.upms.admin.controller;
 
 import com.wan.common.util.CookieUtil;
 import com.wan.common.util.RedisUtil;
-import com.wan.upms.dao.mapper.UpmsSystemMapper;
 import com.wan.upms.dao.model.UpmsSystemExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
 import org.apache.commons.lang.StringUtils;
