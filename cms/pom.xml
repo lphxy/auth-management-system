@@ -11,13 +11,12 @@
 
     <modules>
         <module>cms-dao</module>
-        <module>cms-service</module>
+        <module>cms-rpc-api</module>
+        <module>cms-rpc-server</module>
         <module>cms-web</module>
         <module>cms-job</module>
         <module>cms-admin</module>
         <module>cms-search</module>
-        <module>cms-rpc-api</module>
-        <module>cms-rpc-server</module>
     </modules>
 
     <properties>
@@ -40,12 +39,6 @@
             <dependency>
                 <groupId>com.wan.project</groupId>
                 <artifactId>cms-dao</artifactId>
-                <version>${project.version}</version>
-                <type>jar</type>
-            </dependency>
-            <dependency>
-                <groupId>com.wan.project</groupId>
-                <artifactId>cms-service</artifactId>
                 <version>${project.version}</version>
                 <type>jar</type>
             </dependency>
