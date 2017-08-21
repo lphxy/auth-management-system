@@ -13,7 +13,11 @@
     <dependencies>
         <dependency>
             <groupId>com.wan.project</groupId>
-            <artifactId>cms-service</artifactId>
+            <artifactId>cms-rpc-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.wan.project</groupId>
+            <artifactId>admin</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
