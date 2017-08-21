@@ -67,13 +67,20 @@
     <filter>
         <filter-name>wan-upms-client</filter-name>
         <filter-class>com.wan.upms.sso.client.filter.SSOFilter</filter-class>
+        <!-- 系统名称 -->
         <init-param>
             <param-name>system_name</param-name>
-            <param-value>wan-cms-server</param-value>
+            <param-value>wan-cms-admin</param-value>
         </init-param>
+        <!-- SSO认证中心 -->
         <init-param>
             <param-name>sso_server_url</param-name>
             <param-value>http://upms.w1992wishes.cn:1111</param-value>
+        </init-param>
+        <!-- 开发模式 -->
+        <init-param>
+            <param-name>sso_debug</param-name>
+            <param-value>true</param-value>
         </init-param>
     </filter>
     <filter-mapping>
