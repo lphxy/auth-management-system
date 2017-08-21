@@ -6,8 +6,7 @@
     <!-- 配置文件 -->
     <properties resource="jdbc.properties"></properties>
 
-    <!-- mysql驱动包 -->
-    <classPathEntry location="${classPathEntry}" />
+   
 
     <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
 
