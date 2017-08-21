@@ -1,6 +1,6 @@
 package com.wan.upms.dao;
 
-import com.wan.common.util.MybatisGeneratorConfigUtil;
+import com.wan.common.util.MybatisGeneratorUtil;
 import com.wan.common.util.PropertiesFileUtil;
 
 public class Generator {
@@ -17,7 +17,7 @@ public class Generator {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MybatisGeneratorConfigUtil.generator(JDBC_DRIVER, JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD, MODULE_PREFIX_NAME);
+		MybatisGeneratorUtil.generator(JDBC_DRIVER, JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD, MODULE_PREFIX_NAME);
 	}
 
 }

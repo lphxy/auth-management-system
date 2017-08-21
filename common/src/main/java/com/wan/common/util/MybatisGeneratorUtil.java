@@ -22,7 +22,7 @@ import java.util.Map;
  * <p>
  * Created by w1992wishes on 2017/8/18.
  */
-public class MybatisGeneratorConfigUtil {
+public class MybatisGeneratorUtil {
     // 模板路径
     private static String VM_PATH = "common/src/main/resources/generatorConfig.vm";
     // 项目名称
@@ -82,7 +82,7 @@ public class MybatisGeneratorConfigUtil {
         try {
             System.out.println("start generator ...");
             List<String> warnings = new ArrayList<>();
-            File configFile = new File(MybatisGeneratorConfigUtil.class.getResource("/generatorConfig.xml").getFile());
+            File configFile = new File(MybatisGeneratorUtil.class.getResource("/generatorConfig.xml").getFile());
             ConfigurationParser cp = new ConfigurationParser(warnings);
             Configuration config = cp.parseConfiguration(configFile);
             DefaultShellCallback callback = new DefaultShellCallback(true);

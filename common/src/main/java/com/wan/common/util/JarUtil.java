@@ -34,7 +34,7 @@ public class JarUtil {
         try {
             jf = new JarFile(fileName);
             for (Enumeration<JarEntry> e = jf.entries(); e.hasMoreElements(); ){
-                JarEntry je = (JarEntry) e.nextElement();
+                JarEntry je = e.nextElement();
                 String outFileName = outputPath + je.getName();
                 File f = new File(outFileName);
                 if (je.isDirectory()){
@@ -49,7 +49,7 @@ public class JarUtil {
                     InputStream in = jf.getInputStream(je);
                     OutputStream out = new BufferedOutputStream(new FileOutputStream(f));
                     byte[] buffer = new byte[2048];
-                    int nBytes = 0;
+                    int nBytes;
                     while ((nBytes = in.read(buffer)) > 0){
                         out.write(buffer, 0, nBytes);
                     }
@@ -59,7 +59,7 @@ public class JarUtil {
                 }
             }
         } catch (IOException e) {
-            logger.error("Decompress {} error {}", fileName, e.getMessage());
+            logger.error("Decompress {} error {}!", fileName, e.getMessage());
         }finally {
             if (jf != null){
                 try {
