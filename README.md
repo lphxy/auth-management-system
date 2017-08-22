@@ -91,3 +91,6 @@ Spring+SpringMVC+Mybatis框架集成公共模块，包括公共配置、MybatisG
 
 ## 编译顺序
 admin/common -> oss -> upms -> other
+
+## 启动顺序
+upms-rpc-service => upms-admin => xxx-rpc-service => xxx-yyy
