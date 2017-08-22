@@ -5,6 +5,7 @@ import com.wan.cms.dao.model.CmsTagExample;
 import com.wan.cms.rpc.api.CmsTagService;
 import com.wan.cms.admin.controller.BaseController;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +30,7 @@ public class CmsTagController extends BaseController {
 
     /**
      * 列表
+     *
      * @param offset
      * @param limit
      * @param sort
@@ -47,7 +49,9 @@ public class CmsTagController extends BaseController {
         CmsTagExample cmsTagExample = new CmsTagExample();
         cmsTagExample.setOffset(offset);
         cmsTagExample.setLimit(limit);
-        cmsTagExample.setOrderByClause(sort + " " + order);
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            cmsTagExample.setOrderByClause(sort + " " + order);
+        }
         List<CmsTag> tags = cmsTagService.selectByExample(cmsTagExample);
 
         return tags;
@@ -55,6 +59,7 @@ public class CmsTagController extends BaseController {
 
     /**
      * 新增get
+     *
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -64,6 +69,7 @@ public class CmsTagController extends BaseController {
 
     /**
      * 新增post
+     *
      * @param cmsTag
      * @param modelMap
      * @return
@@ -81,11 +87,12 @@ public class CmsTagController extends BaseController {
 
     /**
      * 删除
+     *
      * @param ids
      * @param modelMap
      * @return
      */
-    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = cmsTagService.deleteByPrimaryKeys(ids);
         modelMap.put("count", count);
@@ -94,6 +101,7 @@ public class CmsTagController extends BaseController {
 
     /**
      * 修改get
+     *
      * @param id
      * @param modelMap
      * @return
@@ -107,6 +115,7 @@ public class CmsTagController extends BaseController {
 
     /**
      * 修改post
+     *
      * @param id
      * @param cmsTag
      * @param modelMap
