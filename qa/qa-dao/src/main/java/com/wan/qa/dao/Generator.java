@@ -1,4 +1,4 @@
-package com.wan.pay.dao;
+package com.wan.qa.dao;
 
 import com.wan.common.util.MybatisGeneratorUtil;
 import com.wan.common.util.PropertiesFileUtil;
@@ -6,7 +6,7 @@ import com.wan.common.util.PropertiesFileUtil;
 public class Generator {
 
 	// 根据命名规范，只修改此常量值即可
-    private static String MODULE_PREFIX_NAME = "pay";
+    private static String MODULE_PREFIX_NAME = "qa";
 	private static String JDBC_DRIVER = PropertiesFileUtil.getInstance("jdbc").get("master.jdbc.driver");
 	private static String JDBC_URL = PropertiesFileUtil.getInstance("jdbc").get("master.jdbc.url");
 	private static String JDBC_USERNAME= PropertiesFileUtil.getInstance("jdbc").get("master.jdbc.username");
