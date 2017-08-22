@@ -30,7 +30,7 @@ auth-management-system
 |       ├── pay-sdk -- pay 开发工具包
 |       ├── pay-admin pay后台管理[端口:3331]
 |       └── pay-web -- pay网站前台[端口:3332]
-├── ucenter -- 用户中心系统
+├── ucenter -- 用户系统(包括第三方登录)
 |       ├── ucenter-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── ucenter-service -- 业务逻辑
 |       └── ucenter-home ucenter前台[端口:4441]

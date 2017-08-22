@@ -10,7 +10,7 @@ img {
     vertical-align: middle;
 }
 
-a, a:hover, a:active, a:focus { /*color: #29a176;*/
+a, a:hover, a:active, a:focus {
     text-decoration: none;
     -webkit-user-drag: none;
 }
