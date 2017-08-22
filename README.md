@@ -9,7 +9,7 @@ auth-management-system
 ├── common -- 公共模块
 ├── datamodel -- sql脚本等存放
 ├── upms -- User Permissions Management System -- 通用用户权限管理系统
-|       ├── upms-dao -- 数据库MyBatisGenerator操作
+|       ├── upms-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── upms-rpc-api -- rpc接口包
 |       ├── upms-rpc-service -- rpc服务提供者[端口:1112]
 |       ├── upms-sso-client -- SSO客户端依赖包
@@ -17,8 +17,7 @@ auth-management-system
 |       ├── upms-app2 -- SSO登录客户端2[端口:1114]
 |       └── upms-server -- 系统及SSO服务端[端口:1111]
 ├── cms -- 内容管理系统
-|       ├── cms-dao -- 数据库MyBatisGenerator操作
-|       ├── cms-service -- 业务逻辑
+|       ├── cms-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── cms-rpc-api -- rpc接口包
 |       ├── cms-rpc-service -- rpc服务提供者[端口:2225]
 |       ├── cms-search 搜索服务[端口:2221]
@@ -26,13 +25,13 @@ auth-management-system
 |       ├── cms-admin CMS后台管理[端口:2222]
 |       └── cms-web -- CMS网站前台[端口:2224]
 ├── pay -- 支付系统
-|       ├── pay-dao -- 数据库MyBatisGenerator操作
+|       ├── pay-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── pay-service -- 业务逻辑
 |       ├── pay-sdk -- pay 开发工具包
 |       ├── pay-admin pay后台管理[端口:3331]
 |       └── pay-web -- pay网站前台[端口:3332]
 ├── ucenter -- 用户中心系统
-|       ├── ucenter-dao -- 数据库MyBatisGenerator操作
+|       ├── ucenter-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── ucenter-service -- 业务逻辑
 |       └── ucenter-home ucenter前台[端口:4441]
 ├── wechat -- 微信
@@ -41,9 +40,20 @@ auth-management-system
 |       ├── oss-sdk -- OSS上传下载管理凭证等
 |       └──oss-web -- OSS在线管理项目[端口:7771]
 ├── qa -- 问答系统
-|       ├── qa-dao -- DAO层
+|       ├── qa-dao -- MyBatisGenerator代码生成模块，无需开发
 |       └── qa-service -- service层
 ```
+
+## 模块介绍
+>common 
+Spring+SpringMVC+Mybatis框架集成公共模块，包括公共配置、MybatisGenerator扩展插件、通用BaseService、工具类等。
+>admin
+项目所有系统都是使用该模块界面作为前端展示。
+>upms
+本系统是基于RBAC授权和基于用户授权的细粒度权限控制通用平台，并提供单点登录、会话管理和日志管理。接入的系统可自由定义组织、角色、权限、资源等。
+>cms
+内容管理系统：支持多标签、多类目、强大评论的内容管理，有基本单页展示，菜单管理，系统设置等功能。
+
 ### 技术选择
 ### 基础构建
 | 技术 | 作用 |
@@ -78,3 +88,6 @@ auth-management-system
 * 127.0.0.1 wechat.w1992wishes.cn
 * 127.0.0.1 api.w1992wishes.cn
 * 127.0.0.1 oss.w1992wishes.cn
+
+## 编译顺序
+admin/common -> oss -> upms -> other
