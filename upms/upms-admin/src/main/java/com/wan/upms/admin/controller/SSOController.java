@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +18,8 @@ import redis.clients.jedis.Jedis;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -108,17 +111,27 @@ public class SSOController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpServletResponse response) {
+    @ResponseBody
+    public Object login(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
         String backurl = request.getParameter("backurl");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
+        Map result = new HashMap<>();
+        String data = "";
         if (StringUtils.isEmpty(username)) {
+            data = "帐号不能为空！";
             logger.info("帐号不能为空！");
-            return "/404";
+            result.put("result", false);
+            result.put("data", data);
+            return result;
         }
         if (StringUtils.isEmpty(password)) {
+            data = "密码不能为空！";
             logger.info("密码不能为空！");
-            return "/404";
+            result.put("result", false);
+            result.put("data", data);
+            return result;
         }
         //分配单点登录sessionId，不使用session获取会话id,改为cookie，防止session丢失
         String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
@@ -141,7 +154,9 @@ public class SSOController {
             redirectUrl += "?token=" + token;
         }
         logger.info("认证中心帐号通过，带token回跳：{}", redirectUrl);
-        return "redirect:" + redirectUrl;
+        result.put("result", true);
+        result.put("data", redirectUrl);
+        return result;
     }
 
     /**
