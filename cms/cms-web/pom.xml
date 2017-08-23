@@ -12,12 +12,15 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
-        <!-- 测试 -->
+        <dependency>
+            <groupId>com.wan.project</groupId>
+            <artifactId>cms-rpc-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-        <!-- servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -25,11 +28,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-        </dependency>
-        <!-- service -->
-        <dependency>
-            <groupId>com.wan.project</groupId>
-            <artifactId>cms-rpc-api</artifactId>
         </dependency>
         <!-- tbschedule -->
         <dependency>
@@ -45,10 +43,6 @@
             <groupId>com.alibaba.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
             <version>3.6.2.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wan.project</groupId>
-            <artifactId>upms-sso-client</artifactId>
         </dependency>
     </dependencies>
 

@@ -18,6 +18,6 @@ CREATE TABLE `upms_system` (
 -- ----------------------------
 -- Records of upms_system
 -- ----------------------------
-INSERT INTO `upms_system` VALUES ('1', null, 'http://upms.w1992wishes.cn:1113', '1', 'upms-app1', '1', '1');
-INSERT INTO `upms_system` VALUES ('2', null, 'http://upms.w1992wishes.cn:1114', '1', 'upms-app2', '2', '2');
-INSERT INTO `upms_system` VALUES ('3', null, 'http://cms.w1992wishes.cn:2222', '1', 'cms-admin', '3', '3');
+INSERT INTO `upms_system` VALUES ('1', null, 'http://upms.w1992wishes.cn:1113', '1', 'wan-upms-app1', '1', '1');
+INSERT INTO `upms_system` VALUES ('2', null, 'http://upms.w1992wishes.cn:1114', '1', 'wan-upms-app2', '2', '2');
+INSERT INTO `upms_system` VALUES ('3', null, 'http://cms.w1992wishes.cn:2222', '1', 'wan-cms-admin', '3', '3');

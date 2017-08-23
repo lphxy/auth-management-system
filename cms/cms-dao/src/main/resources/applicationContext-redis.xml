@@ -10,7 +10,16 @@
            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 引入jdbc配置文件 -->
-    <context:property-placeholder location="classpath:redis.properties"/>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+        <!-- 当存在两个PropertyPlaceholderConfigurer时，这个配置告诉spring，当某个placeholder无法找到时，先不要报错，并尝试用另一个PropertyPlaceholderConfigurer来设置placeholder的值-->
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>
+<!--    <context:property-placeholder location="classpath:redis.properties"/>-->
 
     <!-- Jedis ConnectionFactory -->
     <bean

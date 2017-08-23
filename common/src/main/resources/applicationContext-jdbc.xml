@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 引入jdbc配置文件 -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties" />
 
     <!-- 主库数据源 -->
     <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"

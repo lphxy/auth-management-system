@@ -18,6 +18,11 @@
           rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/css/login.css" rel="stylesheet"/>
+    <style>
+        body:before{
+            background-color: #83a3ad;
+        }
+    </style>
 </head>
 <body>
 <div id="login-window">
