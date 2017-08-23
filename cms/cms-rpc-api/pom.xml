@@ -16,7 +16,6 @@
         <dependency>
             <groupId>com.wan.project</groupId>
             <artifactId>cms-dao</artifactId>
-            <type>jar</type>
         </dependency>
     </dependencies>
 

@@ -5,15 +5,8 @@ import com.wan.upms.dao.mapper.UpmsSystemMapper;
 import com.wan.upms.dao.model.UpmsSystem;
 import com.wan.upms.dao.model.UpmsSystemExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
-import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Param;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * 实现
@@ -23,10 +16,4 @@ import java.util.List;
 @Service
 @Transactional
 public class UpmsSystemServiceImpl extends BaseServiceImpl<UpmsSystemMapper, UpmsSystem, UpmsSystemExample> implements UpmsSystemService {
-
-    private Logger logger = LoggerFactory.getLogger(UpmsSystemServiceImpl.class);
-
-    @Autowired
-    UpmsSystemMapper upmsSystemMapper;
-
 }

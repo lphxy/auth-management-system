@@ -8,7 +8,7 @@
     <!-- 连接工厂 -->
     <bean id="activeMqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
         <property name="useAsyncSend" value="true"/>
-        <property name="brokerURL" value="${AvtiveMQ.brokerURL}"/>
+        <property name="brokerURL" value="${ActiveMQ.brokerURL}"/>
     </bean>
 
     <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">

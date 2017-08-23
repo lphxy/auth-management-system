@@ -18,13 +18,15 @@
     </properties>
 
     <modules>
+        <module>admin</module>
+        <module>common</module>
         <module>oss</module>
-        <module>qa</module>
         <module>upms</module>
+        <module>cms</module>
         <module>pay</module>
         <module>ucenter</module>
         <module>wechat</module>
-        <module>admin</module>
+        <module>qa</module>
     </modules>
 
     <build>
