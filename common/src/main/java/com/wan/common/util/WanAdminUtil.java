@@ -1,7 +1,5 @@
-package com.wan.cms.admin.util;
+package com.wan.common.util;
 
-import com.wan.common.util.JarUtil;
-import com.wan.common.util.PropertiesFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
