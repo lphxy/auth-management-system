@@ -5,6 +5,8 @@ import com.wan.cms.dao.model.CmsCategoryExample;
 import com.wan.cms.rpc.api.CmsCategoryService;
 import com.wan.cms.admin.controller.BaseController;
 import com.wan.common.util.Paginator;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,6 +45,7 @@ public class CmsCategoryController extends BaseController {
      * @param modelMap
      * @return
      */
+    @ApiOperation(value = "类目列表", notes = "获取类目列表并分页")
     @RequestMapping("/list")
     public String list(
             @RequestParam(required = false, defaultValue = "1", value = "page") int page,
@@ -81,6 +84,8 @@ public class CmsCategoryController extends BaseController {
      * @param modelMap
      * @return
      */
+    @ApiOperation(value = "创建类目", notes = "根据CmsCategory对象创建类目")
+    @ApiImplicitParam(name = "cmsCategory", value = "类目实体cmsCategory", required = true, dataType = "CmsCategory")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(CmsCategory cmsCategory, ModelMap modelMap) {
         long time = System.currentTimeMillis();
