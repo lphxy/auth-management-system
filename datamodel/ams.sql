@@ -474,6 +474,15 @@ create table upms_user
 (
    user_id              int(10) unsigned not null auto_increment,
    system_id            int(10) unsigned not null,
+   username             varchar(20) not null,
+   password             varchar(32) not null,
+   salt                 varchar(32),
+   realname             varchar(20),
+   avatar               varchar(50),
+   phone                varchar(20),
+   email                varchar(50),
+   sex                  tinyint(4),
+   ctime                bigint(20),
    primary key (user_id)
 );
 

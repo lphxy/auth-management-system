@@ -13,7 +13,7 @@ CREATE TABLE `upms_system` (
   `ctime` bigint(20) DEFAULT NULL,
   `orders` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`system_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='系统';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='系统';
 
 -- ----------------------------
 -- Records of upms_system
