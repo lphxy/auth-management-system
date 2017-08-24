@@ -3,7 +3,9 @@ package com.wan.upms.admin.controller;
 import com.wan.common.util.CookieUtil;
 import com.wan.common.util.RedisUtil;
 import com.wan.upms.dao.model.UpmsSystemExample;
+import com.wan.upms.dao.model.UpmsUserExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
+import com.wan.upms.rpc.api.UpmsUserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,8 @@ public class SSOController {
 
     @Autowired
     private UpmsSystemService upmsSystemService;
+    @Autowired
+    private UpmsUserService upmsUserService;
 
     private final static Logger logger = LoggerFactory.getLogger(SSOController.class);
     private final static int TIMEOUT = 2 * 60 * 60;
@@ -133,6 +137,18 @@ public class SSOController {
             result.put("data", data);
             return result;
         }
+
+        // 校验帐号密码
+        UpmsUserExample upmsUserExample = new UpmsUserExample();
+        upmsUserExample.createCriteria()
+                .andUsernameEqualTo(username)
+                .andPasswordEqualTo(password);
+        int count = upmsUserService.countByExample(upmsUserExample);
+        if (count > 0) {
+
+        }
+
+
         //分配单点登录sessionId，不使用session获取会话id,改为cookie，防止session丢失
         String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
         if (StringUtils.isEmpty(sessionId)){
