@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by w1992wishes on 2017/8/12.
  */
 @Controller
-@RequestMapping("/system")
+@RequestMapping("/manage/system")
 public class SystemController {
 
     private static Logger logger = LoggerFactory.getLogger(SystemController.class);
@@ -23,7 +23,7 @@ public class SystemController {
 
     @RequestMapping("/index")
     public String index() {
-        return "/system/index";
+        return "/manage/system/index";
     }
 
     @RequestMapping("/list")

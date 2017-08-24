@@ -124,6 +124,21 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
     }
 
     @Override
+    public Record selectFirstByExample(Example example) {
+        try {
+            DynamicDataSource.setDataSource(DataSourceEnum.SLAVE);
+            Method selectByExample = mapper.getClass().getDeclaredMethod("selectByExample", example.getClass());
+            List<Record> result = (List<Record>) selectByExample.invoke(mapper, example);
+            if (null != result && result.size() > 0) {
+                return result.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public int updateByExampleSelective(@Param("record") Record record, @Param("example") Example example) {
         try {
             DynamicDataSource.setDataSource(DataSourceEnum.MASTER);

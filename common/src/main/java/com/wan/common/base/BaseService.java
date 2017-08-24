@@ -22,6 +22,8 @@ public interface BaseService<Record, Example> {
 
 	Record selectByPrimaryKey(Integer id);
 
+	Record selectFirstByExample(Example example);
+
 	int updateByExampleSelective(@Param("record") Record record, @Param("example") Example example);
 
 	int updateByExampleWithBLOBs(@Param("record") Record record, @Param("example") Example example);
