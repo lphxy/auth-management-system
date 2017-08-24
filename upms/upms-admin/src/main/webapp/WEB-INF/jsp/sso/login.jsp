@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE HTML>
 <html lang="zh-cn">
@@ -14,15 +14,9 @@
     <title>登录页</title>
 
     <link href="${basePath}/resources/admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css"
-          rel="stylesheet"/>
+    <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/css/login.css" rel="stylesheet"/>
-    <style>
-        body:before{
-            background-color: #83a3ad;
-        }
-    </style>
 </head>
 <body>
 <div id="login-window">
@@ -47,8 +41,7 @@
             自动登录
         </label>
     </div>
-    <a id="login-bt" href="javascript:;" class="waves-effect waves-button waves-float"><i
-            class="zmdi zmdi-arrow-forward"></i></a>
+    <a id="login-bt" href="javascript:;" class="waves-effect waves-button waves-float"><i class="zmdi zmdi-arrow-forward"></i></a>
 </div>
 <script src="${basePath}/resources/admin/plugins/jquery.1.12.4.min.js"></script>
 <script src="${basePath}/resources/admin/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
@@ -56,29 +49,53 @@
 
 <script src="${basePath}/resources/admin/js/login.js"></script>
 <script>
-    $(function () {
-        $('#login-bt').click(function () {
-            $.ajax({
-                url: '${basePath}/sso/login',
-                type: 'POST',
-                data: {
-                    username: $('#username').val(),
-                    password: $('#password').val(),
-                    backurl: '${param.backurl}'
-                },
-                success: function (json) {
-                    if (json.result) {
-                        location.href = json.data;
-                    } else {
-                        alert(json.data);
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+    $(function() {
+        // 点击登录按钮
+        $('#login-bt').click(function() {
+            login();
+        });
+        // 回车事件
+        $('#username, #password').keypress(function (event) {
+            if (13 == event.keyCode) {
+                login();
+            }
         });
     });
+    // 登录
+    function login() {
+        $.ajax({
+            url: '${basePath}/sso/login',
+            type: 'POST',
+            data: {
+                username: $('#username').val(),
+                password: $('#password').val(),
+                backurl: '${param.backurl}'
+            },
+            success: function(json){
+                if (json.result) {
+                    location.href = json.data;
+                } else {
+                    if (10001 == json.data) {
+                        alert("帐号不能为空！");
+                        $('#username').focus();
+                    }
+                    if (10002 == json.data) {
+                        alert("密码不能为空！");
+                        $('#password').focus();
+                    }
+                    if (10004 == json.data) {
+                        alert("该帐号不存在！");
+                    }
+                    if (10005 == json.data) {
+                        alert("密码错误！");
+                    }
+                }
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    }
 </script>
 </body>
 </html>

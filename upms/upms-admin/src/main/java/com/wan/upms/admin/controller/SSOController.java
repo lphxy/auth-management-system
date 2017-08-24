@@ -1,8 +1,11 @@
 package com.wan.upms.admin.controller;
 
 import com.wan.common.util.CookieUtil;
+import com.wan.common.util.MD5Util;
 import com.wan.common.util.RedisUtil;
+import com.wan.upms.admin.controller.util.SystemConstant;
 import com.wan.upms.dao.model.UpmsSystemExample;
+import com.wan.upms.dao.model.UpmsUser;
 import com.wan.upms.dao.model.UpmsUserExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
 import com.wan.upms.rpc.api.UpmsUserService;
@@ -124,30 +127,31 @@ public class SSOController {
         Map result = new HashMap<>();
         String data = "";
         if (StringUtils.isEmpty(username)) {
-            data = "帐号不能为空！";
-            logger.info("帐号不能为空！");
             result.put("result", false);
-            result.put("data", data);
+            result.put("data", SystemConstant.NO_USERNAME);
             return result;
         }
         if (StringUtils.isEmpty(password)) {
-            data = "密码不能为空！";
-            logger.info("密码不能为空！");
             result.put("result", false);
-            result.put("data", data);
+            result.put("data", SystemConstant.NO_PASSWORD);
             return result;
         }
 
         // 校验帐号密码
         UpmsUserExample upmsUserExample = new UpmsUserExample();
         upmsUserExample.createCriteria()
-                .andUsernameEqualTo(username)
-                .andPasswordEqualTo(password);
-        int count = upmsUserService.countByExample(upmsUserExample);
-        if (count > 0) {
-
+                .andUsernameEqualTo(username);
+        UpmsUser upmsUser = upmsUserService.selectFirstByExample(upmsUserExample);
+        if (null == upmsUser) {
+            result.put("result", false);
+            result.put("data", SystemConstant.ERROR_USERNAME);
+            return result;
         }
-
+        if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {
+            result.put("result", false);
+            result.put("data", SystemConstant.ERROR_PASSWORD);
+            return result;
+        }
 
         //分配单点登录sessionId，不使用session获取会话id,改为cookie，防止session丢失
         String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
