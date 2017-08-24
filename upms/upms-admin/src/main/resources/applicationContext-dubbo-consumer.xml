@@ -11,6 +11,10 @@
 
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 
+    <!-- 订阅服务 -->
+    <!-- 系统 -->
     <dubbo:reference id="upmsSystemService" interface="com.wan.upms.rpc.api.UpmsSystemService" />
+    <!-- 用户 -->
+    <dubbo:reference id="upmsUserService" interface="com.wan.upms.rpc.api.UpmsUserService" />
 
 </beans>
