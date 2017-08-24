@@ -85,7 +85,7 @@
     </filter>
     <filter-mapping>
         <filter-name>wan-upms-client</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/manage/*</url-pattern>
     </filter-mapping>
 
     <!-- Druid连接池监控页面 -->
