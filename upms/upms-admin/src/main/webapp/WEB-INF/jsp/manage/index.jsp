@@ -18,6 +18,7 @@
     <link href="${basePath}/resources/admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/css/admin.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/admin/plugins/fullPage/jquery.fullPage.css" rel="stylesheet"/>
 </head>
 <body>
 <header id="header">
@@ -81,7 +82,7 @@
                     </a>
                     <ul class="dropdown-menu dm-icon pull-right">
                         <li class="hidden-xs">
-                            <a class="waves-effect" data-ma-action="fullscreen" href="javascript:;"><i class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
+                            <a class="waves-effect" data-ma-action="fullscreen" href="javascript:fullPage();"><i class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
                         </li>
                         <li>
                             <a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:;"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
@@ -221,5 +222,7 @@
 <script src="${basePath}/resources/admin/plugins/device.min.js"></script>
 
 <script src="${basePath}/resources/admin/js/admin.js"></script>
+<script src="${basePath}/resources/admin/plugins/fullPage/jquery.fullPage.js"></script>
+<script src="${basePath}/resources/admin/plugins/fullPage/jquery.jdirk.min.js"></script>
 </body>
 </html>
