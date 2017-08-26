@@ -10,6 +10,12 @@ import com.wan.upms.dao.model.UpmsUserExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
 import com.wan.upms.rpc.api.UpmsUserService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,18 +144,36 @@ public class SSOController {
         }
 
         // 校验帐号密码
-        UpmsUserExample upmsUserExample = new UpmsUserExample();
-        upmsUserExample.createCriteria()
-                .andUsernameEqualTo(username);
-        UpmsUser upmsUser = upmsUserService.selectFirstByExample(upmsUserExample);
-        if (null == upmsUser) {
+//        UpmsUserExample upmsUserExample = new UpmsUserExample();
+//        upmsUserExample.createCriteria()
+//                .andUsernameEqualTo(username);
+//        UpmsUser upmsUser = upmsUserService.selectFirstByExample(upmsUserExample);
+//        if (null == upmsUser) {
+//            result.put("result", false);
+//            result.put("data", SystemConstant.ERROR_USERNAME);
+//            return result;
+//        }
+//        if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {
+//            result.put("result", false);
+//            result.put("data", SystemConstant.ERROR_PASSWORD);
+//            return result;
+//        }
+        // 使用shiro认证
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
+        try {
+            subject.login(usernamePasswordToken);
+        } catch (UnknownAccountException e) {
             result.put("result", false);
             result.put("data", SystemConstant.ERROR_USERNAME);
             return result;
-        }
-        if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {
+        } catch (IncorrectCredentialsException e) {
             result.put("result", false);
             result.put("data", SystemConstant.ERROR_PASSWORD);
+            return result;
+        } catch (LockedAccountException e) {
+            result.put("result", false);
+            result.put("data", SystemConstant.INVALID_ACCOUNT);
             return result;
         }
 
