@@ -1,4 +1,4 @@
-package com.wan.upms.admin.controller.util;
+package com.wan.upms.admin.util;
 
 public class SystemConstant {
 

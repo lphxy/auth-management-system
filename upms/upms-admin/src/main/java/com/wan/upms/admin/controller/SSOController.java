@@ -3,7 +3,7 @@ package com.wan.upms.admin.controller;
 import com.wan.common.util.CookieUtil;
 import com.wan.common.util.MD5Util;
 import com.wan.common.util.RedisUtil;
-import com.wan.upms.admin.controller.util.SystemConstant;
+import com.wan.upms.admin.util.SystemConstant;
 import com.wan.upms.dao.model.UpmsSystemExample;
 import com.wan.upms.dao.model.UpmsUser;
 import com.wan.upms.dao.model.UpmsUserExample;

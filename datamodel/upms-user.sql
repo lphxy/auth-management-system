@@ -22,4 +22,4 @@ CREATE TABLE `upms_user` (
 -- ----------------------------
 -- Records of upms_user
 -- ----------------------------
-INSERT INTO `upms_user` VALUES ('1', '1', 'admin', '5E9167785DCF89329449EEFF9054099A', '827CCB0EEA8A706C4C34A16891F84E7B', '管理员', null, null, null, '1', '1');
+INSERT INTO `upms_user` VALUES ('1', '1', 'admin', '3038D9CB63B3152A79B8153FB06C02F7', '66f1b370c660445a8657bf8bf1794486', '管理员', null, null, null, '1', '1');
