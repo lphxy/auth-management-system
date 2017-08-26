@@ -5,6 +5,8 @@ import com.wan.cms.dao.model.CmsCommentExample;
 import com.wan.cms.rpc.api.CmsCommentService;
 import com.wan.cms.admin.controller.BaseController;
 import com.wan.common.util.Paginator;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/manage/comment")
+@Api(value = "评论控制器")
 public class CmsCommentController extends BaseController {
     @Autowired
     private CmsCommentService cmsCommentService;
@@ -43,7 +46,8 @@ public class CmsCommentController extends BaseController {
      * @param modelMap
      * @return
      */
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ApiOperation(value = "评论列表", notes = "获取评论列表并分页")
     public String list(
             @RequestParam(required = false, defaultValue = "1", value = "page") int page,
             @RequestParam(required = false, defaultValue = "20", value = "rows") int rows,
@@ -70,6 +74,7 @@ public class CmsCommentController extends BaseController {
      * 新增get
      * @return
      */
+    @ApiOperation(value = "新增评论", notes = "新增评论页")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add() {
         return "/manage/comment/add";
@@ -81,6 +86,7 @@ public class CmsCommentController extends BaseController {
      * @param modelMap
      * @return
      */
+    @ApiOperation(value = "新增评论", notes = "新增评论提交接口")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(CmsComment cmsComment, ModelMap modelMap) {
         cmsComment.setCtime(System.currentTimeMillis());
@@ -95,6 +101,7 @@ public class CmsCommentController extends BaseController {
      * @param ids
      * @return
      */
+    @ApiOperation(value = "删除评论", notes = "批量删除评论")
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = cmsCommentService.deleteByPrimaryKeys(ids);
@@ -108,6 +115,7 @@ public class CmsCommentController extends BaseController {
      * @param modelMap
      * @return
      */
+    @ApiOperation(value = "修改评论", notes = "根据id修改评论页")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         CmsComment comment = cmsCommentService.selectByPrimaryKey(id);
@@ -122,6 +130,7 @@ public class CmsCommentController extends BaseController {
      * @param modelMap
      * @return
      */
+    @ApiOperation(value = "修改评论", notes = "根据id修改评论提交接口")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") int id, CmsComment cmsComment, ModelMap modelMap) {
         cmsCommentService.updateByPrimaryKeySelective(cmsComment);
