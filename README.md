@@ -11,15 +11,13 @@ auth-management-system
 ├── upms -- User Permissions Management System -- 通用用户权限管理系统
 |       ├── upms-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── upms-rpc-api -- rpc接口包
-|       ├── upms-rpc-service -- rpc服务提供者[端口:1112]
+|       ├── upms-rpc-service -- rpc服务提供者
 |       ├── upms-sso-client -- SSO客户端依赖包
-|       ├── upms-app1 -- SSO登录客户端2[端口:1113]
-|       ├── upms-app2 -- SSO登录客户端2[端口:1114]
 |       └── upms-server -- 系统及SSO服务端[端口:1111]
 ├── cms -- 内容管理系统
 |       ├── cms-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── cms-rpc-api -- rpc接口包
-|       ├── cms-rpc-service -- rpc服务提供者[端口:2225]
+|       ├── cms-rpc-service -- rpc服务提供者
 |       ├── cms-search 搜索服务[端口:2221]
 |       ├── cms-job  -- 消息队列、任务调度等[端口:2223]
 |       ├── cms-admin CMS后台管理[端口:2222]

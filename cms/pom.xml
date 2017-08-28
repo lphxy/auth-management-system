@@ -12,7 +12,7 @@
     <modules>
         <module>cms-dao</module>
         <module>cms-rpc-api</module>
-        <module>cms-rpc-server</module>
+        <module>cms-rpc-service</module>
         <module>cms-web</module>
         <module>cms-job</module>
         <module>cms-admin</module>
