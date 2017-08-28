@@ -9,9 +9,9 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title><spring:message code="404"/></title>
+    <title><spring:message code="403"/></title>
 </head>
 <body>
-404
+403
 </body>
 </html>
