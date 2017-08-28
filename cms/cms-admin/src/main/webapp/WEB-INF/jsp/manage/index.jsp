@@ -16,6 +16,6 @@
     <li><a href="${basePath}/manage/article/list">文章管理</a></li>
     <li><a href="${basePath}/manage/comment/list">评论管理</a></li>
 </ul>
-<p>以后菜单会移到upms中，并加以权限控制。以后统一通过upms登录并访问。<a href='http://upms.zhangshuzheng.cn:1111/sso/logout'>退出登录</a></p>
+<p>以后菜单会移到upms中，并加以权限控制。以后统一通过upms登录并访问。<a href='http://upms.w1992wshes.cn:1111/sso/logout'>退出登录</a></p>
 </body>
 </html>
