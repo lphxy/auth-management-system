@@ -69,7 +69,7 @@ public class DESUtil {
 
     public static void main(String[] args) {
         String[] keys = {
-                "", "123456"
+                "", "abc123"
         };
         System.out.println("key | encryptString | decryptString");
         for (String key : keys) {
