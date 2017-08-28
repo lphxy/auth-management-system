@@ -1,12 +1,9 @@
 package com.wan.upms.admin.controller;
 
 import com.wan.common.util.CookieUtil;
-import com.wan.common.util.MD5Util;
 import com.wan.common.util.RedisUtil;
 import com.wan.upms.admin.util.SystemConstant;
 import com.wan.upms.dao.model.UpmsSystemExample;
-import com.wan.upms.dao.model.UpmsUser;
-import com.wan.upms.dao.model.UpmsUserExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
 import com.wan.upms.rpc.api.UpmsUserService;
 import org.apache.commons.lang.StringUtils;
@@ -162,6 +159,7 @@ public class SSOController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
         try {
+            usernamePasswordToken.setRememberMe(false);
             subject.login(usernamePasswordToken);
         } catch (UnknownAccountException e) {
             result.put("result", false);
