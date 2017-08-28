@@ -13,9 +13,4 @@ public class ManageController {
     public String index(){
         return "/manage/index";
     }
-
-    @RequestMapping("/login")
-    public String login(){
-        return "/manage/login";
-    }
 }
