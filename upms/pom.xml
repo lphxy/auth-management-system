@@ -15,8 +15,6 @@
         <module>upms-rpc-service</module>
         <module>upms-sso-client</module>
         <module>upms-admin</module>
-        <module>upms-app1</module>
-        <module>upms-app2</module>
     </modules>
 
     <dependencies>
