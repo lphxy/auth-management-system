@@ -3,10 +3,12 @@ package com.wan.cms.admin.controller.manage;
 import com.wan.cms.dao.model.CmsComment;
 import com.wan.cms.dao.model.CmsCommentExample;
 import com.wan.cms.rpc.api.CmsCommentService;
-import com.wan.cms.admin.controller.BaseController;
+import com.wan.common.base.BaseController;
 import com.wan.common.util.Paginator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,8 +25,11 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/manage/comment")
-@Api(value = "评论控制器")
+@Api(value = "评论控制器", description = "评论管理")
 public class CmsCommentController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CmsCommentController.class);
+
     @Autowired
     private CmsCommentService cmsCommentService;
 
@@ -92,7 +97,7 @@ public class CmsCommentController extends BaseController {
         cmsComment.setCtime(System.currentTimeMillis());
         int count = cmsCommentService.insertSelective(cmsComment);
         modelMap.put("count", count);
-        logger.info("新增记录id为：{}", cmsComment.getArticleId());
+        LOGGER.info("新增记录id为：{}", cmsComment.getArticleId());
         return "redirect:/manage/comment/list";
     }
 

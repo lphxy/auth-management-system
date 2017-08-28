@@ -3,10 +3,12 @@ package com.wan.cms.admin.controller.manage;
 import com.wan.cms.dao.model.CmsArticle;
 import com.wan.cms.dao.model.CmsArticleExample;
 import com.wan.cms.rpc.api.CmsArticleService;
-import com.wan.cms.admin.controller.BaseController;
+import com.wan.common.base.BaseController;
 import com.wan.common.util.Paginator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,10 +23,13 @@ import java.util.List;
 /**
  * Created by w1992wishes on 2017/7/15.
  */
-@Api(value = "文章控制器")
 @Controller
 @RequestMapping("/manage/article")
+@Api(value = "文章控制器", description = "文章管理")
 public class CmsArticleController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CmsArticleController.class);
+
     @Autowired
     private CmsArticleService cmsArticleService;
 
@@ -94,7 +99,7 @@ public class CmsArticleController extends BaseController {
         cmsArticle.setOrders(time);
         int count = cmsArticleService.insertSelective(cmsArticle);
         modelMap.put("count", count);
-        logger.info("新增记录id为：{}", cmsArticle.getArticleId());
+        LOGGER.info("新增记录id为：{}", cmsArticle.getArticleId());
         return "redirect:/manage/article/list";
     }
 

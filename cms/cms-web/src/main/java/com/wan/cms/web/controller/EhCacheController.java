@@ -1,7 +1,10 @@
 package com.wan.cms.web.controller;
 
+import com.wan.common.base.BaseController;
 import com.wan.common.util.EhCacheUtil;
 import com.wan.common.util.PropertiesFileUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/ehcache")
 public class EhCacheController extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EhCacheController.class);
+
     //cache name
     private final static String CACHE_NAME = PropertiesFileUtil.getInstance().get("ehcache");
 
@@ -41,7 +46,7 @@ public class EhCacheController extends BaseController {
         String key = request.getParameter("key");
         Object object = EhCacheUtil.get(CACHE_NAME, key);
         if (null == object){
-            logger.debug("【Ehcache】没有找到key={}的记录！", key);
+            LOGGER.debug("【Ehcache】没有找到key={}的记录！", key);
             return FAILED;
         }
         return object;

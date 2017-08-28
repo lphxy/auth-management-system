@@ -3,11 +3,13 @@ package com.wan.cms.admin.controller.manage;
 import com.wan.cms.dao.model.CmsTag;
 import com.wan.cms.dao.model.CmsTagExample;
 import com.wan.cms.rpc.api.CmsTagService;
-import com.wan.cms.admin.controller.BaseController;
 
+import com.wan.common.base.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,10 +20,12 @@ import java.util.List;
 /**
  * Created by w1992wishes on 2017/7/15.
  */
-@Api(value = "标签控制器")
 @Controller
 @RequestMapping("/manage/tag")
+@Api(value = "标签控制器", description = "标签管理")
 public class CmsTagController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CmsTagController.class);
 
     @Autowired
     private CmsTagService cmsTagService;
@@ -88,7 +92,7 @@ public class CmsTagController extends BaseController {
         cmsTag.setOrders(time);
         int count = cmsTagService.insertSelective(cmsTag);
         modelMap.put("count", count);
-        logger.info("新增记录id为：{}", cmsTag.getTagId());
+        LOGGER.info("新增记录id为：{}", cmsTag.getTagId());
         return "redirect:/manage/tag/list";
     }
 

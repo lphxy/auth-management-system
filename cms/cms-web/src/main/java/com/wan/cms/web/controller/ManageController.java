@@ -1,5 +1,8 @@
 package com.wan.cms.web.controller;
 
+import com.wan.common.base.BaseController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("manage")
 public class ManageController extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManageController.class);
 
     @RequestMapping(value = {"", "/index"})
     public String index() {

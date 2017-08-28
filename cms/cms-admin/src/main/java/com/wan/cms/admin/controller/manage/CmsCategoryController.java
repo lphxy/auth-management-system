@@ -3,11 +3,13 @@ package com.wan.cms.admin.controller.manage;
 import com.wan.cms.dao.model.CmsCategory;
 import com.wan.cms.dao.model.CmsCategoryExample;
 import com.wan.cms.rpc.api.CmsCategoryService;
-import com.wan.cms.admin.controller.BaseController;
+import com.wan.common.base.BaseController;
 import com.wan.common.util.Paginator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,8 +26,11 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/manage/category")
-@Api(value = "类目控制器")
+@Api(value = "类目控制器", description = "类目管理")
 public class CmsCategoryController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CmsCategoryController.class);
+
     @Autowired
     private CmsCategoryService cmsCategoryService;
 
@@ -96,7 +101,7 @@ public class CmsCategoryController extends BaseController {
         cmsCategory.setOrders(time);
         int count = cmsCategoryService.insertSelective(cmsCategory);
         modelMap.put("count", count);
-        logger.info("新增记录id为：{}", cmsCategory.getCategoryId());
+        LOGGER.info("新增记录id为：{}", cmsCategory.getCategoryId());
         return "redirect:/manage/category/list";
     }
 

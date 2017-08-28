@@ -1,8 +1,11 @@
 package com.wan.cms.web.controller;
 
 import com.wan.cms.dao.model.CmsUser;
+import com.wan.common.base.BaseController;
 import com.wan.common.util.JmsUtil;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import javax.jms.Destination;
 @Controller
 @RequestMapping("/activemq")
 public class ActiveMQController extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQController.class);
 
     @Autowired
     JmsTemplate jmsQueueTemplate;
@@ -35,7 +39,7 @@ public class ActiveMQController extends BaseController {
             user.setUserId(i);
             JmsUtil.sendMessage(jmsQueueTemplate, defaultQueueDestination, JSONObject.fromObject(user).toString());
         }
-        logger.info("发送消息消耗时间" + (System.currentTimeMillis() - start));
+        LOGGER.info("发送消息消耗时间" + (System.currentTimeMillis() - start));
         return "success";
     }
 

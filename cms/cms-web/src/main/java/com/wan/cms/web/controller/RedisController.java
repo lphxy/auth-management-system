@@ -1,5 +1,6 @@
 package com.wan.cms.web.controller;
 
+import com.wan.common.base.BaseController;
 import com.wan.common.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/redis")
 public class RedisController extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManageController.class);
 
     private static Logger logger = LoggerFactory.getLogger(RedisController.class);
 
