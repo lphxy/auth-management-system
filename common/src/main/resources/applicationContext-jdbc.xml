@@ -4,7 +4,8 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       ">
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 配置进行解密  -->
     <bean id="propertyConfigurer" class="com.wan.common.plugin.EncryptPropertyPlaceholderConfigurer">

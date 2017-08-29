@@ -64,8 +64,7 @@ public class RedisUtil {
             config.setMaxIdle(MAX_IDLE);
             config.setMaxWaitMillis(MAX_WAIT);
             config.setTestOnBorrow(TEST_ON_BORROW);
-            //jedisPool = new JedisPool(config, IP.split(",")[0], PORT, TIMEOUT, PASSWORD);
-            jedisPool = new JedisPool(config, IP.split(",")[0], PORT, TIMEOUT);
+            jedisPool = new JedisPool(config, IP.split(",")[0], PORT, TIMEOUT, PASSWORD);
         } catch (Exception e) {
             logger.error("First create JedisPool error : " + e);
             try {
@@ -75,8 +74,7 @@ public class RedisUtil {
                 config.setMaxIdle(MAX_IDLE);
                 config.setMaxWaitMillis(MAX_WAIT);
                 config.setTestOnBorrow(TEST_ON_BORROW);
-                //jedisPool = new JedisPool(config, IP.split(",")[1], PORT, TIMEOUT, PASSWORD);
-                jedisPool = new JedisPool(config, IP.split(",")[1], PORT, TIMEOUT);
+                jedisPool = new JedisPool(config, IP.split(",")[1], PORT, TIMEOUT, PASSWORD);
             } catch (Exception e2) {
                 logger.error("Second create JedisPool error : " + e2);
             }

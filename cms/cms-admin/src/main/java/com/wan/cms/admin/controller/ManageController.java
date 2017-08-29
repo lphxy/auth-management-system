@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by w1992wishes on 2017/7/1.
  */
 @Controller
-@RequestMapping("manage")
+@RequestMapping("/manage")
 @Api(value = "后台控制器", description = "后台管理")
 public class ManageController extends BaseController {
 

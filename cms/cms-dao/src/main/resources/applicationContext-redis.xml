@@ -25,7 +25,7 @@
     <bean
             id="jedisConnectionFactory"
             class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-            p:host-name="${master.ip}"
-            p:port="${master.port}" />
+            p:host-name="${master.redis.ip}"
+            p:port="${master.redis.port}" />
 
 </beans>

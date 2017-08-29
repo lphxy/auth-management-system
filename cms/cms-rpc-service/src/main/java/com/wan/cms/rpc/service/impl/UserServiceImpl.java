@@ -9,12 +9,16 @@ import com.wan.cms.rpc.dao.mapper.UserVOMapper;
 import com.wan.common.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户service实现
  *
  * Created by w1992wishes on 2017/8/17.
  */
+@Service
+@Transactional
 public class UserServiceImpl extends BaseServiceImpl<CmsUserMapper, CmsUser, CmsUserExample> implements CmsUserService {
 
     @Autowired
