@@ -108,12 +108,14 @@ public class MybatisGeneratorUtil {
 
     // 递归删除非空文件夹
     public static void deleteDir(File dir) {
-        if (dir.isDirectory()) {
-            File[] files = dir.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                deleteDir(files[i]);
+        if (dir != null) {
+            if (dir.isDirectory()) {
+                File[] files = dir.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    deleteDir(files[i]);
+                }
             }
+            dir.delete();
         }
-        dir.delete();
     }
 }
