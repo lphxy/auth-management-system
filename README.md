@@ -12,7 +12,7 @@ auth-management-system
 |       ├── upms-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── upms-rpc-api -- rpc接口包
 |       ├── upms-rpc-service -- rpc服务提供者
-|       ├── upms-sso-client -- SSO客户端依赖包
+|       ├── upms-client -- 集成upms依赖包，提供单点认证、授权、会话管理
 |       └── upms-server -- 系统及SSO服务端[端口:1111]
 ├── cms -- 内容管理系统
 |       ├── cms-dao -- MyBatisGenerator代码生成模块，无需开发

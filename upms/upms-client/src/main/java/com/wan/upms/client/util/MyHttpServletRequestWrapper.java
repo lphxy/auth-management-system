@@ -1,4 +1,4 @@
-package com.wan.upms.sso.client.util;
+package com.wan.upms.client.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

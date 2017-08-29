@@ -1,4 +1,4 @@
-package com.wan.upms.sso.client.util;
+package com.wan.upms.client.util;
 
 import org.apache.commons.lang.StringUtils;
 

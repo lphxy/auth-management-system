@@ -1,7 +1,7 @@
-package com.wan.upms.sso.client.filter;
+package com.wan.upms.client.filter;
 
 import com.wan.common.util.RedisUtil;
-import com.wan.upms.sso.client.util.RequestParameterUtil;
+import com.wan.upms.client.util.RequestParameterUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by w1992wishes on 2017/7/31.

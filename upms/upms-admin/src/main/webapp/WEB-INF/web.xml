@@ -70,7 +70,7 @@
     <!-- wan-upms-client -->
     <filter>
         <filter-name>wan-upms-client</filter-name>
-        <filter-class>com.wan.upms.sso.client.filter.SSOFilter</filter-class>
+        <filter-class>com.wan.upms.client.filter.SSOFilter</filter-class>
         <!-- 系统名称 -->
         <init-param>
             <param-name>system_name</param-name>
