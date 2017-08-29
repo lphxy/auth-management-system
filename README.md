@@ -92,3 +92,8 @@ admin/common -> oss -> upms -> other
 
 ## 启动顺序
 upms-rpc-service => upms-admin => xxx-rpc-service => xxx-yyy
+
+## 附件
+### 优秀文章和博客
+[跟我学Shiro目录贴](http://jinnianshilongnian.iteye.com/blog/2018398 "跟我学Shiro目录贴")
+[Redis中文网](http://www.redis.net.cn/ "Redis中文网")

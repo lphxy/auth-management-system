@@ -1,6 +1,6 @@
 package com.wan.common.plugin;
 
-import com.wan.common.util.DESUtil;
+import com.wan.common.util.AESUtil;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
 /**
@@ -24,7 +24,7 @@ public class EncryptPropertyPlaceholderConfigurer extends PropertyPlaceholderCon
     protected String convertProperty(String propertyName, String propertyValue) {
         for (String p : propertyNames) {
             if (p.equalsIgnoreCase(propertyName)) {
-                return DESUtil.getDecryptString(propertyValue);
+                return AESUtil.AESDecode(propertyValue);
             }
         }
         return super.convertProperty(propertyName, propertyValue);
