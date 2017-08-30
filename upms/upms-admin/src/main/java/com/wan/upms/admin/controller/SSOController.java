@@ -45,13 +45,13 @@ public class SSOController {
 
     private final static Logger logger = LoggerFactory.getLogger(SSOController.class);
     private final static int TIMEOUT = 2 * 60 * 60;
-    private final static String WAN_UPMS_SSO_SERVER_SESSION_ID = "wan_upms_sso_server_session_id";
+    private final static String WAN_UPMS_SERVER_SESSION_ID = "wan_upms_server_session_id";
 
     /**
      * 认证中心首页
      * @return
      */
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String system_name = request.getParameter("system_name");
         String backurl = request.getParameter("backurl");
@@ -66,10 +66,10 @@ public class SSOController {
         }
 
         //分配单点登录sessionId，不使用session获取会话id，改为cookie,防止session丢失
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
         if (StringUtils.isEmpty(sessionId)){
             sessionId = request.getSession().getId();
-            CookieUtil.setCookie(response, WAN_UPMS_SSO_SERVER_SESSION_ID);
+            CookieUtil.setCookie(response, WAN_UPMS_SERVER_SESSION_ID);
         }
 
         //判断是否存在全局会话
@@ -95,7 +95,7 @@ public class SSOController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request) {
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
         logger.info("认证中心sessionId={}", sessionId);
         String backurl = request.getParameter("backurl");
         if (!StringUtils.isEmpty(sessionId) && !StringUtils.isEmpty(backurl)){
@@ -176,10 +176,10 @@ public class SSOController {
         }
 
         //分配单点登录sessionId，不使用session获取会话id,改为cookie，防止session丢失
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
         if (StringUtils.isEmpty(sessionId)){
             sessionId = request.getSession().getId();
-            CookieUtil.setCookie(response, WAN_UPMS_SSO_SERVER_SESSION_ID, sessionId);
+            CookieUtil.setCookie(response, WAN_UPMS_SERVER_SESSION_ID, sessionId);
         }
 
         // 默认验证帐号密码正确，创建token
@@ -225,7 +225,7 @@ public class SSOController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request){
         // 当前全局会话sessionId
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SSO_SERVER_SESSION_ID);
+        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
 
         // 全局token
         String token = RedisUtil.get(sessionId + "_token");
