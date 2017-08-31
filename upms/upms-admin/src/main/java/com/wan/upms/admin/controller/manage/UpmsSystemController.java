@@ -22,10 +22,10 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/manage/system")
-@Api(value = "系统管理", description = "注册系统管理")
-public class SystemController extends BaseController{
+@Api(value = "系统管理", description = "系统管理")
+public class UpmsSystemController extends BaseController{
 
-    private static Logger logger = LoggerFactory.getLogger(SystemController.class);
+    private static Logger logger = LoggerFactory.getLogger(UpmsSystemController.class);
 
     @Autowired
     private UpmsSystemService upmsSystemService;
