@@ -14,7 +14,13 @@
     <!-- 订阅服务 -->
     <!-- 系统 -->
     <dubbo:reference id="upmsSystemService" interface="com.wan.upms.rpc.api.UpmsSystemService" />
+    <!-- 组织 -->
+    <dubbo:reference id="upmsOrganizationService" interface="com.wan.upms.rpc.api.UpmsOrganizationService" />
     <!-- 用户 -->
     <dubbo:reference id="upmsUserService" interface="com.wan.upms.rpc.api.UpmsUserService" />
+    <!-- 角色 -->
+    <dubbo:reference id="upmsRoleService" interface="com.wan.upms.rpc.api.UpmsRoleService" />
+    <!-- 权限 -->
+    <dubbo:reference id="upmsPermissionService" interface="com.wan.upms.rpc.api.UpmsPermissionService" />
 
 </beans>
