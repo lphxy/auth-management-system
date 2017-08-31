@@ -93,6 +93,27 @@ admin/common -> oss -> upms -> other
 ## 启动顺序
 upms-rpc-service => upms-admin => xxx-rpc-service => xxx-yyy
 
+## 框架规范约定
+
+约定优于配置(convention over configuration)，此框架约定了很多编程规范，下面一一列举：
+
+- service类，需要在叫名service的包下，并以Service结尾，如CmsArticleServiceImpl
+- controller类，需要在以controller结尾的包下，类名以Controller结尾，如CmsArticleController.java，并继承BaseController
+- spring task类，需要在叫名task的包下，并以Task结尾，如TestTask.java
+- mapper.xml，需要在名叫mapper的包下，并以Mapper.xml结尾，如CmsArticleMapper.xml
+- mapper接口，需要在名叫mapper的包下，并以Mapper结尾，如CmsArticleMapper.java
+- model实体类，需要在名叫model的包下，命名规则为数据表转驼峰规则，如CmsArticle.java
+- spring配置文件，命名规则为applicationContext-*.xml
+- 类名：首字母大写驼峰规则；方法名：首字母小写驼峰规则；常量：全大写；变量：首字母小写驼峰规则，尽量非缩写
+- springmvc配置加到对应模块的springMVC-servlet.xml文件里
+- 配置文件放到src/main/resources目录下
+- 静态资源文件放到src/main/webapp/resources目录下
+- jsp文件，需要在/WEB-INF/jsp目录下
+- RequestMapping和返回物理试图路径的url尽量写全路径，如：@RequestMapping("/manage")、return "/manage/index"
+- RequestMapping指定method
+- 模块命名为项目-业务，如cms-admin
+- 数据表命名为：系统_表，如cms_article
+
 ## 附件
 ### 优秀文章和博客
 [跟我学Shiro目录贴](http://jinnianshilongnian.iteye.com/blog/2018398 "跟我学Shiro目录贴")

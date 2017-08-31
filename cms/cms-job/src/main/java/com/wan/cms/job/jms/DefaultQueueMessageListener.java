@@ -17,9 +17,9 @@ import java.util.Date;
 /**
  * Created by w1992wishes on 2017/7/20.
  */
-public class defaultQueueMessageListener implements MessageListener {
+public class DefaultQueueMessageListener implements MessageListener {
 
-    private static Logger logger = LoggerFactory.getLogger(defaultQueueMessageListener.class);
+    private static Logger logger = LoggerFactory.getLogger(DefaultQueueMessageListener.class);
 
     @Autowired
     ThreadPoolTaskExecutor threadPoolTaskExecutor;
