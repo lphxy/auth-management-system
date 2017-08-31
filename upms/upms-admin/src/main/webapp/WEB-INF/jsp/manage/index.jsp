@@ -106,7 +106,7 @@
                     <img src="${basePath}/resources/admin/images/avatar.jpg"/>
                 </div>
                 <div class="sp-info">
-                    guest，您好！
+                    admin，您好！
                     <i class="zmdi zmdi-caret-down"></i>
                 </div>
             </a>
@@ -177,7 +177,7 @@
                 </li>
             </shiro:hasPermission>
             <li>
-                <div class="upms-version">&copy; ZHENG-UPMS V1.0.0</div>
+                <div class="upms-version">&copy; WAN-UPMS V1.0.0</div>
             </li>
         </ul>
         <!-- /菜单区 -->
@@ -200,7 +200,6 @@
         <div class="content_main">
             <div id="iframe_home" class="iframe cur">
                 <p><h4>通用用户权限管理系统</h4></p>
-                <p><b>演示地址</b>：<a href="http://www.zhangshuzheng.cn/upms" target="_blank">http://www.zhangshuzheng.cn/upms</a></p>
                 <p><b>系统简介</b>：本系统是基于RBAC授权和基于用户授权的细粒度权限控制通用平台，并提供单点登录、会话管理和日志管理。接入的系统可自由定义组织、角色、权限、资源等。</p><br/>
                 <p><h4>系统功能概述：</h4></p>
                 <p><b>系统组织管理</b>：系统和组织增加、删除、修改、查询功能。</p>
