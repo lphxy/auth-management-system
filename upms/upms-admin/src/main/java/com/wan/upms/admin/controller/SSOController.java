@@ -223,7 +223,13 @@ public class SSOController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request){
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        // shiro退出登录
+        SecurityUtils.getSubject().logout();
+
+        // 清除单点sessionId
+        CookieUtil.removeCookie(response, WAN_UPMS_SERVER_SESSION_ID);
+
         // 当前全局会话sessionId
         String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
 
