@@ -22,7 +22,7 @@ import java.util.Date;
 @Component
 public class MessageListener extends MessageListenerAdapter {
 
-    private static Logger logger = LoggerFactory.getLogger(DefaultQueueMessageListener.class);
+    private static Logger logger = LoggerFactory.getLogger(DefaultMessageQueueListener.class);
 
     @Autowired
     ThreadPoolTaskExecutor threadPoolTaskExecutor;

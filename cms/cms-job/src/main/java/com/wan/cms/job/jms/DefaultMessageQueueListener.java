@@ -1,4 +1,4 @@
-package com.wan.cms.admin.jms;
+package com.wan.cms.job.jms;
 
 import com.wan.cms.dao.model.CmsUser;
 import com.wan.cms.rpc.api.CmsUserService;
@@ -17,9 +17,9 @@ import java.util.Date;
 /**
  * Created by w1992wishes on 2017/7/20.
  */
-public class DefaultQueueMessageListener implements MessageListener {
+public class DefaultMessageQueueListener implements MessageListener {
 
-    private static Logger logger = LoggerFactory.getLogger(DefaultQueueMessageListener.class);
+    private static Logger logger = LoggerFactory.getLogger(DefaultMessageQueueListener.class);
 
     @Autowired
     ThreadPoolTaskExecutor threadPoolTaskExecutor;
@@ -34,14 +34,14 @@ public class DefaultQueueMessageListener implements MessageListener {
                     try{
                         String text = textMessage.getText();
                         JSONObject json = JSONObject.fromObject(text);
-                        CmsUser user = (CmsUser) JSONObject.toBean(json, CmsUser.class);
-                        if (user.getUsername().equals("1")) {
+                        CmsUser cmsUser = (CmsUser) JSONObject.toBean(json, CmsUser.class);
+                        if (cmsUser.getUsername().equals("1")) {
                             logger.info("消费开始时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                         }
-                        if (user.getUsername().equals("1000")) {
+                        if (cmsUser.getUsername().equals("1000")) {
                             logger.info("消费结束时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis())));
                         }
-                        userService.insertSelective(user);
+                        userService.insertSelective(cmsUser);
                         logger.info("cms-mq接收到：{}", text);
                     }catch (Exception e){
                         logger.error("", e);
@@ -49,5 +49,4 @@ public class DefaultQueueMessageListener implements MessageListener {
                 }
         );
     }
-
 }

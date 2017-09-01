@@ -470,10 +470,8 @@ CREATE TABLE `upms_system` (
 -- ----------------------------
 -- Records of upms_system
 -- ----------------------------
-INSERT INTO `upms_system` VALUES ('1', '', 'http://upms.w1992wishes.cn:1113', '1', 'wan-upms-app1', '1', '1');
-INSERT INTO `upms_system` VALUES ('2', '', 'http://upms.w1992wishes.cn:1114', '1', 'wan-upms-app2', '2', '2');
-INSERT INTO `upms_system` VALUES ('3', '', 'http://cms.w1992wishes.cn:2222', '1', 'wan-upms-admin', '3', '3');
-INSERT INTO `upms_system` VALUES ('4', '', 'http://upms.w1992wishes.cn:1111', '1', 'wan-cms-admin', '4', '4');
+INSERT INTO `upms_system` VALUES ('3', 'zmdi zmdi-widgets', 'http://cms.w1992wishes.cn:2222', '1', 'wan-upms-admin', '3', '3');
+INSERT INTO `upms_system` VALUES ('4', 'zmdi zmdi-widgets', 'http://upms.w1992wishes.cn:1111', '1', 'wan-cms-admin', '4', '4');
 
 -- ----------------------------
 -- Table structure for upms_user
