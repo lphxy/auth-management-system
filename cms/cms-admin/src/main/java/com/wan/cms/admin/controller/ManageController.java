@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ManageController extends BaseController {
 
     @ApiOperation(value = "后台首页")
-    @RequestMapping(value = {"", "/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
         return "/manage/index";
     }
