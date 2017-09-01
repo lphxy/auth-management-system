@@ -43,7 +43,7 @@ public class RedisUtil {
     private static int TIMEOUT = PropertiesFileUtil.getInstance("redis").getInt("master.redis.timeout");
 
     // 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；
-    private static boolean TEST_ON_BORROW = true;
+    private static boolean TEST_ON_BORROW = false;
 
     private static JedisPool jedisPool = null;
 
@@ -64,20 +64,9 @@ public class RedisUtil {
             config.setMaxIdle(MAX_IDLE);
             config.setMaxWaitMillis(MAX_WAIT);
             config.setTestOnBorrow(TEST_ON_BORROW);
-            jedisPool = new JedisPool(config, IP.split(",")[0], PORT, TIMEOUT, PASSWORD);
+            jedisPool = new JedisPool(config, IP, PORT, TIMEOUT);
         } catch (Exception e) {
-            logger.error("First create JedisPool error : " + e);
-            try {
-                //如果第一个IP异常，则访问第二个IP
-                JedisPoolConfig config = new JedisPoolConfig();
-                config.setMaxTotal(MAX_ACTIVE);
-                config.setMaxIdle(MAX_IDLE);
-                config.setMaxWaitMillis(MAX_WAIT);
-                config.setTestOnBorrow(TEST_ON_BORROW);
-                jedisPool = new JedisPool(config, IP.split(",")[1], PORT, TIMEOUT, PASSWORD);
-            } catch (Exception e2) {
-                logger.error("Second create JedisPool error : " + e2);
-            }
+            logger.error("create JedisPool error : " + e);
         }
     }
 
@@ -103,6 +92,11 @@ public class RedisUtil {
         try {
             if (jedisPool != null) {
                 jedis = jedisPool.getResource();
+                try{
+                    jedis.auth(PASSWORD);
+                }catch (Exception e){
+                    logger.error("jedis password error : {}", e);
+                }
             }
         } catch (Exception e) {
             logger.error("Get jedis error : " + e);
