@@ -4,6 +4,7 @@ import com.wan.cms.dao.mapper.CmsTagMapper;
 import com.wan.cms.dao.model.CmsTag;
 import com.wan.cms.dao.model.CmsTagExample;
 import com.wan.cms.rpc.api.CmsTagService;
+import com.wan.common.annotation.BaseService;
 import com.wan.common.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,5 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@BaseService
 public class CmsTagServiceImpl extends BaseServiceImpl<CmsTagMapper, CmsTag, CmsTagExample> implements CmsTagService {
 }

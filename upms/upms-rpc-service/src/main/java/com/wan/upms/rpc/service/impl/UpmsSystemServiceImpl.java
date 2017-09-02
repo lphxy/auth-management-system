@@ -1,5 +1,6 @@
 package com.wan.upms.rpc.service.impl;
 
+import com.wan.common.annotation.BaseService;
 import com.wan.common.base.BaseServiceImpl;
 import com.wan.upms.dao.mapper.UpmsSystemMapper;
 import com.wan.upms.dao.model.UpmsSystem;
@@ -15,5 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@BaseService
 public class UpmsSystemServiceImpl extends BaseServiceImpl<UpmsSystemMapper, UpmsSystem, UpmsSystemExample> implements UpmsSystemService {
 }

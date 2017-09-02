@@ -4,6 +4,7 @@ import com.wan.cms.dao.mapper.CmsCategoryMapper;
 import com.wan.cms.dao.model.CmsCategory;
 import com.wan.cms.dao.model.CmsCategoryExample;
 import com.wan.cms.rpc.api.CmsCategoryService;
+import com.wan.common.annotation.BaseService;
 import com.wan.common.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,5 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@BaseService
 public class CmsCategoryServiceImpl extends BaseServiceImpl<CmsCategoryMapper, CmsCategory, CmsCategoryExample> implements CmsCategoryService {
 }

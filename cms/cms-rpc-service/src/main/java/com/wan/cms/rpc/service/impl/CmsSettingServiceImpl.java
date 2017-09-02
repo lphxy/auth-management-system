@@ -4,6 +4,7 @@ import com.wan.cms.dao.mapper.CmsSettingMapper;
 import com.wan.cms.dao.model.CmsSetting;
 import com.wan.cms.dao.model.CmsSettingExample;
 import com.wan.cms.rpc.api.CmsSettingService;
+import com.wan.common.annotation.BaseService;
 import com.wan.common.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,5 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@BaseService
 public class CmsSettingServiceImpl extends BaseServiceImpl<CmsSettingMapper, CmsSetting, CmsSettingExample> implements CmsSettingService {
 }

@@ -1,5 +1,6 @@
 package com.wan.upms.rpc.service.impl;
 
+import com.wan.common.annotation.BaseService;
 import com.wan.common.base.BaseServiceImpl;
 import com.wan.upms.dao.mapper.UpmsOrganizationMapper;
 import com.wan.upms.dao.model.UpmsOrganization;
@@ -13,5 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@BaseService
 public class UpmsOrganizationServiceImpl extends BaseServiceImpl<UpmsOrganizationMapper, UpmsOrganization, UpmsOrganizationExample> implements UpmsOrganizationService {
 }

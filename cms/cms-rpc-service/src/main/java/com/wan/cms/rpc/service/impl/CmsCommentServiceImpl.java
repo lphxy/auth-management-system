@@ -4,6 +4,7 @@ import com.wan.cms.dao.mapper.CmsCommentMapper;
 import com.wan.cms.dao.model.CmsComment;
 import com.wan.cms.dao.model.CmsCommentExample;
 import com.wan.cms.rpc.api.CmsCommentService;
+import com.wan.common.annotation.BaseService;
 import com.wan.common.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,5 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@BaseService
 public class CmsCommentServiceImpl extends BaseServiceImpl<CmsCommentMapper, CmsComment, CmsCommentExample> implements CmsCommentService {
 }

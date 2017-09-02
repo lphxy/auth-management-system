@@ -6,6 +6,7 @@ import com.wan.cms.dao.model.CmsUserExample;
 import com.wan.cms.rpc.api.CmsUserService;
 import com.wan.cms.rpc.dao.UserVO;
 import com.wan.cms.rpc.dao.mapper.UserVOMapper;
+import com.wan.common.annotation.BaseService;
 import com.wan.common.base.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@BaseService
 public class UserServiceImpl extends BaseServiceImpl<CmsUserMapper, CmsUser, CmsUserExample> implements CmsUserService {
 
     @Autowired
