@@ -479,8 +479,8 @@ CREATE TABLE `upms_system` (
 -- ----------------------------
 -- Records of upms_system
 -- ----------------------------
-INSERT INTO `upms_system` VALUES ('3', 'zmdi zmdi-widgets', 'http://cms.w1992wishes.cn:2222', '1', 'wan-upms-admin', '内容管理系统后台', null, '3', '3');
-INSERT INTO `upms_system` VALUES ('4', 'zmdi zmdi-widgets', 'http://upms.w1992wishes.cn:1111', '1', 'wan-cms-admin','权限管理系统', null, '4', '4');
+INSERT INTO `upms_system` VALUES ('3', 'zmdi zmdi-widgets', 'http://cms.w1992wishes.cn:2222', '1', 'wan-cms-admin', '内容管理系统后台', null, '3', '3');
+INSERT INTO `upms_system` VALUES ('4', 'zmdi zmdi-widgets', 'http://upms.w1992wishes.cn:1111', '1', 'wan-upms-admin','权限管理系统', null, '4', '4');
 -- ----------------------------
 -- Table structure for upms_user
 -- ----------------------------
