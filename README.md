@@ -33,13 +33,22 @@ auth-management-system
 |       ├── ucenter-service -- 业务逻辑
 |       └── ucenter-home ucenter前台[端口:4441]
 ├── wechat -- 微信
-|       ├── wechat-mp -- 微信小程序[端口:5551]
+|       ├── wechat-mp --  微信公众号管理系统
+|       |          ├── wechat-mp-dao  -- MyBatisGenerator代码生成模块，无需开发
+|       |          ├── wechat-mp-service  -- 业务逻辑
+|       |          └── wechat-mp-admin  -- 后台管理[端口:5551]
+|       └── wechat-app -- 微信小程序后台
 ├── oss -- 对象存储系统
 |       ├── oss-sdk -- OSS上传下载管理凭证等
 |       └──oss-web -- OSS在线管理项目[端口:7771]
 ├── qa -- 问答系统
 |       ├── qa-dao -- MyBatisGenerator代码生成模块，无需开发
 |       └── qa-service -- service层
+├── api  -- 接口系统
+├── shop -- 电子商务系统
+├── oa -- 办公自动化系统
+├── eoms -- 运维系统
+└── im -- 即时通讯系统
 ```
 
 ## 模块介绍
