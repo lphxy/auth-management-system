@@ -46,14 +46,22 @@ public class SSOController extends BaseController {
 
     private final static Logger logger = LoggerFactory.getLogger(SSOController.class);
     private final static int TIMEOUT = 2 * 60 * 60;
+    // 全局会话key
     private final static String WAN_UPMS_SERVER_SESSION_ID = "wan_upms_server_session_id";
+    // token key
+    private final static String WAN_UPMS_SERVER_TOKEN = "wan-upms-server-token";
+    // 局部会话key
+    private final static String WAN_UPMS_CLIENT_SESSION_ID = "wan-upms-client-session-id";
+    // 单点同一个token所有局部会话key
+    private final static String WAN_UPMS_CLIENT_SESSION_IDS = "wan-upms-client-session-ids";
 
     /**
      * 认证中心首页
+     *
      * @return
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String index(HttpServletRequest request) throws Exception {
         String system_name = request.getParameter("system_name");
         String backurl = request.getParameter("backurl");
 
@@ -63,62 +71,49 @@ public class SSOController extends BaseController {
         int count = upmsSystemService.countByExample(upmsSystemExample);
         if (StringUtils.isEmpty(system_name) || 0 == count) {
             logger.info("未注册的系统：{}", system_name);
-            return "/404";
+            return "/500";
         }
-
-        //分配单点登录sessionId，不使用session获取会话id，改为cookie,防止session丢失
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
-        if (StringUtils.isEmpty(sessionId)){
-            sessionId = request.getSession().getId();
-            CookieUtil.setCookie(response, WAN_UPMS_SERVER_SESSION_ID);
-        }
-
-        //判断是否存在全局会话
-        // 未登录
-        if (StringUtils.isEmpty(RedisUtil.get(sessionId + "_token"))) {
-            return "redirect:/sso/login?backurl=" + URLEncoder.encode(backurl, "utf-8");
-        }
-        // 已登录
-        String token = RedisUtil.get(sessionId + "_token");
-        String redirectUrl = backurl;
-        if (backurl.contains("?")) {
-            redirectUrl += "&token=" + token;
-        } else {
-            redirectUrl += "?token=" + token;
-        }
-        logger.info("认证中心验证为已登录，跳回：{}", backurl);
-        return "redirect:" + redirectUrl;
+        return "redirect:/sso/login?backurl=" + URLEncoder.encode(backurl, "utf-8");
     }
 
     /**
      * 登录页get
+     *
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpServletRequest request) {
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
-        logger.info("认证中心sessionId={}", sessionId);
+    public String login(HttpServletRequest request, HttpServletResponse response) {
+        // 分配单点登录sessionId，首次获取后缓存到cookie，防止session丢失
+        String serverSessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
+        if (StringUtils.isEmpty(serverSessionId)) {
+            serverSessionId = request.getSession().getId();
+            CookieUtil.setCookie(response, WAN_UPMS_SERVER_SESSION_ID, serverSessionId);
+        }
+        // 有回跳路径的访问判断是否已登录，如果已登录，则回跳
         String backurl = request.getParameter("backurl");
-        if (!StringUtils.isEmpty(sessionId) && !StringUtils.isEmpty(backurl)){
-            String token = RedisUtil.get(sessionId + "_token");
-            //token校验值
-            if (!StringUtils.isEmpty(token)){
-                //回调子系统
-                String redirectUrl = backurl;
-                if (backurl.contains("?")){
+        String token = RedisUtil.get(WAN_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
+        // token校验值
+        if (!StringUtils.isEmpty(token)) {
+            // 回跳
+            String redirectUrl = backurl;
+            if (StringUtils.isEmpty(backurl)) {
+                redirectUrl = "/";
+            } else {
+                if (backurl.contains("?")) {
                     redirectUrl += "&token=" + token;
-                }else {
+                } else {
                     redirectUrl += "?token=" + token;
                 }
-                logger.info("认证中心帐号通过，带token回跳：{}", redirectUrl);
-                return "redirect:" + redirectUrl;
             }
+            logger.info("认证中心帐号通过，带token回跳：{}", redirectUrl);
+            return "redirect:" + redirectUrl;
         }
         return "/sso/login";
     }
 
     /**
      * 登录页post
+     *
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -141,26 +136,11 @@ public class SSOController extends BaseController {
             return result;
         }
 
-        // 校验帐号密码
-//        UpmsUserExample upmsUserExample = new UpmsUserExample();
-//        upmsUserExample.createCriteria()
-//                .andUsernameEqualTo(username);
-//        UpmsUser upmsUser = upmsUserService.selectFirstByExample(upmsUserExample);
-//        if (null == upmsUser) {
-//            result.put("result", false);
-//            result.put("data", SystemConstant.ERROR_USERNAME);
-//            return result;
-//        }
-//        if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {
-//            result.put("result", false);
-//            result.put("data", SystemConstant.ERROR_PASSWORD);
-//            return result;
-//        }
         // 使用shiro认证
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
         try {
-            usernamePasswordToken.setRememberMe(false);
+            usernamePasswordToken.setRememberMe(true);
             subject.login(usernamePasswordToken);
         } catch (UnknownAccountException e) {
             result.put("result", false);
@@ -176,28 +156,28 @@ public class SSOController extends BaseController {
             return result;
         }
 
-        //分配单点登录sessionId，不使用session获取会话id,改为cookie，防止session丢失
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
-        if (StringUtils.isEmpty(sessionId)){
-            sessionId = request.getSession().getId();
-            CookieUtil.setCookie(response, WAN_UPMS_SERVER_SESSION_ID, sessionId);
+        // 分配单点登录sessionId，首次获取后缓存到cookie，防止session丢失
+        String serverSessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
+        if (StringUtils.isEmpty(serverSessionId)) {
+            serverSessionId  = request.getSession().getId();
+            CookieUtil.setCookie(response, WAN_UPMS_SERVER_SESSION_ID, serverSessionId );
         }
 
         // 默认验证帐号密码正确，创建token
         String token = UUID.randomUUID().toString();
         // 全局会话sessionId
-        RedisUtil.set(sessionId + "_token", token, TIMEOUT);
+        RedisUtil.set(WAN_UPMS_SERVER_SESSION_ID + "_" + serverSessionId, token, TIMEOUT);
         // token校验值
-        RedisUtil.set(token, token, TIMEOUT);
+        RedisUtil.set(WAN_UPMS_SERVER_TOKEN + "_" + token, token, TIMEOUT);
         //回调子系统
         if (StringUtils.isEmpty(backurl)) {
             result.put("result", true);
             result.put("data", "/");
-        }else{
+        } else {
             String redirectUrl = backurl;
             if (backurl.contains("?")) {
                 redirectUrl += "&token=" + token;
-            }else {
+            } else {
                 redirectUrl += "?token=" + token;
             }
             logger.info("认证中心帐号通过，带token回跳：{}", redirectUrl);
@@ -209,48 +189,43 @@ public class SSOController extends BaseController {
 
     /**
      * 校验token
+     *
      * @param request
      * @return
      */
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     @ResponseBody
-    public String token(HttpServletRequest request){
+    public String token(HttpServletRequest request) {
         String tokenParam = request.getParameter("token");
-        String token = RedisUtil.get(tokenParam);
-        if (StringUtils.isEmpty(tokenParam) || !tokenParam.equals(token)){
+        String token = RedisUtil.get(WAN_UPMS_SERVER_TOKEN + "_" + tokenParam);
+        if (StringUtils.isEmpty(tokenParam) || !tokenParam.equals(token)) {
             return "failed";
         }
         return "success";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpServletResponse response){
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         // shiro退出登录
         SecurityUtils.getSubject().logout();
 
-        // 清除单点sessionId
-        CookieUtil.removeCookie(response, WAN_UPMS_SERVER_SESSION_ID);
-
-        // 当前全局会话sessionId
-        String sessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
-
-        // 全局token
-        String token = RedisUtil.get(sessionId + "_token");
-
-        //清除全局会话
-        RedisUtil.remove(sessionId + "_token");
+        String serverSessionId = CookieUtil.getCookie(request, WAN_UPMS_SERVER_SESSION_ID);
+        // 当前全局会话token
+        String token = RedisUtil.get(WAN_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
+        // 清除全局会话
+        RedisUtil.remove(WAN_UPMS_SERVER_SESSION_ID + "_" + serverSessionId);
         // 清除token校验值
-        RedisUtil.remove(token);
-
+        RedisUtil.remove(WAN_UPMS_SERVER_TOKEN + "_" + token);
         // 清除所有局部会话
         Jedis jedis = RedisUtil.getJedis();
-        Set<String> subSessionIds = jedis.smembers(token + "_subSessionIds");
-        for (String subSessionId : subSessionIds) {
-            jedis.del(subSessionId + "_token");
-            jedis.srem(token + "_subSessionIds", subSessionId);
+        Set<String> clientSessionIds = jedis.smembers(WAN_UPMS_CLIENT_SESSION_IDS + "_" + token);
+        for (String clientSessionId : clientSessionIds) {
+            jedis.del(WAN_UPMS_CLIENT_SESSION_ID + "_" + clientSessionId);
+            jedis.srem(WAN_UPMS_CLIENT_SESSION_IDS + "_" + token, clientSessionId);
         }
-        logger.info("当前token={}，对应的注册系统还剩余：{}个", token, jedis.scard(token + "_subSessionIds"));
-
+        // 清除全局会话sessionId
+        CookieUtil.removeCookie(response, WAN_UPMS_SERVER_SESSION_ID);
+        logger.info("当前token={}，对应的注册系统个数：{}个", token, jedis.scard(WAN_UPMS_CLIENT_SESSION_IDS + "_" + token));
         // 跳回原地址
         String redirectUrl = request.getHeader("Referer");
         logger.info("跳回退出登录请求地址：{}", redirectUrl);

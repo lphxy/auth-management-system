@@ -1,4 +1,4 @@
-package com.wan.upms.interceptor;
+package com.wan.upms.admin.interceptor;
 
 import com.wan.upms.dao.model.UpmsUser;
 import org.apache.shiro.SecurityUtils;
