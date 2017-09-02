@@ -1,5 +1,6 @@
 package com.wan.upms.admin.controller;
 
+import com.wan.common.base.BaseController;
 import com.wan.common.util.CookieUtil;
 import com.wan.common.util.RedisUtil;
 import com.wan.upms.admin.util.SystemConstant;
@@ -36,7 +37,7 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping("/sso")
-public class SSOController {
+public class SSOController extends BaseController {
 
     @Autowired
     private UpmsSystemService upmsSystemService;

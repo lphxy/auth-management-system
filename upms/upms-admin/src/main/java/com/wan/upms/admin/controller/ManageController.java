@@ -1,5 +1,6 @@
 package com.wan.upms.admin.controller;
 
+import com.wan.common.base.BaseController;
 import com.wan.upms.dao.model.UpmsSystem;
 import com.wan.upms.dao.model.UpmsSystemExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/manage")
-public class ManageController {
+public class ManageController extends BaseController {
     @Autowired
     private UpmsSystemService upmsSystemService;
 
