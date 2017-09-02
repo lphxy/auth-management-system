@@ -7,6 +7,7 @@
     <artifactId>api</artifactId>
     <groupId>com.wan.project</groupId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
 
 </project>
