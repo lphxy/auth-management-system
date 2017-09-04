@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE HTML>
@@ -15,9 +15,11 @@
     <title>用户权限管理系统</title>
 
     <link href="${basePath}/resources/admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css"
+          rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"
+          rel="stylesheet"/>
     <link href="${basePath}/resources/admin/css/admin.css" rel="stylesheet"/>
 </head>
 <body>
@@ -47,7 +49,8 @@
                             <div class="input-group">
                                 <input id="keywords" type="text" name="keywords" class="form-control" placeholder="搜索"/>
                                 <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                                    <button type="submit" class="btn btn-default"><span
+                                            class="glyphicon glyphicon-search"></span></button>
                                 </div>
                             </div>
                         </form>
@@ -64,7 +67,9 @@
                         <li class="divider hidden-xs"></li>
                         <c:forEach var="upmsSystem" items="${upmsSystems}">
                             <li>
-                                <a class="waves-effect switch-systems" href="javascript:;" systemid="${upmsSystem.systemId}"><i class="${upmsSystem.icon}"></i> ${upmsSystem.title}</a>
+                                <a class="waves-effect switch-systems" href="javascript:;"
+                                   systemid="${upmsSystem.systemId}"><i
+                                        class="${upmsSystem.icon}"></i> ${upmsSystem.title}</a>
                             </li>
                         </c:forEach>
                     </ul>
@@ -75,10 +80,12 @@
                     </a>
                     <ul class="dropdown-menu dm-icon pull-right">
                         <li class="hidden-xs">
-                            <a class="waves-effect" data-ma-action="fullscreen" href="javascript:fullPage();"><i class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
+                            <a class="waves-effect" data-ma-action="fullscreen" href="javascript:fullPage();"><i
+                                    class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
                         </li>
                         <li>
-                            <a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:;"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
+                            <a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:;"><i
+                                    class="zmdi zmdi-delete"></i> 清除缓存</a>
                         </li>
                         <li>
                             <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-face"></i> 隐私管理</a>
@@ -128,23 +135,26 @@
         <!-- 菜单区 -->
         <ul class="main-menu">
             <li>
-                <a class="waves-effect" href="javascript:Tab.addTab('首页', 'home');"><i class="zmdi zmdi-home"></i> 首页</a>
+                <a class="waves-effect" href="javascript:Tab.addTab('首页', 'home');"><i class="zmdi zmdi-home"></i>
+                    首页2</a>
             </li>
-            <c:forEach var="upmsSystem" items="${upmsSystems}" varStatus="status">
-                <c:forEach var="upmsPermission" items="${upmsPermissions}">
-                    <c:if test="${upmsPermission.pid == null}">
-                        <li class="sub-menu system_menus system_${upmsSystem.systemId}" <c:if test="${status.index != 0}">style="display:none;"</c:if>>
-                            <a class="waves-effect" href="javascript:;"><i class="${upmsPermission.icon}"></i> ${upmsPermission.name}</a>
-                            <ul>
-                                <c:forEach var="subUpmsPermission" items="${upmsPermissions}">
-                                    <c:if test="${subUpmsPermission.pid == upmsPermission.permissionId}">
-                                        <li><a class="waves-effect" href="javascript:Tab.addTab('${subUpmsPermission.name}', '${basePath}${subUpmsPermission.uri}');">${subUpmsPermission.name}</a></li>
-                                    </c:if>
-                                </c:forEach>
-                            </ul>
-                        </li>
-                    </c:if>
-                </c:forEach>
+            <c:forEach var="upmsPermission" items="${upmsPermissions}" varStatus="status">
+                <c:if test="${upmsPermission.pid == null}">
+                    <li class="sub-menu system_menus system_${upmsPermission.systemId} ${status.index}"
+                        <c:if test="${upmsPermission.systemId != 1}">style="display:none;"</c:if>>
+                        <a class="waves-effect" href="javascript:;"><i
+                                class="${upmsPermission.icon}"></i> ${upmsPermission.name}</a>
+                        <ul>
+                            <c:forEach var="subUpmsPermission" items="${upmsPermissions}">
+                                <c:if test="${subUpmsPermission.pid == upmsPermission.permissionId}">
+                                    <li><a class="waves-effect"
+                                           href="javascript:Tab.addTab('${subUpmsPermission.name}', '${basePath}${subUpmsPermission.uri}');">${subUpmsPermission.name}</a>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </c:if>
             </c:forEach>
             <li>
                 <div class="upms-version">&copy; WAN-UPMS V1.0.0</div>
