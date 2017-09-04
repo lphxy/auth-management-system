@@ -67,7 +67,7 @@ public class MybatisGeneratorUtil {
             context.put("generator_sqlMapGenerator_targetPackage", "com." + PROJECT_NAME + "." + module_prefix_name + ".dao.mapper");
             context.put("generator_javaClientGenerator_targetPackage", "com." + PROJECT_NAME + "." + module_prefix_name + ".dao.mapper");
             context.put("targetProject", targetProject);
-            context.put("master_jdbc_password", AESUtil.AESDecode(jdbc_password));
+            context.put("generator_jdbc_password", AESUtil.AESDecode(jdbc_password));
             VelocityUtil.generate(VM_PATH, module_path, context);
         } catch (Exception e) {
             e.printStackTrace();
