@@ -1,6 +1,5 @@
 package com.wan.upms.rpc.service.impl;
 
-import com.wan.cms.rpc.dao.mapper.UserVOMapper;
 import com.wan.upms.dao.mapper.UpmsApiMapper;
 import com.wan.upms.dao.mapper.UpmsUserMapper;
 import com.wan.upms.dao.model.UpmsPermission;
@@ -26,8 +25,6 @@ public class UpmsApiServiceImpl implements UpmsApiService {
     UpmsUserMapper upmsUserMapper;
     @Autowired
     UpmsApiMapper upmsApiMapper;
-    @Autowired
-    UserVOMapper userVOMapper;
 
     /**
      *  根据用户id获取所拥有的权限

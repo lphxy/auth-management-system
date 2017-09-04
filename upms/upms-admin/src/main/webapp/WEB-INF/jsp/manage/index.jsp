@@ -18,7 +18,6 @@
     <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/admin/plugins/fullPage/jquery.fullPage.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/css/admin.css" rel="stylesheet"/>
 </head>
 <body>
@@ -32,7 +31,7 @@
             </div>
         </li>
         <li id="logo" class="hidden-xs">
-            <a href="index.jsp">
+            <a href="${basePath}/manage/index">
                 <img src="${basePath}/resources/admin/images/logo.png"/>
             </a>
         </li>
@@ -65,7 +64,7 @@
                         <li class="divider hidden-xs"></li>
                         <c:forEach var="upmsSystem" items="${upmsSystems}">
                             <li>
-                                <a class="waves-effect" href="javascript:;"><i class="${upmsSystem.icon}"></i> ${upmsSystem.title}</a>
+                                <a class="waves-effect switch-systems" href="javascript:;" systemid="${upmsSystem.systemId}"><i class="${upmsSystem.icon}"></i> ${upmsSystem.title}</a>
                             </li>
                         </c:forEach>
                     </ul>
@@ -103,10 +102,10 @@
         <div class="s-profile">
             <a class="waves-effect waves-light" href="javascript:;">
                 <div class="sp-pic">
-                    <img src="${basePath}/resources/admin/images/avatar.jpg"/>
+                    <img src="${basePath}${upmsUser.avatar}"/>
                 </div>
                 <div class="sp-info">
-                    admin，您好！
+                    ${upmsUser.realname}，您好！
                     <i class="zmdi zmdi-caret-down"></i>
                 </div>
             </a>
@@ -131,51 +130,22 @@
             <li>
                 <a class="waves-effect" href="javascript:Tab.addTab('首页', 'home');"><i class="zmdi zmdi-home"></i> 首页</a>
             </li>
-            <shiro:hasPermission name="upms:system,upms:organization">
-                <li class="sub-menu">
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-widgets"></i> 系统组织管理</a>
-                    <ul>
-                        <shiro:hasPermission name="upms:system:read"><li><a class="waves-effect" href="javascript:Tab.addTab('系统管理', '${basePath}/system/index');">系统管理</a></li></shiro:hasPermission>
-                        <shiro:hasPermission name="upms:organization:read"><li><a class="waves-effect" href="javascript:Tab.addTab('组织管理', '${basePath}/organization/index');">组织管理</a></li></shiro:hasPermission>
-                    </ul>
-                </li>
-            </shiro:hasPermission>
-            <shiro:hasPermission name="upms:user,upms:role">
-                <li class="sub-menu">
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-widgets"></i> 用户角色管理</a>
-                    <ul>
-                        <shiro:hasPermission name="upms:user:read"><li><a class="waves-effect" href="javascript:Tab.addTab('用户管理', '${basePath}/user/index');">用户管理</a></li></shiro:hasPermission>
-                        <shiro:hasPermission name="upms:role:read"><li><a class="waves-effect" href="javascript:Tab.addTab('角色管理', '${basePath}/role/index');">角色管理</a></li></shiro:hasPermission>
-                    </ul>
-                </li>
-            </shiro:hasPermission>
-            <shiro:hasPermission name="upms:permission">
-                <li class="sub-menu">
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-widgets"></i> 权限资源管理</a>
-                    <ul>
-                        <shiro:hasPermission name="upms:role:read"><li><a class="waves-effect" href="javascript:Tab.addTab('权限管理', '${basePath}/permission/index');">权限管理</a></li></shiro:hasPermission>
-                    </ul>
-                </li>
-            </shiro:hasPermission>
-            <shiro:hasPermission name="upms:role_permission,upms:user_permission">
-                <li class="sub-menu">
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-widgets"></i> 权限分配管理</a>
-                    <ul>
-                        <shiro:hasPermission name="upms:role_permission:read"><li><a class="waves-effect" href="javascript:Tab.addTab('角色权限', '${basePath}/role_permission/index');">角色授权</a></li></shiro:hasPermission>
-                        <shiro:hasPermission name="upms:user_permission:read"><li><a class="waves-effect" href="javascript:Tab.addTab('用户权限', '${basePath}/user_permission/index');">用户授权</a></li></shiro:hasPermission>
-                    </ul>
-                </li>
-            </shiro:hasPermission>
-            <shiro:hasPermission name="upms:coder,upms:session,upms:log">
-                <li class="sub-menu">
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-widgets"></i> 系统数据管理</a>
-                    <ul>
-                        <shiro:hasPermission name="upms:coder:read"><li><a class="waves-effect" href="javascript:Tab.addTab('公共码表', '${basePath}/coder/index');">公共码表</a></li></shiro:hasPermission>
-                        <shiro:hasPermission name="upms:session:read"><li><a class="waves-effect" href="javascript:Tab.addTab('会话管理', '${basePath}/session/index');">会话管理</a></li></shiro:hasPermission>
-                        <shiro:hasPermission name="upms:log:read"><li><a class="waves-effect" href="javascript:Tab.addTab('日志记录', '${basePath}/log/index');">日志记录</a></li></shiro:hasPermission>
-                    </ul>
-                </li>
-            </shiro:hasPermission>
+            <c:forEach var="upmsSystem" items="${upmsSystems}" varStatus="status">
+                <c:forEach var="upmsPermission" items="${upmsPermissions}">
+                    <c:if test="${upmsPermission.pid == null}">
+                        <li class="sub-menu system_menus system_${upmsSystem.systemId}" <c:if test="${status.index != 0}">style="display:none;"</c:if>>
+                            <a class="waves-effect" href="javascript:;"><i class="${upmsPermission.icon}"></i> ${upmsPermission.name}</a>
+                            <ul>
+                                <c:forEach var="subUpmsPermission" items="${upmsPermissions}">
+                                    <c:if test="${subUpmsPermission.pid == upmsPermission.permissionId}">
+                                        <li><a class="waves-effect" href="javascript:Tab.addTab('${subUpmsPermission.name}', '${basePath}${subUpmsPermission.uri}');">${subUpmsPermission.name}</a></li>
+                                    </c:if>
+                                </c:forEach>
+                            </ul>
+                        </li>
+                    </c:if>
+                </c:forEach>
+            </c:forEach>
             <li>
                 <div class="upms-version">&copy; WAN-UPMS V1.0.0</div>
             </li>
@@ -200,6 +170,7 @@
         <div class="content_main">
             <div id="iframe_home" class="iframe cur">
                 <p><h4>通用用户权限管理系统</h4></p>
+                <p><b>演示地址</b>：<a href="http://www.zhangshuzheng.cn/upms" target="_blank">http://www.zhangshuzheng.cn/upms</a></p>
                 <p><b>系统简介</b>：本系统是基于RBAC授权和基于用户授权的细粒度权限控制通用平台，并提供单点登录、会话管理和日志管理。接入的系统可自由定义组织、角色、权限、资源等。</p><br/>
                 <p><h4>系统功能概述：</h4></p>
                 <p><b>系统组织管理</b>：系统和组织增加、删除、修改、查询功能。</p>
@@ -223,8 +194,6 @@
 <script src="${basePath}/resources/admin/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="${basePath}/resources/admin/plugins/BootstrapMenu.min.js"></script>
 <script src="${basePath}/resources/admin/plugins/device.min.js"></script>
-<script src="${basePath}/resources/admin/plugins/fullPage/jquery.fullPage.js"></script>
-<script src="${basePath}/resources/admin/plugins/fullPage/jquery.jdirk.min.js"></script>
 <script src="${basePath}/resources/admin/js/admin.js"></script>
 </body>
 </html>
