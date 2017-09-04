@@ -33,7 +33,7 @@ public class UserServiceImpl extends BaseServiceImpl<CmsUserMapper, CmsUser, Cms
      * @return
      */
     @Override
-    @Cacheable(value="ehcache")
+    @Cacheable(value="cms-ehcache")
     public UserVO selectUserWithBook(int id) {
         return userVOMapper.selectUserWithBook(id);
     }
