@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>系统管理</title>
+    <title>权限管理</title>
 
     <link href="${basePath}/resources/admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
@@ -24,9 +24,9 @@
 <body>
 <div id="main">
     <div id="toolbar">
-        <shiro:hasPermission name="upms:system:create"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus"></i> 新增系统</a></shiro:hasPermission>
-        <shiro:hasPermission name="upms:system:update"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑系统</a></shiro:hasPermission>
-        <shiro:hasPermission name="upms:system:delete"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close"></i> 删除系统</a></shiro:hasPermission>
+        <shiro:hasPermission name="upms:permission:create"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus"></i> 新增权限</a></shiro:hasPermission>
+        <shiro:hasPermission name="upms:permission:update"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑权限</a></shiro:hasPermission>
+        <shiro:hasPermission name="upms:permission:delete"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close"></i> 删除权限</a></shiro:hasPermission>
     </div>
     <table id="table"></table>
 </div>
@@ -46,7 +46,7 @@
     $(function() {
         // bootstrap table初始化
         $('#table').bootstrapTable({
-            url: '${basePath}/manage/system/list',
+            url: '${basePath}/manage/permission/list',
             height: getHeight(),
             striped: true,
             search: true,
@@ -60,11 +60,14 @@
             toolbar: '#toolbar',
             columns: [
                 {field: 'state', checkbox: true},
-                {field: 'systemId', title: '编号', sortable: true, align: 'center'},
-                {field: 'icon', title: '图标', sortable: true, align: 'center', formatter: 'iconFormatter'},
-                {field: 'title', title: '系统标题'},
-                {field: 'name', title: '系统名称'},
-                {field: 'basepath', title: '根目录'},
+                {field: 'permissionId', title: '编号', sortable: true, align: 'center'},
+                {field: 'systemId', title: '所属系统'},
+                {field: 'pid', title: '所属上级'},
+                {field: 'name', title: '权限名称'},
+                {field: 'type', title: '类型', formatter: 'typeFormatter'},
+                {field: 'permissionValue', title: '权限值'},
+                {field: 'uri', title: '路径'},
+                {field: 'icon', title: '图标', align: 'center', formatter: 'iconFormatter'},
                 {field: 'status', title: '状态', sortable: true, align: 'center', formatter: 'statusFormatter'},
                 {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents'}
             ]
@@ -88,6 +91,16 @@
     // 格式化图标
     function iconFormatter(value, row, index) {
         return '<i class="' + value + '"></i>';
+    }
+    // 格式化类型
+    function typeFormatter(value, row, index) {
+        if (value == 1) {
+            return '菜单';
+        }
+        if (value == 2) {
+            return '按钮';
+        }
+        return '-';
     }
     // 格式化状态
     function statusFormatter(value, row, index) {
