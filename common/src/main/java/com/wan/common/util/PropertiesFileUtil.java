@@ -29,6 +29,8 @@ public class PropertiesFileUtil {
     // 默认资源文件名称
     private static final String NAME = "config";
 
+    private static final Integer TIME_OUT = 60 * 1000;
+
     //私有构造，获取单例
     private PropertiesFileUtil(String bundleFile) {
         this.loadTime = new Date();
@@ -49,7 +51,7 @@ public class PropertiesFileUtil {
                         });
 
         // 判断是否打开的资源文件是否超时1分钟
-        if ((new Date().getTime() - conf.getLoadTime().getTime()) > 60*1000) {
+        if ((new Date().getTime() - conf.getLoadTime().getTime()) > TIME_OUT) {
             conf = new PropertiesFileUtil(name);
             configMap.put(name, conf);
         }
