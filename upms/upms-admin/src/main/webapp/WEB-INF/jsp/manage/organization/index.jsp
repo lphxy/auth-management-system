@@ -1,9 +1,10 @@
-﻿<%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+﻿﻿
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE HTML>
@@ -13,20 +14,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>组织管理</title>
-
     <link href="${basePath}/resources/admin/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/admin/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css"
+          rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/admin/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
-
     <link href="${basePath}/resources/admin/css/common.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="main">
     <div id="toolbar">
-        <shiro:hasPermission name="upms:organization:create"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-plus"></i> 新增组织</a></shiro:hasPermission>
-        <shiro:hasPermission name="upms:organization:update"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-edit"></i> 编辑组织</a></shiro:hasPermission>
-        <shiro:hasPermission name="upms:organization:delete"><a class="waves-effect waves-button" href="javascript:;"><i class="zmdi zmdi-close"></i> 删除组织</a></shiro:hasPermission>
+        <shiro:hasPermission name="upms:organization:create"><a class="waves-effect waves-button" href="javascript:;"><i
+                class="zmdi zmdi-plus"></i> 新增组织</a></shiro:hasPermission>
+        <shiro:hasPermission name="upms:organization:update"><a class="waves-effect waves-button" href="javascript:;"><i
+                class="zmdi zmdi-edit"></i> 编辑组织</a></shiro:hasPermission>
+        <shiro:hasPermission name="upms:organization:delete"><a class="waves-effect waves-button" href="javascript:;"><i
+                class="zmdi zmdi-close"></i> 删除组织</a></shiro:hasPermission>
     </div>
     <table id="table"></table>
 </div>
@@ -35,15 +38,9 @@
 <script src="${basePath}/resources/admin/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
 <script src="${basePath}/resources/admin/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="${basePath}/resources/admin/plugins/waves-0.7.5/waves.min.js"></script>
-
 <script src="${basePath}/resources/admin/js/common.js"></script>
-<style>
-    body{font-size: 12px;}
-    .table i{font-size: 12px; color: #000;}
-    .bootstrap-table .table>thead>tr>th{border-bottom: none;}
-</style>
 <script>
-    $(function() {
+    $(function () {
         // bootstrap table初始化
         $('#table').bootstrapTable({
             url: '${basePath}/manage/organization/list',
@@ -69,11 +66,6 @@
             $('[data-toggle="tooltip"]').tooltip();
             $('[data-toggle="popover"]').popover();
         });
-        $(window).resize(function () {
-            $('#table').bootstrapTable('resetView', {
-                height: getHeight()
-            });
-        });
     });
     // 格式化操作按钮
     function actionFormatter(value, row, index) {
@@ -93,18 +85,6 @@
             console.log(value, row, index);
         }
     };
-    // 展开内容
-    function detailFormatter(index, row) {
-        var html = [];
-        $.each(row, function (key, value) {
-            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
-        });
-        return html.join('');
-    }
-    //　动态高度
-    function getHeight() {
-        return $(window).height() - 20;
-    }
 </script>
 </body>
 </html>
