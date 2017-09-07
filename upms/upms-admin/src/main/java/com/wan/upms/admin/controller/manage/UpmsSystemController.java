@@ -65,15 +65,15 @@ public class UpmsSystemController extends BaseController {
 
     @ApiOperation(value = "新增系统")
     @RequiresPermissions("upms:system:create")
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add() {
-        return "/manage/system/add";
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create() {
+        return "/manage/system/create";
     }
 
     @ApiOperation(value = "新增系统")
     @RequiresPermissions("cms:system:create")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(UpmsSystem upmsSystem, ModelMap modelMap) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(UpmsSystem upmsSystem, ModelMap modelMap) {
         long time = System.currentTimeMillis();
         upmsSystem.setCtime(time);
         upmsSystem.setOrders(time);

@@ -86,15 +86,15 @@ public class UpmsPermissionController extends BaseController {
 
     @ApiOperation(value = "新增权限")
     @RequiresPermissions("upms:permission:create")
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add() {
-        return "/manage/permission/add";
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create() {
+        return "/manage/permission/create";
     }
 
     @ApiOperation(value = "新增权限")
     @RequiresPermissions("cms:permission:create")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(UpmsPermission upmsPermission, ModelMap modelMap) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(UpmsPermission upmsPermission, ModelMap modelMap) {
         long time = System.currentTimeMillis();
         upmsPermission.setCtime(time);
         upmsPermission.setOrders(time);

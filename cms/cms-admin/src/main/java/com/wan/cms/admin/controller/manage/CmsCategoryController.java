@@ -84,9 +84,9 @@ public class CmsCategoryController extends BaseController {
      */
     @ApiOperation(value = "新增类目", notes = "新增类目页")
     @RequiresPermissions("cms:category:create")
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add() {
-        return "/manage/category/add";
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create() {
+        return "/manage/category/create";
     }
 
     /**
@@ -98,8 +98,8 @@ public class CmsCategoryController extends BaseController {
     @ApiOperation(value = "创建类目", notes = "根据CmsCategory对象创建类目")
     @ApiImplicitParam(name = "cmsCategory", value = "类目实体cmsCategory", required = true, dataType = "CmsCategory")
     @RequiresPermissions("cms:category:create")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(CmsCategory cmsCategory, ModelMap modelMap) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(CmsCategory cmsCategory, ModelMap modelMap) {
         long time = System.currentTimeMillis();
         cmsCategory.setCtime(time);
         cmsCategory.setOrders(time);

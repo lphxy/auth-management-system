@@ -67,15 +67,15 @@ public class UpmsRoleController extends BaseController {
 
     @ApiOperation(value = "新增角色")
     @RequiresPermissions("upms:role:create")
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add() {
-        return "/manage/role/add";
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create() {
+        return "/manage/role/create";
     }
 
     @ApiOperation(value = "新增角色")
     @RequiresPermissions("cms:role:create")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(UpmsRole upmsRole, ModelMap modelMap) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(UpmsRole upmsRole, ModelMap modelMap) {
         long time = System.currentTimeMillis();
         upmsRole.setCtime(time);
         upmsRole.setOrders(time);

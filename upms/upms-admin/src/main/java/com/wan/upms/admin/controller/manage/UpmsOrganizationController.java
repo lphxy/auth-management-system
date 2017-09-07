@@ -67,15 +67,15 @@ public class UpmsOrganizationController extends BaseController {
 
     @ApiOperation(value = "新增组织")
     @RequiresPermissions("upms:organization:create")
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add() {
-        return "/manage/organization/add";
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create() {
+        return "/manage/organization/create";
     }
 
     @ApiOperation(value = "新增组织")
     @RequiresPermissions("cms:organization:create")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(UpmsOrganization upmsOrganization, ModelMap modelMap) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(UpmsOrganization upmsOrganization, ModelMap modelMap) {
         long time = System.currentTimeMillis();
         upmsOrganization.setCtime(time);
         int count = upmsOrganizationService.insertSelective(upmsOrganization);

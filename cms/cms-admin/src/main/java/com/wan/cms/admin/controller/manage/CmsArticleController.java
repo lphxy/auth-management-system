@@ -83,9 +83,9 @@ public class CmsArticleController extends BaseController {
      */
     @ApiOperation(value = "新增文章", notes = "新增文章页")
     @RequiresPermissions("cms:article:create")
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add() {
-        return "/manage/article/add";
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String create() {
+        return "/manage/article/create";
     }
 
     /**
@@ -96,8 +96,8 @@ public class CmsArticleController extends BaseController {
      */
     @ApiOperation(value = "新增文章", notes = "新增文章提交接口")
     @RequiresPermissions("cms:article:create")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(CmsArticle cmsArticle, ModelMap modelMap) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(CmsArticle cmsArticle, ModelMap modelMap) {
         long time = System.currentTimeMillis();
         cmsArticle.setCtime(time);
         cmsArticle.setOrders(time);
