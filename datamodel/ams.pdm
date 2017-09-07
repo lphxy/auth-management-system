@@ -76,7 +76,7 @@ UpdateTableStatistics=Yes
 UpdateColumnStatistics=Yes
 
 [FolderOptions\Physical Objects\Database Generation]
-GenScriptName=zheng.sql
+GenScriptName=ams.sql
 GenScriptName0=crebas.sql
 GenScriptName1=crebas
 GenScriptName2=
@@ -370,7 +370,7 @@ GenKeepTablOpts=No
 [FolderOptions\Physical Objects\Test Data]
 GenDataPathName=C:\Users\wanqinfeng\Desktop\
 GenDataSinglefile=Yes
-GenDataScriptName=zheng.sql
+GenDataScriptName=ams.sql
 GenDataScriptName0=
 GenDataScriptName1=
 GenDataScriptName2=
@@ -4585,7 +4585,7 @@ LABL 0 新宋体,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TextSymbol Id="o45">
-<a:Text>zheng-cms</a:Text>
+<a:Text>wan-cms</a:Text>
 <a:CreationDate>1479304057</a:CreationDate>
 <a:ModificationDate>1482063421</a:ModificationDate>
 <a:Rect>((-33200,33185), (-25780,35793))</a:Rect>
@@ -4624,7 +4624,7 @@ LABL 0 新宋体,8,N</a:FontList>
 </c:Object>
 </o:TableSymbol>
 <o:TextSymbol Id="o48">
-<a:Text>zheng-upms</a:Text>
+<a:Text>wan-upms</a:Text>
 <a:CreationDate>1482063412</a:CreationDate>
 <a:ModificationDate>1482063455</a:ModificationDate>
 <a:Rect>((-31629,-15790), (-24209,-13182))</a:Rect>

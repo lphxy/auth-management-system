@@ -17,7 +17,8 @@
     <link href="${basePath}/resources/ui/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css"
           rel="stylesheet"/>
-    <link href="${basePath}/resources/ui/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/ui/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css"
+          rel="stylesheet"/>
     <link href="${basePath}/resources/ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/ui/css/common.css" rel="stylesheet"/>
 </head>
@@ -55,8 +56,8 @@
             detailFormatter: 'detailFormatter',
             pagination: true,
             paginationLoop: false,
-//		sidePagination: 'server',
-//		silentSort: false,
+            sidePagination: 'server',
+            silentSort: false,
             smartDisplay: false,
             escape: true,
             searchOnEnterKey: true,

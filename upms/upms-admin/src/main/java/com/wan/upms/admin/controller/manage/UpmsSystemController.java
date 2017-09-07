@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by w1992wishes on 2017/8/12.
@@ -23,7 +25,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/manage/system")
 @Api(value = "系统管理", description = "系统管理")
-public class UpmsSystemController extends BaseController{
+public class UpmsSystemController extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(UpmsSystemController.class);
 
@@ -50,8 +52,15 @@ public class UpmsSystemController extends BaseController{
         UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
         upmsSystemExample.setOffset(offset);
         upmsSystemExample.setLimit(limit);
-        List<UpmsSystem> systems = upmsSystemService.selectByExample(upmsSystemExample);
-        return systems;
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            upmsSystemExample.setOrderByClause(sort + " " + order);
+        }
+        List<UpmsSystem> rows = upmsSystemService.selectByExample(upmsSystemExample);
+        long total = upmsSystemService.countByExample(upmsSystemExample);
+        Map<String, Object> result = new HashMap<>();
+        result.put("rows", rows);
+        result.put("total", total);
+        return result;
     }
 
     @ApiOperation(value = "新增系统")
@@ -76,7 +85,7 @@ public class UpmsSystemController extends BaseController{
 
     @ApiOperation(value = "删除系统")
     @RequiresPermissions("cms:system:delete")
-    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = upmsSystemService.deleteByPrimaryKeys(ids);
         modelMap.put("count", count);

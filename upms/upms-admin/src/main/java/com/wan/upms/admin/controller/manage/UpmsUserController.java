@@ -15,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户controller
- *
+ * <p>
  * Created by w1992wishes on 2017/8/31.
  */
 @Controller
@@ -55,8 +57,12 @@ public class UpmsUserController extends BaseController {
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
             upmsUserExample.setOrderByClause(sort + " " + order);
         }
-        List<UpmsUser> users = upmsUserService.selectByExample(upmsUserExample);
-        return users;
+        List<UpmsUser> rows = upmsUserService.selectByExample(upmsUserExample);
+        long total = upmsUserService.countByExample(upmsUserExample);
+        Map<String, Object> result = new HashMap<>();
+        result.put("rows", rows);
+        result.put("total", total);
+        return result;
     }
 
     @ApiOperation(value = "新增用户")
@@ -80,7 +86,7 @@ public class UpmsUserController extends BaseController {
 
     @ApiOperation(value = "删除用户")
     @RequiresPermissions("cms:user:delete")
-    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = upmsUserService.deleteByPrimaryKeys(ids);
         modelMap.put("count", count);

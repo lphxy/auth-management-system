@@ -10,7 +10,7 @@ import com.wan.upms.dao.model.UpmsSystemExample;
 
 /**
  * 系统service接口
- * Created by shuzheng on 2016/12/18.
+ * Created by w1992wishes
  */
 public interface UpmsSystemService extends BaseService<UpmsSystem, UpmsSystemExample>  {
 

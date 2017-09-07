@@ -15,11 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色controller
- *
+ * <p>
  * Created by w1992wishes on 2017/8/31.
  */
 @Controller
@@ -55,8 +57,12 @@ public class UpmsRoleController extends BaseController {
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
             upmsRoleExample.setOrderByClause(sort + " " + order);
         }
-        List<UpmsRole> roles = upmsRoleService.selectByExample(upmsRoleExample);
-        return roles;
+        List<UpmsRole> rows = upmsRoleService.selectByExample(upmsRoleExample);
+        long total = upmsRoleService.countByExample(upmsRoleExample);
+        Map<String, Object> result = new HashMap<>();
+        result.put("rows", rows);
+        result.put("total", total);
+        return result;
     }
 
     @ApiOperation(value = "新增角色")
@@ -81,7 +87,7 @@ public class UpmsRoleController extends BaseController {
 
     @ApiOperation(value = "删除角色")
     @RequiresPermissions("cms:role:delete")
-    @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = upmsRoleService.deleteByPrimaryKeys(ids);
         modelMap.put("count", count);
