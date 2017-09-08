@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 控制器基类
- *
+ * <p>
  * Created by w1992wishes on 2017/8/28.
  */
 public abstract class BaseController {
@@ -25,6 +25,7 @@ public abstract class BaseController {
 
     /**
      * 统一异常处理
+     *
      * @param request
      * @param response
      * @param exception
@@ -33,6 +34,9 @@ public abstract class BaseController {
     public String exceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception exception) {
         logger.error("统一异常处理：", exception);
         request.setAttribute("ex", exception);
+        if (null != request.getHeader("X-Requested-With") && request.getHeader("X-Requested-With").equalsIgnoreCase("XMLHttpRequest")) {
+            request.setAttribute("requestHeader", "ajax");
+        }
         // shiro没有权限异常
         if (exception instanceof UnauthorizedException) {
             return "/403";
