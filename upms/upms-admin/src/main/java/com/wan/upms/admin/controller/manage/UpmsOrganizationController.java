@@ -85,7 +85,7 @@ public class UpmsOrganizationController extends BaseController {
     }
 
     @ApiOperation(value = "删除组织")
-    @RequiresPermissions("cms:organization:delete")
+    @RequiresPermissions("upms:organization:delete")
     @RequestMapping(value = "/delete/{ids}",method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = upmsOrganizationService.deleteByPrimaryKeys(ids);
@@ -94,7 +94,7 @@ public class UpmsOrganizationController extends BaseController {
     }
 
     @ApiOperation(value = "修改组织")
-    @RequiresPermissions("cms:organization:update")
+    @RequiresPermissions("upms:organization:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsOrganization organization = upmsOrganizationService.selectByPrimaryKey(id);
@@ -103,7 +103,7 @@ public class UpmsOrganizationController extends BaseController {
     }
 
     @ApiOperation(value = "修改组织")
-    @RequiresPermissions("cms:organization:update")
+    @RequiresPermissions("upms:organization:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") int id, UpmsOrganization upmsOrganization, ModelMap modelMap) {
         int count = upmsOrganizationService.updateByPrimaryKeySelective(upmsOrganization);

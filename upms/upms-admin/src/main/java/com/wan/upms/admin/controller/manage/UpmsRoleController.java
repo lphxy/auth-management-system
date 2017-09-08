@@ -73,7 +73,7 @@ public class UpmsRoleController extends BaseController {
     }
 
     @ApiOperation(value = "新增角色")
-    @RequiresPermissions("cms:role:create")
+    @RequiresPermissions("upms:role:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(UpmsRole upmsRole, ModelMap modelMap) {
         long time = System.currentTimeMillis();
@@ -86,7 +86,7 @@ public class UpmsRoleController extends BaseController {
     }
 
     @ApiOperation(value = "删除角色")
-    @RequiresPermissions("cms:role:delete")
+    @RequiresPermissions("upms:role:delete")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = upmsRoleService.deleteByPrimaryKeys(ids);
@@ -95,7 +95,7 @@ public class UpmsRoleController extends BaseController {
     }
 
     @ApiOperation(value = "修改角色")
-    @RequiresPermissions("cms:role:update")
+    @RequiresPermissions("upms:role:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsRole role = upmsRoleService.selectByPrimaryKey(id);
@@ -104,7 +104,7 @@ public class UpmsRoleController extends BaseController {
     }
 
     @ApiOperation(value = "修改角色")
-    @RequiresPermissions("cms:role:update")
+    @RequiresPermissions("upms:role:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") int id, UpmsRole upmsRole, ModelMap modelMap) {
         int count = upmsRoleService.updateByPrimaryKeySelective(upmsRole);

@@ -85,7 +85,7 @@ public class UpmsUserController extends BaseController {
     }
 
     @ApiOperation(value = "删除用户")
-    @RequiresPermissions("cms:user:delete")
+    @RequiresPermissions("upms:user:delete")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     public String delete(@PathVariable("ids") String ids, ModelMap modelMap) {
         int count = upmsUserService.deleteByPrimaryKeys(ids);
@@ -94,7 +94,7 @@ public class UpmsUserController extends BaseController {
     }
 
     @ApiOperation(value = "修改用户")
-    @RequiresPermissions("cms:user:update")
+    @RequiresPermissions("upms:user:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsUser user = upmsUserService.selectByPrimaryKey(id);
@@ -103,7 +103,7 @@ public class UpmsUserController extends BaseController {
     }
 
     @ApiOperation(value = "修改用户")
-    @RequiresPermissions("cms:user:update")
+    @RequiresPermissions("upms:user:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") int id, UpmsUser upmsUser, ModelMap modelMap) {
         int count = upmsUserService.updateByPrimaryKeySelective(upmsUser);
