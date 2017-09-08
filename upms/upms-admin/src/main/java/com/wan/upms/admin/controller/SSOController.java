@@ -7,6 +7,8 @@ import com.wan.upms.admin.util.SystemConstant;
 import com.wan.upms.dao.model.UpmsSystemExample;
 import com.wan.upms.rpc.api.UpmsSystemService;
 import com.wan.upms.rpc.api.UpmsUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -37,6 +39,7 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping("/sso")
+@Api(value = "单点登录管理", description = "单点登录管理")
 public class SSOController extends BaseController {
 
     @Autowired
@@ -60,6 +63,7 @@ public class SSOController extends BaseController {
      *
      * @return
      */
+    @ApiOperation(value = "认证中心首页")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpServletRequest request) throws Exception {
         String system_name = request.getParameter("system_name");
@@ -81,6 +85,7 @@ public class SSOController extends BaseController {
      *
      * @return
      */
+    @ApiOperation(value = "登录")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse response) {
         // 分配单点登录sessionId，首次获取后缓存到cookie，防止session丢失
@@ -193,6 +198,7 @@ public class SSOController extends BaseController {
      * @param request
      * @return
      */
+    @ApiOperation(value = "校验token")
     @RequestMapping(value = "/token", method = RequestMethod.POST)
     @ResponseBody
     public String token(HttpServletRequest request) {
@@ -204,6 +210,7 @@ public class SSOController extends BaseController {
         return "success";
     }
 
+    @ApiOperation(value = "退出登录")
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         // shiro退出登录
