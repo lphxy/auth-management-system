@@ -17,41 +17,37 @@
     <link href="${basePath}/resources/ui/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/ui/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/ui/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+    <link href="${basePath}/resources/ui/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
     <link href="${basePath}/resources/ui/css/common.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="main">
     <div id="toolbar">
-        <shiro:hasPermission name="upms:user:create"><a class="waves-effect waves-button" href="javascript:;" data-toggle="modal" data-target=".create-modal"><i class="zmdi zmdi-plus"></i> 新增用户</a></shiro:hasPermission>
+        <shiro:hasPermission name="upms:user:create"><a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增用户</a></shiro:hasPermission>
         <shiro:hasPermission name="upms:user:update"><a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑用户</a></shiro:hasPermission>
         <shiro:hasPermission name="upms:user:delete"><a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除用户</a></shiro:hasPermission>
     </div>
     <table id="table"></table>
-</div>
-<!-- 新增 -->
-<div class="modal fade create-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                内容
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="createAction()">保存</button>
-            </div>
-        </div>
-    </div>
 </div>
 <script src="${basePath}/resources/ui/plugins/jquery.1.12.4.min.js"></script>
 <script src="${basePath}/resources/ui/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
 <script src="${basePath}/resources/ui/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
 <script src="${basePath}/resources/ui/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="${basePath}/resources/ui/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="${basePath}/resources/ui/plugins/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="${basePath}/resources/ui/js/common.js"></script>
 <script>
+    var $table = $('#table');
     $(function() {
+        $(document).on('focus', 'input[type="text"]', function() {
+            $(this).parent().find('label').addClass('active');
+        }).on('blur', 'input[type="text"]', function() {
+            if ($(this).val() == '') {
+                $(this).parent().find('label').removeClass('active');
+            }
+        });
         // bootstrap table初始化
-        $('#table').bootstrapTable({
+        $table.bootstrapTable({
             url: '${basePath}/manage/user/list',
             height: getHeight(),
             striped: true,
@@ -73,7 +69,7 @@
             maintainSelected: true,
             toolbar: '#toolbar',
             columns: [
-                {field: 'state', checkbox: true},
+                {field: 'ck', checkbox: true},
                 {field: 'userId', title: '编号', sortable: true, align: 'center'},
                 {field: 'username', title: '帐号'},
                 {field: 'realname', title: '姓名'},
@@ -81,12 +77,9 @@
                 {field: 'phone', title: '电话'},
                 {field: 'email', title: '邮箱'},
                 {field: 'sex', title: '性别', formatter: 'sexFormatter'},
-                {field: 'locked', title: '状态', sortable: true, align: 'center', formatter: 'statusFormatter'},
+                {field: 'locked', title: '状态', sortable: true, align: 'center', formatter: 'lockedFormatter'},
                 {field: 'action', title: '操作', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
             ]
-        }).on('all.bs.table', function (e, name, args) {
-            $('[data-toggle="tooltip"]').tooltip();
-            $('[data-toggle="popover"]').popover();
         });
     });
     // 格式化操作按钮
@@ -111,7 +104,7 @@
         return '-';
     }
     // 格式化状态
-    function statusFormatter(value, row, index) {
+    function lockedFormatter(value, row, index) {
         if (value == 1) {
             return '<span class="label label-danger">锁定</span>';
         } else {
@@ -119,16 +112,137 @@
         }
     }
     // 新增
+    var createDialog;
     function createAction() {
-
+        createDialog = $.dialog({
+            animationSpeed: 300,
+            title: '新增用户',
+            content: 'url:${basePath}/manage/user/create'
+        });
     }
     // 编辑
+    var updateDialog;
     function updateAction() {
         var rows = $table.bootstrapTable('getSelections');
+        if (rows.length != 1) {
+            $.confirm({
+                title: false,
+                content: '请选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        } else {
+            updateDialog = $.dialog({
+                animationSpeed: 300,
+                title: '编辑用户',
+                content: 'url:${basePath}/manage/user/update/' + rows[0].userId
+            });
+        }
     }
     // 删除
+    var deleteDialog;
     function deleteAction() {
         var rows = $table.bootstrapTable('getSelections');
+        if (rows.length == 0) {
+            $.confirm({
+                title: false,
+                content: '请至少选择一条记录！',
+                autoClose: 'cancel|3000',
+                backgroundDismiss: true,
+                buttons: {
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        } else {
+            deleteDialog = $.confirm({
+                type: 'red',
+                animationSpeed: 300,
+                title: false,
+                content: '确认删除该用户吗？',
+                buttons: {
+                    confirm: {
+                        text: '确认',
+                        btnClass: 'waves-effect waves-button',
+                        action: function () {
+                            var ids = new Array();
+                            for (var i in rows) {
+                                ids.push(rows[i].userId);
+                            }
+                            $.ajax({
+                                type: 'get',
+                                url: '${basePath}/manage/user/delete/' + ids.join("-"),
+                                success: function(result) {
+                                    if (result.code != 1) {
+                                        if (result.data instanceof Array) {
+                                            $.each(result.data, function(index, value) {
+                                                $.confirm({
+                                                    theme: 'dark',
+                                                    animation: 'rotateX',
+                                                    closeAnimation: 'rotateX',
+                                                    title: false,
+                                                    content: value.errorMsg,
+                                                    buttons: {
+                                                        confirm: {
+                                                            text: '确认',
+                                                            btnClass: 'waves-effect waves-button waves-light'
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        } else {
+                                            $.confirm({
+                                                theme: 'dark',
+                                                animation: 'rotateX',
+                                                closeAnimation: 'rotateX',
+                                                title: false,
+                                                content: result.data.errorMsg,
+                                                buttons: {
+                                                    confirm: {
+                                                        text: '确认',
+                                                        btnClass: 'waves-effect waves-button waves-light'
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        deleteDialog.close();
+                                        $table.bootstrapTable('refresh');
+                                    }
+                                },
+                                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        theme: 'dark',
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        content: textStatus,
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        text: '取消',
+                        btnClass: 'waves-effect waves-button'
+                    }
+                }
+            });
+        }
     }
 </script>
 </body>
