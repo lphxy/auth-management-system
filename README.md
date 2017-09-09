@@ -15,6 +15,7 @@ auth-management-system
 |       ├── upms-client -- 集成upms依赖包，提供单点认证、授权、会话管理
 |       └── upms-server -- 系统及SSO服务端[端口:1111]
 ├── cms -- 内容管理系统
+|       ├── cms-common -- cms系统公共模块
 |       ├── cms-dao -- MyBatisGenerator代码生成模块，无需开发
 |       ├── cms-rpc-api -- rpc接口包
 |       ├── cms-rpc-service -- rpc服务提供者
@@ -44,7 +45,11 @@ auth-management-system
 ├── qa -- 问答系统
 |       ├── qa-dao -- MyBatisGenerator代码生成模块，无需开发
 |       └── qa-service -- service层
-├── api  -- 暴露API网关系统
+├── api -- API接口总线系统
+|       ├── api-common -- api系统公共模块
+|       ├── api-rpc-api -- rpc接口包
+|       ├── api-rpc-service -- rpc服务提供者
+|       └── api-server -- api系统服务端[端口:6666]
 ├── shop -- 电子商务系统
 ├── oa -- 办公自动化系统
 ├── eoms -- 运维系统
@@ -61,7 +66,7 @@ Spring+SpringMVC+Mybatis框架集成公共模块，包括公共配置、MybatisG
 >cms
 内容管理系统：支持多标签、多类目、强大评论的内容管理，有基本单页展示，菜单管理，系统设置等功能。
 >api
-暴露API网关系统，对外暴露统一规范的接口，包括各个子系统的交互接口、对外开放接口、开发加密接口、接口文档等服务
+接口总线系统，对外暴露统一规范的接口，包括各个子系统的交互接口、对外开放接口、开发加密接口、接口文档等服务
 ### 技术选择
 ### 基础构建
 | 技术 | 作用 |
