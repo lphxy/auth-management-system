@@ -17,6 +17,7 @@
         <module>cms-job</module>
         <module>cms-admin</module>
         <module>cms-search</module>
+        <module>cms-common</module>
     </modules>
 
     <properties>
@@ -27,7 +28,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.wan.project</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>cms-common</artifactId>
                 <version>${project.version}</version>
                 <type>jar</type>
             </dependency>
