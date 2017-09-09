@@ -1,0 +1,35 @@
+package com.wan.api.server.jms;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
+
+public class DefaultMessageQueueListener implements MessageListener {
+
+	private static Logger logger = LoggerFactory.getLogger(DefaultMessageQueueListener.class);
+
+	@Autowired
+	ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
+	public void onMessage(final Message message) {
+		// 使用线程池多线程处理
+		threadPoolTaskExecutor.execute(new Runnable() {
+			public void run() {
+				if (message instanceof TextMessage) {
+					TextMessage textMessage = (TextMessage) message;
+					try {
+						logger.info("消费消息：{}", textMessage.getText());
+					} catch (Exception e){
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+	}
+
+}
