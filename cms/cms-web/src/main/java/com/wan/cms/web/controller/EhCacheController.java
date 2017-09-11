@@ -37,7 +37,7 @@ public class EhCacheController extends BaseController {
         String key = request.getParameter("key");
         String value = request.getParameter("value");
         EhCacheUtil.put(CACHE_NAME, key, value);
-        return SUCCESS;
+        return "success";
     }
 
     @RequestMapping("/get")
@@ -47,7 +47,7 @@ public class EhCacheController extends BaseController {
         Object object = EhCacheUtil.get(CACHE_NAME, key);
         if (null == object){
             LOGGER.debug("【Ehcache】没有找到key={}的记录！", key);
-            return FAILED;
+            return "failed";
         }
         return object;
     }
@@ -57,7 +57,7 @@ public class EhCacheController extends BaseController {
     public Object remove(HttpServletRequest request){
         String key = request.getParameter("key");
         EhCacheUtil.remove(CACHE_NAME, key);
-        return SUCCESS;
+        return "success";
     }
 }
 

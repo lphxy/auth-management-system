@@ -181,8 +181,8 @@ public class UserController extends BaseController {
 				(!contentType.equals("image/x-png")) && 
 				(!contentType.equals("image/bmp")) && 
 				(!contentType.equals("image/gif"))) {
-			map.put(RESULT, FAILED);
-			map.put(DATA, "不支持该类型的文件！");
+			map.put("result", "failed");
+			map.put("data", "不支持该类型的文件！");
 			return map;
 		}
 		// 创建图片目录
@@ -195,8 +195,8 @@ public class UserController extends BaseController {
 		}
 		// 保存图片
 		file.transferTo(targetFile);
-		map.put(RESULT, SUCCESS);
-		map.put(DATA, targetFile.getAbsoluteFile());
+		map.put("result", "success");
+		map.put("data", targetFile.getAbsoluteFile());
 		return map;
 	}
 	
