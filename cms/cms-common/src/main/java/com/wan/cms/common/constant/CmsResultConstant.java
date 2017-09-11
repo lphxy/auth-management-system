@@ -6,7 +6,8 @@ package com.wan.cms.common.constant;
  * Created by w1992wishes on 2017/9/9.
  */
 public enum CmsResultConstant {
-    SUCCESS(1, "success");
+    SUCCESS(1, "success"),
+    FILE_TYPE_ERROR(20001, "File type not supported!");
 
     private int code;
     private String message;
